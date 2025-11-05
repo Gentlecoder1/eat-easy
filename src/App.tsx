@@ -1,6 +1,7 @@
-import { Routes, Route } from "react-router-dom";
-import Splash from "./components/Splash";
-import GetStarted from "./components/GetStarted";
+// import { Routes, Route } from "react-router-dom";
+// import Splash from "./components/Splash";
+// import GetStarted from "./components/GetStarted";
+import Navbar from "./components/layout/Navbar";
 import { useTheme } from "./hooks/useTheme";
 
 function App() {
@@ -12,10 +13,12 @@ function App() {
 
   return (
     <div className="w-full h-full" style={{ backgroundImage }}>
-      <Routes>
+      {/* <Routes>
         <Route path="/" element={<Splash />} />
         <Route path="/started" element={<GetStarted />} />
-      </Routes>
+        <Route path="/started" element={<GetStarted />} />
+      </Routes> */}
+      <Navbar />
     </div>
   );
 }
