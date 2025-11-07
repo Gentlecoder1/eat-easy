@@ -1,6 +1,7 @@
 import React from 'react'
 import { motion } from 'framer-motion'
 import Location from "/images/Map-pin.png"
+import ChevronDown from "/images/chevron-down.png"
 import Cart from "/images/cart-img.png"
 import Gram from "/images/gram-icon.png"
 import Burger from "/images/burger-icon.png"
@@ -39,7 +40,6 @@ const Header: React.FC<HeaderProps> = ({ onToggle, toggle }) => {
 
         <div className='flex'>
           <motion.button
-            whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.96 }}
             className='flex items-center px-5 justify-center space-x-2 cursor-pointer'
           >
@@ -55,7 +55,6 @@ const Header: React.FC<HeaderProps> = ({ onToggle, toggle }) => {
           <div className='border border-gray-700 my-auto h-7'></div>
 
           <motion.button
-            whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.96 }}
             className='flex items-center px-5 justify-center space-x-2 cursor-pointer'
           >

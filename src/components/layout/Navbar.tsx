@@ -1,38 +1,29 @@
-import React, { useState } from 'react'
+import React from 'react'
 import Header from './Header'
 import Sidebar from './Sidebar'
 import Backdrop from './Backdrop'
 
-const Navbar: React.FC = () => {
-  const [toggle, setToggle] = useState(false)
-  const [menuOpen, setMenuOpen] = useState<number | null>(null)
+interface NavbarProps {
+  toggle: boolean
+  menuOpen: number | null
+  setMenuOpen: (id: number | null) => void
+  toggleNav: () => void
+  closeNav: () => void
+}
 
-  const toggleNav = () => {
-    setToggle(prev => {
-      if (prev) {
-        setMenuOpen(null)
-      }
-      return !prev
-    })
-  }
-
-  const closeNav = () => {
-    setToggle(false)
-    setMenuOpen(null)
-  }
-
+const Navbar: React.FC<NavbarProps> = ({ toggle, menuOpen, setMenuOpen, toggleNav, closeNav }) => {
   // When a submenu is opened, ensure the sidebar opens on desktop as well.
   const handleSetMenuOpen = (id: number | null) => {
-    setMenuOpen(prev => (prev === id ? null : id))
+    setMenuOpen(id)
     if (id !== null && !toggle) {
-      setToggle(true)
+      toggleNav()
     }
   }
 
   return (
     <header className="w-full bg-white border-b border-black">
       <Header onToggle={toggleNav} toggle={toggle} />
-  <Sidebar toggle={toggle} menuOpen={menuOpen} setMenuOpen={handleSetMenuOpen} onClose={closeNav} onToggle={toggleNav} />
+      <Sidebar toggle={toggle} menuOpen={menuOpen} setMenuOpen={handleSetMenuOpen} onClose={closeNav} onToggle={toggleNav} />
 
       {toggle && (
         <Backdrop onClick={closeNav} />

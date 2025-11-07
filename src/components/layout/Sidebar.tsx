@@ -6,7 +6,7 @@ import Reward from "/images/reward-icon.png"
 import Help from "/images/help-icon.png"
 import Logout from "/images/logout-icon.png"
 import Location from "/images/Map-pin.png"
-import ArrowLeft from "/images/arrow-left.png"
+import ChevronLeft from "/images/chevron-left.png"
 import FoodMenu from "/images/foodmenu.png"
 
 interface SidebarProps {
@@ -31,7 +31,7 @@ const Sidebar: React.FC<SidebarProps> = ({ toggle, menuOpen, setMenuOpen, onClos
         onClick={onToggle}
         className='hidden md:block w-10 h-10 bg-[#32324D] border-2 border-white top-25 -right-4 absolute rounded-full p-2'
       >
-        <img src={ArrowLeft} className='w-full h-full cursor-pointer' alt="" />
+        <img src={ChevronLeft} className='w-full h-full cursor-pointer' alt="" />
       </motion.button>
 
       {/* sidebar content */}

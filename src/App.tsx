@@ -1,7 +1,7 @@
 // import { Routes, Route } from "react-router-dom";
 // import Splash from "./components/Splash";
 // import GetStarted from "./components/GetStarted";
-import Navbar from "./components/layout/Navbar";
+import Welcome from "./components/Welcome";
 import { useTheme } from "./hooks/useTheme";
 
 function App() {
@@ -18,7 +18,7 @@ function App() {
         <Route path="/started" element={<GetStarted />} />
         <Route path="/started" element={<GetStarted />} />
       </Routes> */}
-      <Navbar />
+      <Welcome />
     </div>
   );
 }
