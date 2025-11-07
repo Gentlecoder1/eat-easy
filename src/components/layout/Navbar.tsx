@@ -3,6 +3,10 @@ import {motion} from 'framer-motion'
 import Gram from "/images/gram-icon.png";
 import Burger from "/images/burger-icon.png";
 import Location from "/images/location.png";
+import History from "/images/history-icon.png";
+import Reward from "/images/reward-icon.png";
+import Help from "/images/help-icon.png";
+import Logout from "/images/logout-icon.png";
 import Cart from "/images/cart-img.png";
 import ArrowLeft from "/images/arrow-left.png";
 import FoodMenu from "/images/foodmenu.png";
@@ -11,19 +15,22 @@ const Navbar = () => {
 
   const [toggle, setToggle] = useState(false)
   const openNav = () => {
-    setToggle(!toggle)
-  
+    // Toggle the sidebar. If it was open (prev === true), clear any open submenu.
+    setToggle(prev => {
+      if (prev) {
+        setMenuOpen(null)
+      }
+      return !prev
+    })
   }
   
-  const [menuOpen, setMenuOpen] = useState(null)
-  const openMenu = () => {
-    setMenuOpen(prev => (prev === !menuOpen ? null : menuOpen))
-
-    console.log("the menu dropdown was clicked")
+  const [menuOpen, setMenuOpen] = useState<number | null>(null)
+  const openMenu = (id: number) => {
+    setMenuOpen(prev => (prev === id ? null : id))
   }
   
   return (
-    <header className="w-full bg-red-500 border-b border-black">
+    <header className="w-full bg-white border-b border-black">
       {/* mobile */}
       <div className="flex md:hidden justify-between items-center mx-auto p-4">
         <div className="flex space-x-2 items-center">
@@ -40,7 +47,7 @@ const Navbar = () => {
       </div>
 
       {/* desktop */}
-      <div className={`hidden md:flex justify-between items-center px-6 py-3 transition-all duration-300 ${!toggle ?  'ml-[9%]' : 'ml-[20%]'}`}>
+      <div className={`hidden md:flex justify-between items-center px-6 py-3 transition-all duration-300 ${!toggle ?  'md:ml-[12%] lg:ml-[9%]' : 'ml-[20%]'}`}>
         <div className="">
           <h1 className='text-sm font-bold text-gray-700'>Food menu</h1>
           <p className="text-xl font-bold text-gray-900">Browse Our Food Menu</p>
@@ -75,7 +82,7 @@ const Navbar = () => {
       </div>
 
       {/* sidebar */}
-      <div className={`w-[70%] sm:w-[75%] h-[100vh] bg-blue-950 backdrop-blur-md transition-all duration-300 rounded-r-2xl absolute top-0 z-50 ${toggle ?  '-translate-x-0 md:w-[20%]' : 'md:-translate-x-0 md:w-[9%]  -translate-x-[100%]'}`}>
+      <div className={`w-[70%] sm:w-[75%] h-screen bg-blue-950 transition-all duration-300 rounded-r-2xl fixed top-0 z-50 ${toggle ?  '-translate-x-0 md:w-[20%]' : 'md:-translate-x-0 md:w-[12%] lg:w-[9%]  -translate-x-[100%]'}`}>
         {/* toggle button */}
         <motion.button
           whileHover={{ scale: 1.05 }} 
@@ -85,30 +92,33 @@ const Navbar = () => {
         </motion.button>
 
         {/* sidebar content */}
-        <div className={`flex flex-col text-white text-sm font-semibold transition-all duration-300 ${toggle ? '' : ''}`}>
-          <div className={`p-4 flex border-b border-black text-3xl transition-all duration-300 ${toggle ?  'text-3xl' : 'text-xl'}`}>Eat<span className='text-amber-500'>Easy</span></div>
+        <div className={`flex flex-col h-screen overflow-y-scroll scrollbar-hidden text-white text-sm font-semibold transition-all duration-300 ${toggle ? '' : ''}`}>
 
+          <div className={`p-4 flex justify-center border-b-2 border-gray-400 text-3xl transition-all duration-300 ${toggle ?  'text-3xl' : 'text-xl'}`}>Eat<span className='text-amber-500'>Easy</span></div>
+
+          {/* profile */}
           <div className={`flex gap-4 items-center px-6 mb-10 py-4 ${!toggle ? 'flex-row md:flex-col' : ''}`}>
             <div className='w-15 h-15'><img src={Gram} className='rounded-full w-full h-full' alt="" /></div>
             <div className={`space-y-1 transition-all duration-300`}>
-              <p>Robert Fox</p>
-              <button className='cursor-pointer'>View Profile</button>
+              <p className='text-center'>Robert Fox</p>
+              <button className='cursor-pointer hover:text-amber-500'>View Profile</button>
             </div>
           </div>
 
           {/* menu */}
-          <div className='flex justify-center px-8 text-left flex-col space-y-3'>
+          <div className='flex justify-center px-8 text-left flex-col space-y-3 mb-6 pb-6 border-b-2 border-gray-400'>
             <h1 className='text-[12px]'>MENU</h1>
 
-            <div>
+            <div className=''>
               <motion.button
-                onClick={openMenu}
+                onClick={() => openMenu(1)}
                 whileTap={{ scale: 0.9 }} 
                 className='flex items-center mb-6 space-x-3 cursor-pointer'>
                 <img src={FoodMenu} className='w-11 h-11 bg-amber-500 rounded-2xl p-3' alt="" />
                 <p className={`${toggle ? 'flex' : 'hidden'}`}>Food Menu</p>
               </motion.button>
-              <div className={`border-l-2 border-amber-500 px-7 ml-5 space-y-5 ${menuOpen ? 'flex flex-col' : 'hidden'}`}>
+
+              <div className={`border-l-2 border-amber-500 px-7 ml-5 space-y-5 ${menuOpen === 1 ? 'flex flex-col' : 'hidden'}`}>
                 <motion.div
                   whileTap={{ scale: 0.9 }}
                   className='cursor-pointer not-last:'
@@ -120,15 +130,16 @@ const Navbar = () => {
               </div>
             </div>
 
-            <div>
+            <div className=''>
               <motion.button
-                onClick={openMenu}
+                onClick={() => openMenu(2)}
                 whileTap={{ scale: 0.9 }} 
                 className='flex items-center mb-6 space-x-3 cursor-pointer'>
-                <img src={FoodMenu} className='w-11 h-11 bg-amber-500 rounded-2xl p-3' alt="" />
-                <p className={`${toggle ? 'flex' : 'hidden'}`}>Food Menu</p>
+                <img src={History} className='w-11 h-11 p-3 bg-gray-600 rounded-2xl' alt="" />
+                <p className={`${toggle ? 'flex' : 'hidden'}`}>Order History</p>
               </motion.button>
-              <div className={`border-l-2 border-amber-500 px-7 ml-5 space-y-5 ${menuOpen ? 'flex flex-col' : 'hidden'}`}>
+
+              <div className={`border-l-2 border-amber-500 px-7 ml-5 space-y-5 ${menuOpen === 2 ? 'flex flex-col' : 'hidden'}`}>
                 <motion.div
                   whileTap={{ scale: 0.9 }}
                   className='cursor-pointer not-last:'
@@ -140,15 +151,16 @@ const Navbar = () => {
               </div>
             </div>
             
-            <div>
+            <div className=''>
               <motion.button
-                onClick={openMenu}
+                onClick={() => openMenu(3)}
                 whileTap={{ scale: 0.9 }} 
                 className='flex items-center mb-6 space-x-3 cursor-pointer'>
-                <img src={FoodMenu} className='w-11 h-11 bg-amber-500 rounded-2xl p-3' alt="" />
-                <p className={`${toggle ? 'flex' : 'hidden'}`}>Food Menu</p>
+                <img src={Location} className='w-10 h-11 p-3 bg-gray-600 rounded-2xl' alt="" />
+                <p className={`${toggle ? 'flex' : 'hidden'}`}>Location</p>
               </motion.button>
-              <div className={`border-l-2 border-amber-500 px-7 ml-5 space-y-5 ${menuOpen ? 'flex flex-col' : 'hidden'}`}>
+
+              <div className={`border-l-2 border-amber-500 px-7 ml-5 space-y-5 ${menuOpen === 3 ? 'flex flex-col' : 'hidden'}`}>
                 <motion.div
                   whileTap={{ scale: 0.9 }}
                   className='cursor-pointer not-last:'
@@ -159,6 +171,43 @@ const Navbar = () => {
                 >Full Menu</motion.div>
               </div>
             </div>
+          </div>
+
+          {/* General */}
+          <div className='flex justify-center px-8 text-left flex-col space-y-3'>
+            <h1 className='text-[12px]'>GENERAL</h1>
+
+            <div className=''>
+              <motion.button
+                whileTap={{ scale: 0.9 }} 
+                className='flex items-center mb-6 space-x-3 cursor-pointer'>
+                <img src={Reward} className='w-11 h-11 bg-gray-600 rounded-2xl p-3' alt="" />
+                <p className={`${toggle ? 'flex' : 'hidden'}`}>My Rewards</p>
+              </motion.button>
+            </div>
+
+            <div className=''>
+              <motion.button
+                whileTap={{ scale: 0.9 }} 
+                className='flex items-center mb-6 space-x-3 cursor-pointer'>
+                <img src={Help} className='w-11 h-11 p-3 bg-gray-600 rounded-2xl' alt="" />
+                <p className={`${toggle ? 'flex' : 'hidden'}`}>Help</p>
+              </motion.button>
+            </div>
+            
+          </div>
+
+          {/* Logout */}
+          <div className='flex justify-center px-8 text-left flex-col mt-10 space-y-3'>
+            <div className=''>
+              <motion.button
+                whileTap={{ scale: 0.9 }} 
+                className='flex items-center mb-6 space-x-3 cursor-pointer'>
+                <img src={Logout} className='w-11 h-11 bg-gray-600 rounded-2xl p-3' alt="" />
+                <p className={`${toggle ? 'flex' : 'hidden'}`}>Logout</p>
+              </motion.button>
+            </div>
+
           </div>
         </div>
       </div>
