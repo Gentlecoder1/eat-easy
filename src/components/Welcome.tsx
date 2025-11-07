@@ -1,6 +1,6 @@
 const Welcome = () => {
   return (
-    <div>Welcome</div>
+    <div className="h-screen bg-white"></div>
   )
 }
 
