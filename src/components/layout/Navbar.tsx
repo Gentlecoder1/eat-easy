@@ -15,7 +15,7 @@ const Navbar = () => {
 
   const [toggle, setToggle] = useState(false)
   const openNav = () => {
-    // Toggle the sidebar. If it was open (prev === true), clear any open submenu.
+
     setToggle(prev => {
       if (prev) {
         setMenuOpen(null)
@@ -27,6 +27,10 @@ const Navbar = () => {
   const [menuOpen, setMenuOpen] = useState<number | null>(null)
   const openMenu = (id: number) => {
     setMenuOpen(prev => (prev === id ? null : id))
+
+    if (!toggle) {
+      setToggle(true)
+    }
   }
   
   return (
@@ -82,7 +86,7 @@ const Navbar = () => {
       </div>
 
       {/* sidebar */}
-      <div className={`w-[70%] sm:w-[75%] h-screen bg-blue-950 transition-all duration-300 rounded-r-2xl fixed top-0 z-50 ${toggle ?  '-translate-x-0 md:w-[20%]' : 'md:-translate-x-0 md:w-[12%] lg:w-[9%]  -translate-x-[100%]'}`}>
+      <div className={`w-[70%] sm:w-[55%] h-screen bg-blue-950 transition-all duration-300 rounded-r-2xl fixed top-0 z-50 ${toggle ?  '-translate-x-0 md:w-[20%]' : 'md:-translate-x-0 md:w-[12%] lg:w-[9%]  -translate-x-[100%]'}`}>
         {/* toggle button */}
         <motion.button
           whileHover={{ scale: 1.05 }} 
