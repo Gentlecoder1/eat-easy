@@ -34,8 +34,8 @@ const Header: React.FC<HeaderProps> = ({ onToggle, toggle }) => {
       {/* desktop header */}
       <div className={`hidden md:flex justify-between items-center px-6 py-3 transition-all duration-300 ${!toggle ?  'md:ml-[12%] lg:ml-[9%]' : 'ml-[20%]'}`}>
         <div>
-          <h1 className='text-sm font-bold text-gray-700'>Food menu</h1>
-          <p className="text-xl font-bold text-gray-900">Browse Our Food Menu</p>
+          <h1 className='text-[14px] font600 text-[#8E8EA9]'>Food menu</h1>
+          <p className="text-[22px] font-500 text-gray-900">Browse Our Food Menu</p>
         </div>
 
         <div className='flex'>
@@ -46,7 +46,7 @@ const Header: React.FC<HeaderProps> = ({ onToggle, toggle }) => {
             <div className='w-5 h-5'>
               <img src={Location} className='w-full h-full' alt="" />
             </div>
-            <p>Gram Bistro</p>
+            <p className='text-[14px] font-600 text-[#8E8EA9]'>Gram Bistro</p>
             <div className='w-5 h-5'>
               <img src={ChevronDown} className='w-full h-full' alt="" />
             </div>
@@ -61,7 +61,7 @@ const Header: React.FC<HeaderProps> = ({ onToggle, toggle }) => {
             <div className='w-5 h-5'>
               <img src={Cart} className='w-full h-full' alt="" />
             </div>
-            <p>My Order</p>
+            <p className='text-[14px] font-600 text-[#8E8EA9]'>My Order</p>
           </motion.button>
         </div>
       </div>

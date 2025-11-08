@@ -1,6 +1,6 @@
 import React from 'react'
 import { motion } from 'framer-motion'
-import Gram from "/images/gram-icon.png"
+import Profile from "/images/profile-img.png"
 import History from "/images/history-icon.png"
 import Reward from "/images/reward-icon.png"
 import Help from "/images/help-icon.png"
@@ -35,13 +35,13 @@ const Sidebar: React.FC<SidebarProps> = ({ toggle, menuOpen, setMenuOpen, onClos
       </motion.button>
 
       {/* sidebar content */}
-      <div className={`flex flex-col text-white text-sm font-semibold transition-all duration-300 ${toggle ? '' : ''}`}>
+      <div className={`flex flex-col h-full text-white text-sm font-semibold transition-all duration-300 ${toggle ? '' : ''}`}>
         <div className={`p-4 flex justify-center border-b-2 border-gray-400 text-3xl transition-all duration-300 ${toggle ?  'text-3xl' : 'text-xl'}`}>Eat<span className='text-amber-500'>Easy</span></div>
 
-        <div className='h-screen overflow-y-auto scrollbar-hidden '>
+        <div className={`flex-1 overflow-y-auto scrollbar-hidden flex flex-col ${toggle ? '' : 'items-center'}`}>
           {/* profile */}
           <div className={`flex gap-4 items-center px-6 mb-10 py-4 ${!toggle ? 'flex-row md:flex-col' : ''}`}>
-            <div className='w-15 h-15'><img src={Gram} className='rounded-full w-full h-full' alt="" /></div>
+            <div className='w-15 h-15'><img src={Profile} className='rounded-full w-full h-full' alt="" /></div>
             <div className={`space-y-1 transition-all duration-300`}>
               <p className='text-center'>Robert Fox</p>
               <button className='cursor-pointer hover:text-amber-500'>View Profile</button>

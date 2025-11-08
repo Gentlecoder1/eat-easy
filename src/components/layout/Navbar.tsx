@@ -21,7 +21,7 @@ const Navbar: React.FC<NavbarProps> = ({ toggle, menuOpen, setMenuOpen, toggleNa
   }
 
   return (
-    <header className="w-full bg-white border-b border-black">
+    <header className="w-full bg-white border-b-2 border-[#32324D]">
       <Header onToggle={toggleNav} toggle={toggle} />
       <Sidebar toggle={toggle} menuOpen={menuOpen} setMenuOpen={handleSetMenuOpen} onClose={closeNav} onToggle={toggleNav} />
 
