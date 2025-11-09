@@ -40,7 +40,7 @@ const Sidebar: React.FC<SidebarProps> = ({ toggle, menuOpen, setMenuOpen, onClos
 
         <div className={`flex-1 overflow-y-auto scrollbar-hidden flex flex-col ${toggle ? '' : 'items-center'}`}>
           {/* profile */}
-          <div className={`flex gap-4 items-center px-6 mb-10 py-4 ${!toggle ? 'flex-row md:flex-col' : ''}`}>
+          <div className={`flex md:flex-col gap-4 items-center px-6 mb-10 py-4 ${!toggle ? 'flex-row md:flex-col' : ''}`}>
             <div className='w-15 h-15'><img src={Profile} className='rounded-full w-full h-full' alt="" /></div>
             <div className={`space-y-1 transition-all duration-300`}>
               <p className='text-center'>Robert Fox</p>
@@ -49,14 +49,14 @@ const Sidebar: React.FC<SidebarProps> = ({ toggle, menuOpen, setMenuOpen, onClos
           </div>
 
           {/* menu */}
-          <div className='flex justify-center px-8 text-left flex-col space-y-3 mb-6 pb-6 border-b-2 border-gray-400'>
+          <div className='flex justify-center px-8 text-left flex-col space-y-3 mb-6 py-6 border-b-2 border-gray-400'>
             <h1 className='text-[12px]'>MENU</h1>
 
             <div>
               <motion.button
                 onClick={() => openMenu(1)}
                 whileTap={{ scale: 0.9 }}
-                className='flex items-center mb-6 space-x-3 cursor-pointer'
+                className='flex items-center mb-3 space-x-3 cursor-pointer'
               >
                 <img src={FoodMenu} className='w-11 h-11 bg-amber-500 rounded-2xl p-3' alt="" />
                 <p className={`${toggle ? 'flex' : 'hidden'}`}>Food Menu</p>
@@ -72,9 +72,9 @@ const Sidebar: React.FC<SidebarProps> = ({ toggle, menuOpen, setMenuOpen, onClos
               <motion.button
                 onClick={() => openMenu(2)}
                 whileTap={{ scale: 0.9 }}
-                className='flex items-center mb-6 space-x-3 cursor-pointer'
+                className='flex items-center mb-3 space-x-3 cursor-pointer'
               >
-                <img src={History} className='w-11 h-11 p-3 bg-gray-600 rounded-2xl' alt="" />
+                <img src={History} className='w-11 h-11 p-3 hover:bg-gray-600 rounded-2xl' alt="" />
                 <p className={`${toggle ? 'flex' : 'hidden'}`}>Order History</p>
               </motion.button>
             </div>
@@ -83,9 +83,9 @@ const Sidebar: React.FC<SidebarProps> = ({ toggle, menuOpen, setMenuOpen, onClos
               <motion.button
                 onClick={() => openMenu(3)}
                 whileTap={{ scale: 0.9 }}
-                className='flex items-center mb-6 space-x-3 cursor-pointer'
+                className='flex items-center space-x-3 cursor-pointer'
               >
-                <img src={Location} className='w-11 h-11 p-3 bg-gray-600 rounded-2xl' alt="" />
+                <img src={Location} className='w-11 h-11 p-3 hover:bg-gray-600 rounded-2xl' alt="" />
                 <p className={`${toggle ? 'flex' : 'hidden'}`}>Location</p>
               </motion.button>
             </div>
@@ -96,15 +96,17 @@ const Sidebar: React.FC<SidebarProps> = ({ toggle, menuOpen, setMenuOpen, onClos
             <h1 className='text-[12px]'>GENERAL</h1>
 
             <div>
-              <motion.button whileTap={{ scale: 0.9 }} className='flex items-center mb-6 space-x-3 cursor-pointer'>
-                <img src={Reward} className='w-11 h-11 bg-gray-600 rounded-2xl p-3' alt="" />
+              <motion.button 
+                whileTap={{ scale: 0.9 }} className='flex items-center mb-6 space-x-3 cursor-pointer'>
+                <img src={Reward} className='w-11 h-11 hover:bg-gray-600 rounded-2xl p-3' alt="" />
                 <p className={`${toggle ? 'flex' : 'hidden'}`}>My Rewards</p>
               </motion.button>
             </div>
 
             <div>
-              <motion.button whileTap={{ scale: 0.9 }} className='flex items-center mb-6 space-x-3 cursor-pointer'>
-                <img src={Help} className='w-11 h-11 p-3 bg-gray-600 rounded-2xl' alt="" />
+              <motion.button 
+                whileTap={{ scale: 0.9 }} className='flex items-center mb-6 space-x-3 cursor-pointer'>
+                <img src={Help} className='w-11 h-11 p-3 hover:bg-gray-600 rounded-2xl' alt="" />
                 <p className={`${toggle ? 'flex' : 'hidden'}`}>Help</p>
               </motion.button>
             </div>
@@ -113,8 +115,9 @@ const Sidebar: React.FC<SidebarProps> = ({ toggle, menuOpen, setMenuOpen, onClos
           {/* Logout */}
           <div className='flex justify-center px-8 text-left flex-col mt-10 space-y-3'>
             <div>
-              <motion.button whileTap={{ scale: 0.9 }} className='flex items-center mb-6 space-x-3 cursor-pointer'>
-                <img src={Logout} className='w-11 h-11 bg-gray-600 rounded-2xl p-3' alt="" />
+              <motion.button 
+                whileTap={{ scale: 0.9 }} className='flex items-center mb-6 space-x-3 cursor-pointer'>
+                <img src={Logout} className='w-11 h-11 hover:bg-gray-600 rounded-2xl p-3' alt="" />
                 <p className={`${toggle ? 'flex' : 'hidden'}`}>Logout</p>
               </motion.button>
             </div>

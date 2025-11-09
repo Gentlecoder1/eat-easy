@@ -12,7 +12,6 @@ interface NavbarProps {
 }
 
 const Navbar: React.FC<NavbarProps> = ({ toggle, menuOpen, setMenuOpen, toggleNav, closeNav }) => {
-  // When a submenu is opened, ensure the sidebar opens on desktop as well.
   const handleSetMenuOpen = (id: number | null) => {
     setMenuOpen(id)
     if (id !== null && !toggle) {

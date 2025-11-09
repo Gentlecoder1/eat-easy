@@ -3,7 +3,6 @@ import { motion } from 'framer-motion'
 import Location from "/images/Map-pin.png"
 import ChevronDown from "/images/chevron-down.png"
 import Cart from "/images/cart-img.png"
-import Gram from "/images/gram-icon.png"
 import Burger from "/images/burger-icon.png"
 
 interface HeaderProps {
@@ -17,7 +16,7 @@ const Header: React.FC<HeaderProps> = ({ onToggle, toggle }) => {
       {/* mobile */}
       <div className="flex md:hidden justify-between items-center mx-auto p-4">
         <div className="flex space-x-2 items-center">
-          <img src={Gram} className="w-8 h-8" alt="" />
+          <img src={Location} className="w-6 h-6" alt="" />
           <p className="text-lg font-bold text-gray-700">Gram Bistra</p>
         </div>
 
