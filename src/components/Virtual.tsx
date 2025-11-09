@@ -40,11 +40,11 @@ const Virtual: React.FC = () => {
               <p className='text-[16px] lg:text-[px] font-600 text-[#8E8EA9]'>In order to find the best suited choice for you, please answer the next few questions.</p>
             </div>
 
-            <div className='text-[16px] lg:text-[20px] font-600 text-[#8E8EA9] w-full lg:w-xl flex flex-col items-center'>
+            <div className='text-[16px] lg:text-[20px] font-600 text-[#8E8EA9] space-y-4 w-full lg:w-xl flex flex-col items-center'>
                 <NavLink to="/">
                     <motion.button 
                         whileTap={{ scale: 0.95 }}  
-                        className='p-4 cursor-pointer hover:bg-gray-600'>Take me to the menu
+                        className='p-4 cursor-pointer w-full hover:bg-gray-600 '>Take me to the menu
                     </motion.button>
                 </NavLink>
                 <NavLink to="/" className="w-full">
