@@ -14,7 +14,7 @@ function App() {
     <div className="w-full h-full" style={{ backgroundImage }}>
       <Routes>
         <Route path="/" element={<Splash />} />
-        <Route path="/started" element={<GetStarted />} />
+        <Route path="/get-started" element={<GetStarted />} />
       </Routes>
     </div>
   );

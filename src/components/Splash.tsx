@@ -32,7 +32,7 @@ function Splash() {
     // Play ding + navigate
     const timer = setTimeout(() => {
       dingAudio.play().catch(() => {});
-      navigate("/started");
+      navigate("/get-started");
     }, 4000);
 
     return () => clearTimeout(timer);
@@ -70,7 +70,7 @@ function Splash() {
       <motion.img
         src="/images/splash-img-1.svg"
         alt="Spinning Circle"
-        className="absolute left-10 w-[340px] h-[340px] -translate-x-1/2 -translate-y-1/2"
+        className="absolute left-10 -translate-x-1/2 -translate-y-1/2"
         animate={{
           rotate: 360,
           rotateX: [0, 10, 0, -10, 0],
@@ -87,7 +87,7 @@ function Splash() {
       <motion.img
         src="/images/splash-img-2.svg"
         alt="Base Background"
-        className="absolute bottom-0 right-0 w-[220px] opacity-70"
+        className="absolute bottom-10 right-0 opacity-70"
         initial={{ scale: 0.9, opacity: 0 }}
         animate={{ scale: 1, opacity: 1 }}
         transition={{ delay: 0.5, duration: 1 }}
