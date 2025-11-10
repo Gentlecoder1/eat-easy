@@ -17,7 +17,7 @@ interface SidebarProps {
   onToggle: () => void
 }
 
-const Sidebar: React.FC<SidebarProps> = ({ toggle, menuOpen, setMenuOpen, onClose, onToggle }) => {
+const Sidebar: React.FC<SidebarProps> = ({ toggle, menuOpen, setMenuOpen, onToggle }) => {
   const openMenu = (id: number) => {
     setMenuOpen(menuOpen === id ? null : id)
   }
@@ -31,7 +31,7 @@ const Sidebar: React.FC<SidebarProps> = ({ toggle, menuOpen, setMenuOpen, onClos
         onClick={onToggle}
         className='hidden md:block w-10 h-10 bg-[#32324D] border-2 border-white top-25 -right-4 absolute rounded-full p-2'
       >
-        <img src={ChevronLeft} className='w-full h-full cursor-pointer' alt="" />
+        <img src={ChevronLeft} className={`w-full h-full cursor-pointer ${toggle ? 'rotate-0' : ' rotate-180'}`} alt="" />
       </motion.button>
 
       {/* sidebar content */}

@@ -47,7 +47,7 @@ const Welcome: React.FC = () => {
   return (
     <div className="bg-gray-300 w-full">
 
-      <Navbar toggle={toggle} menuOpen={menuOpen} setMenuOpen={setMenuOpen} toggleNav={toggleNav} closeNav={closeNav} />
+      <Navbar toggle={toggle} menuOpen={menuOpen} setMenuOpen={setMenuOpen} toggleNav={toggleNav} closeNav={closeNav} title="Food Menu" text="Browse Our Food Menu" image={Location} text1='Gram Bistro' link='/' />
 
       <div className={`transition-all duration-300 ${!toggle ?  'md:ml-[12%] lg:ml-[9%]' : 'md:ml-[20%]'}`}>
         <div className='max-w-[1280px] mx-auto flex flex-col p-6 space-y-10'>
@@ -86,9 +86,9 @@ const Welcome: React.FC = () => {
               <h1 className='text-[22px] font-bold'>Let’s find the perfect dish for you</h1>
             </div>
 
-            <div className='flex flex-col items-center md:items-stretch md:flex-row gap-2 lg:max-w-1/2 lg:flex-col'>
+            <div className='flex flex-col items-center md:items-stretch md:flex-row gap-6 md:gap-2 lg:max-w-1/2 lg:flex-col'>
               {Next.map((option, idx) => (
-                <div key={idx} className='bg-white rounded-2xl sm:w-[80%] md:w-full p-5 space-y-4'>
+                <div key={idx} className='bg-white rounded-2xl sm:w-[80%] md:w-full p-5 space-y-4 shadow-xl'>
                   <div><img src={option.image} alt="" /></div>
                   <h1 className='lg:text-[22px] text-[16px] font-bold'>{option.title}</h1>
                   <div className='flex md:gap-9 items-center'>

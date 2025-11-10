@@ -4,20 +4,27 @@ import Location from "/images/Map-pin.png"
 import ChevronDown from "/images/chevron-down.png"
 import Cart from "/images/cart-img.png"
 import Burger from "/images/burger-icon.png"
+import ArrowLeft from "/images/arrow-left.png"
+import { NavLink } from 'react-router-dom'
 
 interface HeaderProps {
   onToggle: () => void
   toggle: boolean
+  title: string
+  text: string
+  image: string
+  text1: string
+  link: string
 }
 
-const Header: React.FC<HeaderProps> = ({ onToggle, toggle }) => {
+const Header: React.FC<HeaderProps> = ({ onToggle, toggle, title, text, image, text1, link }) => {
   return (
     <>
       {/* mobile */}
       <div className="flex md:hidden justify-between items-center mx-auto p-4">
         <div className="flex space-x-2 items-center">
-          <img src={Location} className="w-6 h-6" alt="" />
-          <p className="text-lg font-bold text-gray-700">Gram Bistra</p>
+          <NavLink to={link}><img src={image} className="w-6 h-6" alt="" /></NavLink>
+          <p className="text-lg font-bold text-gray-700">{text1}</p>
         </div>
 
         <motion.button
@@ -32,9 +39,17 @@ const Header: React.FC<HeaderProps> = ({ onToggle, toggle }) => {
 
       {/* desktop header */}
       <div className={`hidden md:flex justify-between items-center px-6 py-3 transition-all duration-300 ${!toggle ?  'md:ml-[12%] lg:ml-[9%]' : 'ml-[20%]'}`}>
-        <div>
-          <h1 className='text-[14px] font600 text-[#8E8EA9]'>Food menu</h1>
-          <p className="text-[22px] font-500 text-gray-900">Browse Our Food Menu</p>
+        <div className='flex items-center gap-2'>
+          <NavLink to={link}>
+            <motion.button whileTap={{ scale: 0.9 }}  
+              className='p-2 cursor-pointer border border-gray-600 rounded-sm'>
+                <img src={ArrowLeft} className='w-4 h-4' alt="" />
+            </motion.button>
+          </NavLink>
+          <div className=''>
+            <h1 className='text-[14px] font600 text-[#8E8EA9]'>{title}</h1>
+            <p className="text-[20px] font-500 text-gray-900">{text}</p>
+          </div>
         </div>
 
         <div className='flex'>
