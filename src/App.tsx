@@ -1,7 +1,8 @@
 import {useState, useEffect} from 'react'
 import { Routes, Route, useLocation } from "react-router-dom";
-import Splash from "./components/Splash";
-import GetStarted from "./components/GetStarted";
+// import Splash from "./components/Splash";
+// import GetStarted from "./components/GetStarted";
+import Locations from "./components/Locations";
 import Welcome from "./components/Welcome";
 import Virtual from "./components/Virtual";
 import Recommend from "./components/Recommend";
@@ -25,9 +26,10 @@ function App() {
   return (
     <div className="w-full h-full" style={{ backgroundImage }}>
       <Routes>
-        <Route path="/" element={<Splash />} />
+        {/* <Route path="/" element={<Splash />} />
         <Route path="/started" element={<GetStarted />} />
-        <Route path="/get-started" element={<GetStarted />} />
+        <Route path="/get-started" element={<GetStarted />} /> */}
+        <Route path="/locations" element={<Locations />} />
         <Route path="/" element={<Welcome />} />
         <Route path="/virtual" element={<Virtual />} />
         <Route path="/recommend" element={<Recommend />} />

@@ -15,7 +15,14 @@ const Step1: React.FC = () => {
   const [toggle, setToggle] = useState(false)
   const [menuOpen, setMenuOpen] = useState<number | null>(null)
 
-  const [toggleFeel, setToggleFeel] = useState(false)
+  // allow multiple feelings to be selected; store selected indices
+  const [selectedFeelings, setSelectedFeelings] = useState<number[]>([])
+
+  const toggleFeeling = (index: number) => {
+    setSelectedFeelings(prev =>
+      prev.includes(index) ? prev.filter(i => i !== index) : [...prev, index]
+    )
+  }
 
   const toggleNav = () => {
     setToggle(prev => !prev)
@@ -61,14 +68,14 @@ const Step1: React.FC = () => {
 
             <div className='text-[16px] font-600 text-[#8E8EA9] gap-4 w-full lg:w-xl flex flex-wrap justify-center items-center mb-50 md:mb-20'>
                 {Feelings.map((feeling, idx) => (
-                    <motion.button
-                        key={idx}
-                        onClick={() => setToggleFeel(!toggleFeel)} 
-                        whileTap={{ scale: 0.95 }}  
-                        className={`rounded-2xl px-4 py-2 cursor-pointer flex gap-2 border-2 border-gray-500 ${toggleFeel ? 'bg-amber-500 text-white' : ''}`}>
-                            <img src={feeling.image} className='w-full' alt="" />
-                            <p>{feeling.name}</p>
-                    </motion.button>   
+                <motion.button
+                    key={idx}
+                    onClick={() => toggleFeeling(idx)}
+                    whileTap={{ scale: 0.95 }}
+                    className={`rounded-2xl px-3 md:px-4 py-2 cursor-pointer flex items-center gap-2 border-2 border-gray-500 ${selectedFeelings.includes(idx) ? 'bg-amber-500 text-white' : ''}`}>
+                    <img src={feeling.image} className='w-5 h-5 md:w-7 md:h-7' alt="" />
+                    <p>{feeling.name}</p>
+                </motion.button>
                 ))}
             </div>
 

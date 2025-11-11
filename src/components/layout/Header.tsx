@@ -60,7 +60,7 @@ const Header: React.FC<HeaderProps> = ({ onToggle, toggle, title, text, image, t
             <div className='w-5 h-5'>
               <img src={Location} className='w-full h-full' alt="" />
             </div>
-            <p className='text-[14px] font-600 text-[#8E8EA9]'>Gram Bistro</p>
+            <p className='md:text-[12px] lg:text-[14px] font-600 text-[#8E8EA9]'>Gram Bistro</p>
             <div className='w-5 h-5'>
               <img src={ChevronDown} className='w-full h-full' alt="" />
             </div>
@@ -75,7 +75,7 @@ const Header: React.FC<HeaderProps> = ({ onToggle, toggle, title, text, image, t
             <div className='w-5 h-5'>
               <img src={Cart} className='w-full h-full' alt="" />
             </div>
-            <p className='text-[14px] font-600 text-[#8E8EA9]'>My Order</p>
+            <p className='md:text-[12px] lg:text-[14px] font-600 text-[#8E8EA9]'>My Order</p>
           </motion.button>
         </div>
       </div>
