@@ -12,24 +12,29 @@ function Splash() {
   const dingRef = useRef<HTMLAudioElement | null>(null);
 
   const [isAudioReady, setIsAudioReady] = useState(false);
+  const [overlayVisible, setOverlayVisible] = useState(false);
 
   useEffect(() => {
-    // Initialize audio
     const popAudio = new Audio("/sounds/pop-up.mp3");
     const dingAudio = new Audio("/sounds/ding.mp3");
-    popAudio.volume = 0.9;
-    dingAudio.volume = 0.9;
+    popAudio.volume = dingAudio.volume = 0.9;
 
     popRef.current = popAudio;
     dingRef.current = dingAudio;
 
-    // Try autoplay immediately
-    popAudio.play().catch(() => {
-      // Wait for user gesture if autoplay blocked
-      setIsAudioReady(true);
-    });
+    popAudio
+      .play()
+      .then(() => {
+        localStorage.setItem("soundEnabled", "true");
+      })
+      .catch(() => {
+        if (localStorage.getItem("soundEnabled") === "true") {
+          setIsAudioReady(true);
+        } else {
+          setIsAudioReady(true);
+        }
+      });
 
-    // Play ding + navigate
     const timer = setTimeout(() => {
       dingAudio.play().catch(() => {});
       navigate("/get-started");
@@ -42,9 +47,17 @@ function Splash() {
   const handlePlayManually = () => {
     if (popRef.current && dingRef.current) {
       popRef.current.play().catch(() => {});
-      setIsAudioReady(false);
+      // Fade overlay then clear audio-prompt state
+      setOverlayVisible(false);
+      // allow short fade-out before removing the prompt state
+      setTimeout(() => setIsAudioReady(false), 240);
     }
   };
+
+  // When autoplay is detected as blocked, show overlay
+  useEffect(() => {
+    if (isAudioReady) setOverlayVisible(true);
+  }, [isAudioReady]);
 
   const backgroundImage = `var(--${
     theme === "dark" ? "dark" : "light"
@@ -57,12 +70,22 @@ function Splash() {
       initial={{ opacity: 1 }}
       animate={{ opacity: [1, 1, 0] }}
       transition={{ duration: 1, delay: 3 }}
-      onClick={isAudioReady ? handlePlayManually : undefined}
+      // overlay handles the manual play gesture; don't attach global click
+      onClick={undefined}
     >
-      {/* Only show click-to-enable prompt if needed */}
-      {isAudioReady && (
-        <div className="absolute top-4 right-4 text-sm bg-black/60 text-white px-3 py-1 rounded-md">
-          Click to enable sound 🔊
+      {/* Full-screen centered enable-sound overlay when autoplay is blocked */}
+      {overlayVisible && (
+        <div className="absolute inset-0 flex items-center justify-center pointer-events-auto z-40">
+          {/* Backdrop layer */}
+          <div className="absolute inset-0 bg-black/50 backdrop-blur-md transition-opacity duration-200" />
+
+          {/* Centered button (above the backdrop) */}
+          <button
+            onClick={handlePlayManually}
+            className="relative z-50 bg-white/95 dark:bg-gray-900/95 text-black dark:text-white px-6 py-3 rounded-xl shadow-xl text-lg font-semibold hover:scale-[1.02] transition-transform"
+          >
+            Enable sound 🔊
+          </button>
         </div>
       )}
 
