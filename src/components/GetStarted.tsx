@@ -65,3 +65,4 @@ function GetStarted() {
 }
 
 export default GetStarted;
+export default GetStarted;
