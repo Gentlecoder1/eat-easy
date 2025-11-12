@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { motion } from 'framer-motion'
 import Location from "/images/Map-pin.png"
 import ChevronDown from "/images/chevron-down.png"
@@ -7,17 +7,31 @@ import Burger from "/images/burger-icon.png"
 import ArrowLeft from "/images/arrow-left.png"
 import { NavLink } from 'react-router-dom'
 
-interface HeaderProps {
-  onToggle: () => void
-  toggle: boolean
-  title: string
-  text: string
-  image: string
-  text1: string
+type HeaderProps = {
+  onToggle?: () => void
+  toggle?: boolean
+  title?: string
+  text?: string
+  image?: string
+  text1?: string
   link: string
 }
 
 const Header: React.FC<HeaderProps> = ({ onToggle, toggle, title, text, image, text1, link }) => {
+
+  
+  const [isOpen, setIsOpen] = useState(false)
+  const controlled = typeof onToggle === 'function' && typeof toggle === 'boolean'
+  const effectiveOpen = controlled ? toggle : isOpen
+
+  const handleToggle = () => {
+    if (controlled) {
+      onToggle && onToggle()
+    } else {
+      setIsOpen((v) => !v)
+    }
+  }
+
   return (
     <>
       {/* mobile */}
@@ -30,15 +44,16 @@ const Header: React.FC<HeaderProps> = ({ onToggle, toggle, title, text, image, t
         <motion.button
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.96 }}
-          onClick={onToggle}
+          onClick={handleToggle}
           className='w-5 h-4 cursor-pointer'
+          aria-pressed={effectiveOpen}
         >
           <img src={Burger} className='w-full h-full' alt="" />
         </motion.button>
       </div>
 
       {/* desktop header */}
-      <div className={`hidden md:flex justify-between items-center px-6 py-3 transition-all duration-300 ${!toggle ?  'md:ml-[12%] lg:ml-[9%]' : 'ml-[20%]'}`}>
+      <div className={`hidden md:flex justify-between items-center px-6 py-3 transition-all duration-300 ${!effectiveOpen ?  'md:ml-[12%] lg:ml-[9%]' : 'ml-[20%]'}`}>
         <div className='flex items-center gap-2'>
           <NavLink to={link}>
             <motion.button whileTap={{ scale: 0.9 }}  
