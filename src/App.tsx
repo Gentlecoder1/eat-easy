@@ -34,6 +34,8 @@ function App() {
         <Route path="/virtual" element={<Virtual />} />
         <Route path="/recommend" element={<Recommend />} />
         <Route path="/step1" element={<Step1 />} />
+        <Route path="/" element={<Splash />} />
+        <Route path="/get-started" element={<GetStarted />} />
       </Routes>
     </div>
   );
