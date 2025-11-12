@@ -8,10 +8,10 @@ function GetStarted() {
   useEffect(() => setAnimateBar(true), []);
 
   return (
-    <MotionContainer className="w-full h-screen">
-      <div className="w-full lg:hidden space-y-8 px-6 flex flex-col justify-center h-full">
+    <MotionContainer className="min-h-screen">
+      <div className="w-full lg:hidden space-y-8 flex flex-col justify-center min-h-screen">
         <PopIn>
-          <div className="w-full overflow-hidden rounded-2xl shadow-sm">
+          <div className="w-full overflow-hidden max-w-[600px] mx-auto">
             <img
               src="/images/mobile-onboarding-illustration.svg"
               alt="Illustration"
@@ -20,7 +20,7 @@ function GetStarted() {
           </div>
         </PopIn>
 
-        <FadeIn>
+        <FadeIn className="px-6">
           <div className="w-full flex justify-center">
             <div className="w-full h-1.5 bg-(--bar-bg) max-w-[140px] rounded-2xl mx-auto flex flex-row overflow-hidden">
               <div className="w-1/3 relative">
@@ -38,7 +38,7 @@ function GetStarted() {
           </div>
         </FadeIn>
 
-        <SlideIn direction="up">
+        <SlideIn direction="up" className="px-6">
           <div className="w-full flex flex-col text-center gap-3.5">
             <h1 className="text-(--neutral-800) font-medium text-[26px]">
               Full contactless experience
@@ -49,14 +49,14 @@ function GetStarted() {
           </div>
         </SlideIn>
 
-        <FadeIn>
-          <div className="w-full flex flex-col gap-2.5">
-            <button className="font-semibold text-base text-(--purple-3) py-4">
+        <FadeIn className="px-6 pb-6">
+          <div className="w-full flex flex-col gap-2.5 max-w-[600px] mx-auto">
+            <motion.button whileHover={{scale: 1.2}} whileTap={{scale: 0.9}} className="font-semibold text-base text-(--purple-3) py-4">
               Sign up Later
-            </button>
-            <button className="py-4 bg-(--purple-2) rounded-2xl text-white font-semibold text-base shadow-lg transform hover:-translate-y-0.5 transition">
+            </motion.button>
+            <motion.button whileHover={{scale: 1.2}} whileTap={{scale: 0.9}} className="py-4 bg-(--purple-2) rounded-2xl text-white font-semibold text-base shadow-lg transform hover:-translate-y-0.5 transition">
               Get started
-            </button>
+            </motion.button>
           </div>
         </FadeIn>
       </div>
