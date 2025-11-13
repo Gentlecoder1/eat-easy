@@ -1,7 +1,7 @@
 import {useState, useEffect} from 'react'
 import { Routes, Route, useLocation } from "react-router-dom";
-// import Splash from "./components/Splash";
-// import GetStarted from "./components/GetStarted";
+import Splash from "./components/Splash";
+import GetStarted from "./components/GetStarted";
 import Locations from "./components/Locations";
 import Welcome from "./components/Welcome";
 import Virtual from "./components/Virtual";

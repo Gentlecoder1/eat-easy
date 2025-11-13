@@ -80,7 +80,7 @@ const Step1: React.FC = () => {
             </div>
 
             <div className='text-[16px] lg:text-[20px] font-600 text-[#8E8EA9] space-y-4 w-full lg:w-xl flex flex-col items-center'>
-                <NavLink to="/" className="w-full">
+                <NavLink to="/welcome" className="w-full">
                     <motion.button 
                         whileTap={{ scale: 0.95 }}  
                         className='p-4 cursor-pointer w-full hover:bg-gray-600 rounded-2xl'>Take me to the menu

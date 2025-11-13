@@ -28,7 +28,7 @@ const Virtual: React.FC = () => {
     <div className="bg-white w-full">
 
       <div className='hidden md:flex'>
-        <Navbar showBack={true} toggle={toggle} menuOpen={menuOpen} setMenuOpen={setMenuOpen} toggleNav={toggleNav} closeNav={closeNav} title="Food Menu" text="Virtual Assistant" text1='' link='/' />
+        <Navbar showBack={true} toggle={toggle} menuOpen={menuOpen} setMenuOpen={setMenuOpen} toggleNav={toggleNav} closeNav={closeNav} title="Food Menu" text="Virtual Assistant" text1='' link='/welcome' />
       </div>
 
       <div className={`transition-all duration-300 ${!toggle ?  'md:ml-[12%] lg:ml-[9%]' : 'md:ml-[20%]'}`}>
@@ -44,7 +44,7 @@ const Virtual: React.FC = () => {
             </div>
 
             <div className='text-[16px] lg:text-[20px] font-600 text-[#8E8EA9] space-y-4 w-full lg:w-xl flex flex-col items-center'>
-                <NavLink to="/" className="w-full">
+                <NavLink to="/welcome" className="w-full">
                     <motion.button 
                         whileTap={{ scale: 0.95 }}  
                         className='p-4 cursor-pointer w-full hover:bg-gray-600 rounded-2xl'>Take me to the menu

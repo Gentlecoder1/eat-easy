@@ -3,7 +3,6 @@ import { motion } from 'framer-motion'
 import Navbar from "./layout/Navbar"
 import { NavLink } from 'react-router-dom'
 import ArrowRight from "/images/arrow-right.png"
-import ArrowLeft from "/images/arrow-left.png"
 import Calendar from "/images/calender-icon.png"
 
 const Recommend: React.FC = () => {
