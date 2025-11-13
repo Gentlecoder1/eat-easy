@@ -24,7 +24,7 @@ function App() {
   }-mode-bg)`;
 
   return (
-    <div className="w-full h-full" style={{ backgroundImage }}>
+    <div className="w-full min-h-screen" style={{ backgroundImage }}>
       <Routes>
         {/* <Route path="/" element={<Splash />} />
         <Route path="/started" element={<GetStarted />} />
@@ -34,6 +34,8 @@ function App() {
         <Route path="/virtual" element={<Virtual />} />
         <Route path="/recommend" element={<Recommend />} />
         <Route path="/step1" element={<Step1 />} />
+        <Route path="/" element={<Splash />} />
+        <Route path="/get-started" element={<GetStarted />} />
       </Routes>
     </div>
   );
