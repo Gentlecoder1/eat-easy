@@ -1,14 +1,20 @@
 import { MotionContainer, PopIn, FadeIn, SlideIn } from "./animations/motion";
+import ThemeSwitchButton from "./ThemeSwitchButton";
 import { useState, useEffect } from "react";
 import { motion } from "motion/react";
+import { useNavigate } from "react-router-dom";
 
 function GetStarted() {
   const [animateBar, setAnimateBar] = useState(false);
+  const navigate = useNavigate();
 
   useEffect(() => setAnimateBar(true), []);
 
   return (
     <MotionContainer className="min-h-screen">
+      <div className="absolute top-6 right-6 z-50">
+        <ThemeSwitchButton />
+      </div>
       <div className="w-full lg:hidden space-y-8 flex flex-col justify-center min-h-screen">
         <PopIn>
           <div className="w-full overflow-hidden max-w-[600px] mx-auto">
@@ -51,10 +57,20 @@ function GetStarted() {
 
         <FadeIn className="px-6 pb-6">
           <div className="w-full flex flex-col gap-2.5 max-w-[600px] mx-auto">
-            <motion.button whileHover={{scale: 1.2}} whileTap={{scale: 0.9}} className="font-semibold text-base text-(--purple-3) py-4">
+            <motion.button
+              whileHover={{ scale: 1.2 }}
+              whileTap={{ scale: 0.9 }}
+              onClick={() => navigate("/welcome")}
+              className="font-semibold text-base text-(--purple-3) py-4"
+            >
               Sign up Later
             </motion.button>
-            <motion.button whileHover={{scale: 1.2}} whileTap={{scale: 0.9}} className="py-4 bg-(--purple-2) rounded-2xl text-white font-semibold text-base shadow-lg transform hover:-translate-y-0.5 transition">
+            <motion.button
+              whileHover={{ scale: 1.2 }}
+              whileTap={{ scale: 0.9 }}
+              onClick={() => navigate("/step1")}
+              className="py-4 bg-(--purple-2) rounded-2xl text-white font-semibold text-base shadow-lg transform hover:-translate-y-0.5 transition"
+            >
               Get started
             </motion.button>
           </div>
