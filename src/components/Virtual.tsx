@@ -28,7 +28,7 @@ const Virtual: React.FC = () => {
     <div className="bg-white w-full">
 
       <div className='hidden md:flex'>
-        <Navbar toggle={toggle} menuOpen={menuOpen} setMenuOpen={setMenuOpen} toggleNav={toggleNav} closeNav={closeNav} title="Food Menu" text="Virtual Assistant" image={ArrowLeft} text1='' link='/' />
+        <Navbar showBack={true} toggle={toggle} menuOpen={menuOpen} setMenuOpen={setMenuOpen} toggleNav={toggleNav} closeNav={closeNav} title="Food Menu" text="Virtual Assistant" text1='' link='/' />
       </div>
 
       <div className={`transition-all duration-300 ${!toggle ?  'md:ml-[12%] lg:ml-[9%]' : 'md:ml-[20%]'}`}>

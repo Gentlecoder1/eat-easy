@@ -29,16 +29,17 @@ const Locations: React.FC = () => {
     <div className="bg-gray-300 w-full h-screen"
         style={{ backgroundImage: `url(${MapFrame})`, backgroundRepeat: 'no-repeat', backgroundPosition: 'center', backgroundSize: 'cover' }}
     >
-      
-      <Sidebar
-        toggle={isOpen}
-        onToggle={() => setIsOpen(v => !v)}
-        menuOpen={menuOpen}
-        setMenuOpen={handleSetMenuOpen}
-      />
+      <div className='hidden md:flex'>
+        <Sidebar
+          toggle={isOpen}
+          onToggle={() => setIsOpen(v => !v)}
+          menuOpen={menuOpen}
+          setMenuOpen={handleSetMenuOpen}
+        />
+      </div>
 
       <div 
-        className={`p-[70px] transition-all duration-300 ${!isOpen ?  'md:ml-[12%] lg:ml-[9%]' : 'md:ml-[20%]'}`}>
+        className={`py-[70px] transition-all duration-300 ${!isOpen ?  'md:ml-[12%] lg:ml-[9%]' : 'md:ml-[20%]'}`}>
         <div className='bg-white max-w-[700px] mx-auto flex flex-col items-center p-6 space-y-5 rounded-2xl shadow-xl'>
 
             <div className='flex items-center mb-5'>

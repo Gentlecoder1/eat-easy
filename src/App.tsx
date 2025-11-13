@@ -13,7 +13,7 @@ function App() {
 
   const location = useLocation()
   useEffect(() => {
-      // scroll immediately to top when pathname changes
+      
       window.scrollTo({ top: 0 })
   }, [location.pathname])
 

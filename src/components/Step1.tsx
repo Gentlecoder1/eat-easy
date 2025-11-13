@@ -55,7 +55,7 @@ const Step1: React.FC = () => {
     <div className="bg-white w-full">
 
       <div className=''>
-        <Navbar toggle={toggle} menuOpen={menuOpen} setMenuOpen={setMenuOpen} toggleNav={toggleNav} closeNav={closeNav} title="Food Menu" text="Step 1" image={ArrowLeft} text1='Step 1' link='/recommend' />
+        <Navbar showBack={true} toggle={toggle} menuOpen={menuOpen} setMenuOpen={setMenuOpen} toggleNav={toggleNav} closeNav={closeNav} title="Food Menu &nbsp;&nbsp; | &nbsp;&nbsp; Virtual Assistant" text="Step 1" text1='Step 1' link='/recommend'  />
       </div>
 
       <div className={`transition-all duration-300 ${!toggle ?  'md:ml-[12%] lg:ml-[9%]' : 'md:ml-[20%]'}`}>
