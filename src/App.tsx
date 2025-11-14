@@ -6,6 +6,7 @@ import Locations from "./components/Locations";
 import Welcome from "./components/Welcome";
 import Virtual from "./components/Virtual";
 import Recommend from "./components/Recommend";
+import Recommended from "./components/Recommended";
 import Step1 from "./components/Step1";
 import { useTheme } from "./hooks/useTheme";
 
@@ -30,9 +31,10 @@ function App() {
         <Route path="/started" element={<GetStarted />} />
         <Route path="/get-started" element={<GetStarted />} /> */}
         <Route path="/locations" element={<Locations />} />
-        <Route path="/" element={<Welcome />} />
+        <Route path="/welcome" element={<Welcome />} />
         <Route path="/virtual" element={<Virtual />} />
         <Route path="/recommend" element={<Recommend />} />
+        <Route path="/recommended" element={<Recommended />} />
         <Route path="/step1" element={<Step1 />} />
         <Route path="/" element={<Splash />} />
         <Route path="/get-started" element={<GetStarted />} />

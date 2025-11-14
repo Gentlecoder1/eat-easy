@@ -56,7 +56,7 @@ const Header: React.FC<HeaderProps> = ({ onToggle, toggle, title, text, text1, l
           whileTap={{ scale: 0.96 }}
           onClick={handleToggle}
           className='w-5 h-4 cursor-pointer'
-          aria-pressed={effectiveOpen}
+          // aria-pressed={effectiveOpen}
         >
           <img src={Burger} className='w-full h-full' alt="" />
         </motion.button>

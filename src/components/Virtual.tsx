@@ -3,7 +3,6 @@ import { motion } from 'framer-motion'
 import Navbar from "./layout/Navbar"
 import AI from "/images/AI-image.png"
 import { NavLink } from 'react-router-dom'
-import ArrowLeft from "/images/arrow-left.png"
 
 const Virtual: React.FC = () => {
   const [toggle, setToggle] = useState(false)
@@ -25,14 +24,14 @@ const Virtual: React.FC = () => {
   }
 
   return (
-    <div className="bg-white w-full">
+    <div className="bg-[#F7F7F7] w-full min-h-screen">
 
       <div className='hidden md:flex'>
         <Navbar showBack={true} toggle={toggle} menuOpen={menuOpen} setMenuOpen={setMenuOpen} toggleNav={toggleNav} closeNav={closeNav} title="Food Menu" text="Virtual Assistant" text1='' link='/welcome' />
       </div>
 
       <div className={`transition-all duration-300 ${!toggle ?  'md:ml-[12%] lg:ml-[9%]' : 'md:ml-[20%]'}`}>
-        <div className='max-w-[1280px] mx-auto flex flex-col items-center p-6 space-y-10 mb-5'>
+        <div className='max-w-6xl mx-auto flex flex-col items-center p-6 space-y-10 mb-5'>
 
             <div className='lg:max-w-1/2'>
               <div><img src={AI} alt="" /></div>

@@ -26,7 +26,7 @@ const Locations: React.FC = () => {
   ]
 
   return (
-    <div className="bg-gray-300 w-full h-screen"
+    <div className="bg-[#F7F7F7] w-full  min-h-screen"
         style={{ backgroundImage: `url(${MapFrame})`, backgroundRepeat: 'no-repeat', backgroundPosition: 'center', backgroundSize: 'cover' }}
     >
       <div className='hidden md:flex'>
@@ -39,8 +39,8 @@ const Locations: React.FC = () => {
       </div>
 
       <div 
-        className={`py-[70px] transition-all duration-300 ${!isOpen ?  'md:ml-[12%] lg:ml-[9%]' : 'md:ml-[20%]'}`}>
-        <div className='bg-white max-w-[700px] mx-auto flex flex-col items-center p-6 space-y-5 rounded-2xl shadow-xl'>
+        className={`py-[70px] max-w-6xl transition-all duration-300 ${!isOpen ?  'md:ml-[12%] lg:ml-[9%]' : 'md:ml-[20%]'}`}>
+        <div className='bg-white max-w-[700px] mx-auto flex flex-col items-center p-6 space-y-5 rounded-2xl shadow-[0_4px_12px_rgba(0,0,0,0.10)]'>
 
             <div className='flex items-center mb-5'>
                 <p className='lg:text-[28px] md:text-[20px] font-bold'>Set your location</p>
