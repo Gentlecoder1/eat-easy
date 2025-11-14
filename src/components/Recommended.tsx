@@ -16,6 +16,27 @@ import { NavLink } from 'react-router-dom'
 
 const Recommended: React.FC = () => {
 
+  const [toggle, setToggle] = useState(false)
+  const [menuOpen, setMenuOpen] = useState<number | null>(null)
+
+  const [click, setClick] = useState(0)
+  const [menu, setMenu] = useState(0)
+
+  const toggleNav = () => {
+    setToggle(prev => !prev)
+    if (!toggle) {
+      // when opening, keep menuOpen as is
+    } else {
+      // when closing clear submenu
+      setMenuOpen(null)
+    }
+  }
+
+  const closeNav = () => {
+    setToggle(false)
+    setMenuOpen(null)
+  }
+
   const Eat = [
     {
       image: AvocadoImage,
@@ -75,26 +96,27 @@ const Recommended: React.FC = () => {
     }
   ]
 
-  const [toggle, setToggle] = useState(false)
-  const [menuOpen, setMenuOpen] = useState<number | null>(null)
+  const Drink = [
+    { image: PowerImage, name: "Orange Smoothie", rating: "4.8", star: StarHalf, reviews: "98", price: "$4.50" },
+    { image: AvocadoImage, name: "Avocado Shake", rating: "4.7", star: StarHalf, reviews: "76", price: "$5.20" },
+    { image: MacImage, name: "Iced Latte", rating: "4.6", star: StarHalf, reviews: "210", price: "$3.80" },
+    { image: CurryImage, name: "Ginger Tea", rating: "4.5", star: StarHalf, reviews: "44", price: "$2.40" },
+    { image: ChickenSalad, name: "Detox Green Juice", rating: "4.7", star: StarHalf, reviews: "63", price: "$6.00" },
+    { image: VegImage, name: "Berry Blast", rating: "4.9", star: StarHalf, reviews: "150", price: "$5.90" }
+  ]
 
-  const [click, setClick] = useState(0)
-  const [menu, setMenu] = useState(0)
+  const Dessert = [
+    { image: MacImage, name: "Chocolate Macaron", rating: "4.9", star: StarHalf, reviews: "320", price: "$3.20" },
+    { image: AvocadoImage, name: "Avocado Mousse", rating: "4.6", star: StarHalf, reviews: "88", price: "$4.40" },
+    { image: CurryImage, name: "Citrus Tart", rating: "4.7", star: StarHalf, reviews: "74", price: "$4.80" },
+    { image: PowerImage, name: "Pistachio Cake", rating: "4.8", star: StarHalf, reviews: "110", price: "$5.50" },
+    { image: ChickenBreast, name: "Lemon Panna Cotta", rating: "4.5", star: StarHalf, reviews: "45", price: "$4.20" },
+    { image: VegImage, name: "Fruit Salad Bowl", rating: "4.7", star: StarHalf, reviews: "95", price: "$3.90" },
+    { image: ChickenSalad, name: "Caramel Brownie", rating: "4.8", star: StarHalf, reviews: "140", price: "$3.60" }
+  ]
 
-  const toggleNav = () => {
-    setToggle(prev => !prev)
-    if (!toggle) {
-      // when opening, keep menuOpen as is
-    } else {
-      // when closing clear submenu
-      setMenuOpen(null)
-    }
-  }
-
-  const closeNav = () => {
-    setToggle(false)
-    setMenuOpen(null)
-  }
+  const datasets = [Eat, Drink, Dessert];
+  const datum = datasets[menu];
 
   
   return (
@@ -170,17 +192,25 @@ const Recommended: React.FC = () => {
           </div>
 
           <div className='grid grid-cols-1 sm:grid-cols-2 gap-8'>
-            {Eat.map((eat, idx) => (
-              <div className='rounded-2xl flex justify-between items-center shadow-[0_4px_12px_rgba(0,0,0,0.10)] bg-white p-3'>
+            {datum.map((eat, idx) => (
+              <div key={`eat-${menu}-${idx}`} className='rounded-2xl flex justify-between items-center shadow-[0_4px_12px_rgba(0,0,0,0.10)] bg-white p-3 group'>
                 <div className='flex space-x-3 items-center'>
                   <div className='rounded-full'><img src={eat.image} alt="" /></div>
-                  <div className='space-y-3'>
-                    <p className='text-[18px] font-semibold'>{eat.name}</p>
-                    <p className='space-x-1 flex items-center text-[14px] text-[#C0C0CF] font-semibold'><img src={eat.star} className='w-4 h-4' alt="" />{eat.rating}  <span>({eat.reviews} reviews)</span> </p>
-                    <p className='text-[#FF7B2C] text-[18px] font-extrabold'>{eat.price}</p>
+                  <div className=''>
+                    <p className='text-[15px] lg:text-[18px] font-semibold'>{eat.name}</p>
+
+                    <div className=' text-[14px] text-[#C0C0CF] font-semibold mb-2'>
+                      <div className='space-x-1 flex items-center'>
+                        <img src={eat.star} className='w-4 h-4' alt="" />
+                        <p>{eat.rating}</p> 
+                      </div>  
+                      <span>({eat.reviews} reviews)</span>
+                    </div>
+
+                    <p className='text-[#FF7B2C] text-[15px] lg:text-[18px] font-extrabold'>{eat.price}</p>
                   </div>
                 </div>
-                <div></div>
+                <motion.div whileTap={{ scale: 0.9 }} className='hidden group-hover:flex w-fit h-fit cursor-pointer text-[#FF7B2C] text-[24px] font-extrabold rounded-2xl p-2 bg-[#FFF2EA]'>+</motion.div>
               </div>
             ))}
           </div>
