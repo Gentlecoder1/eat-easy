@@ -4,9 +4,77 @@ import Navbar from "./layout/Navbar"
 import Burger from "/images/burger-icon.png"
 import GridIcon from "/images/grid-icon.png"
 import ListIcon from "/images/list-icon.png"
+import AvocadoImage from "/images/Avocado-img.png"
+import ChickenBreast from "/images/chicken-breast.png"
+import ChickenSalad from "/images/chicken-salad.png"
+import CurryImage from "/images/curry-img.png"
+import MacImage from "/images/Mac-image.png"
+import PowerImage from "/images/power-img.png"
+import VegImage from "/images/vegetable-img.png"
+import StarHalf from "/images/star-half-icon.png"
 import { NavLink } from 'react-router-dom'
 
 const Recommended: React.FC = () => {
+
+  const Eat = [
+    {
+      image: AvocadoImage,
+      name: "Avocado and Egg Toast",
+      rating: "4.9",
+      star: StarHalf,
+      reviews: "120",
+      price: "$10.40"
+    },
+    {
+      image: ChickenSalad,
+      name: "Avocado Chicken Salad",
+      rating: "4.9",
+      star: StarHalf,
+      reviews: "120",
+      price: "$10.40"
+    },
+    {
+      image: ChickenBreast,
+      name: "Chicken Breast",
+      rating: "4.9",
+      star: StarHalf,
+      reviews: "120",
+      price: "$10.40"
+    },
+    {
+      image: CurryImage,
+      name: "Curry Salmon",
+      rating: "4.9",
+      star: StarHalf,
+      reviews: "120",
+      price: "$10.40"
+    },
+    {
+      image: MacImage,
+      name: "Mac and Cheese",
+      rating: "4.9",
+      star: StarHalf,
+      reviews: "120",
+      price: "$10.40"
+    },
+    {
+      image: PowerImage,
+      name: "Power Bowl",
+      rating: "4.9",
+      star: StarHalf,
+      reviews: "120",
+      price: "$10.40"
+    },
+    {
+      image: VegImage,
+      name: "Vegetable Salad",
+      rating: "4.9",
+      star: StarHalf,
+      reviews: "120",
+      price: "$10.40"
+    }
+  ]
+
   const [toggle, setToggle] = useState(false)
   const [menuOpen, setMenuOpen] = useState<number | null>(null)
 
@@ -40,7 +108,7 @@ const Recommended: React.FC = () => {
             <h1 className='text-[22px] lg:text-[32px] text-[#32324D] font-bold'>We think you might enjoy these specially selected dishes</h1>
           </div>
 
-          <div className='md:p-4 md:rounded-2xl md:shadow-[0_4px_12px_rgba(0,0,0,0.10)] md:bg-white flex justify-between items-center'>
+          <div className='md:p-4 md:rounded-2xl md:shadow-[0_4px_12px_rgba(0,0,0,0.10)] md:bg-white flex justify-between items-center mb-10'>
             <div className={`flex md:w-fit h-fit md:mx-0 md:justify-items-normal mx-auto w-full justify-between space-x-4 md:space-x-0 lg:space-x-2 text-[15px] text-black transition-all duration-900`}>
                 <div
                     onClick={() => setMenu(0)}
@@ -101,8 +169,20 @@ const Recommended: React.FC = () => {
             </div>
           </div>
 
-          <div className='grid grid-cols-2 gap-4'>
-            <div className='rounded-2xl shadow-[0_4px_12px_rgba(0,0,0,0.10)] bg-white'></div>
+          <div className='grid grid-cols-1 sm:grid-cols-2 gap-8'>
+            {Eat.map((eat, idx) => (
+              <div className='rounded-2xl flex justify-between items-center shadow-[0_4px_12px_rgba(0,0,0,0.10)] bg-white p-3'>
+                <div className='flex space-x-3 items-center'>
+                  <div className='rounded-full'><img src={eat.image} alt="" /></div>
+                  <div className='space-y-3'>
+                    <p className='text-[18px] font-semibold'>{eat.name}</p>
+                    <p className='space-x-1 flex items-center text-[14px] text-[#C0C0CF] font-semibold'><img src={eat.star} className='w-4 h-4' alt="" />{eat.rating}  <span>({eat.reviews} reviews)</span> </p>
+                    <p className='text-[#FF7B2C] text-[18px] font-extrabold'>{eat.price}</p>
+                  </div>
+                </div>
+                <div></div>
+              </div>
+            ))}
           </div>
         </div>
       </div>

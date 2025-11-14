@@ -88,7 +88,7 @@ const Sidebar: React.FC<SidebarProps> = ({ toggle, menuOpen, setMenuOpen, onTogg
                 whileTap={{ scale: 0.9 }}
                 className='flex items-center mb-3 space-x-3 cursor-pointer'
               >
-                <img src={FoodMenu} className='w-11 h-11 bg-amber-500 rounded-2xl p-3' alt="" />
+                <img src={FoodMenu} className='w-11 h-11 bg-[--yellow-1] rounded-2xl p-3' alt="" />
                 <p className={`md:text-[12px] lg:text-[15px] ${effectiveIsOpen ? 'flex' : 'hidden'}`}>Food Menu</p>
               </motion.button>
               {effectiveIsOpen && (
