@@ -94,7 +94,7 @@ const Welcome: React.FC = () => {
                   <div className='flex md:gap-9 items-center'>
                     <p className='lg:text-[16px] text-[16px] font-500 text-[#8E8EA9]'>{option.text}</p>
                     <NavLink to={option.link} className="min-w-10">
-                      <motion.button whileTap={{ scale: 0.9 }} className='rounded-xl bg-[#FFF2EA] p-3 cursor-pointer'><img src={ArrowRight} className='w-8 h-full' alt="" /></motion.button>
+                      <motion.button whileTap={{ scale: 0.9 }} className='rounded-xl bg-[#FFF2EA] cursor-pointer'><img src={ArrowRight} className='w-12 h-full p-3' alt="" /></motion.button>
                     </NavLink>
                   </div>
                 </div>

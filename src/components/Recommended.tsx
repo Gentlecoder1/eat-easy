@@ -12,6 +12,15 @@ import MacImage from "/images/Mac-image.png"
 import PowerImage from "/images/power-img.png"
 import VegImage from "/images/vegetable-img.png"
 import StarHalf from "/images/star-half-icon.png"
+import Baklava from "/images/image-baklava.jpg"
+import Brownie from "/images/image-brownie.jpg"
+import Cake from "/images/image-cake.jpg"
+import Creme from "/images/image-creme-brulee.jpg"
+import Macaron from "/images/image-macaron.jpg"
+import Meringue from "/images/image-meringue.jpg"
+import Panna from "/images/image-panna-cotta.jpg"
+import Tiramisu from "/images/image-tiramisu.jpg"
+import Waffle from "/images/image-waffle.jpg"
 import { NavLink } from 'react-router-dom'
 
 const Recommended: React.FC = () => {
@@ -106,13 +115,15 @@ const Recommended: React.FC = () => {
   ]
 
   const Dessert = [
-    { image: MacImage, name: "Chocolate Macaron", rating: "4.9", star: StarHalf, reviews: "320", price: "$3.20" },
-    { image: AvocadoImage, name: "Avocado Mousse", rating: "4.6", star: StarHalf, reviews: "88", price: "$4.40" },
-    { image: CurryImage, name: "Citrus Tart", rating: "4.7", star: StarHalf, reviews: "74", price: "$4.80" },
-    { image: PowerImage, name: "Pistachio Cake", rating: "4.8", star: StarHalf, reviews: "110", price: "$5.50" },
-    { image: ChickenBreast, name: "Lemon Panna Cotta", rating: "4.5", star: StarHalf, reviews: "45", price: "$4.20" },
-    { image: VegImage, name: "Fruit Salad Bowl", rating: "4.7", star: StarHalf, reviews: "95", price: "$3.90" },
-    { image: ChickenSalad, name: "Caramel Brownie", rating: "4.8", star: StarHalf, reviews: "140", price: "$3.60" }
+    { image: Baklava, name: "Pistachio Baklava", rating: "4.9", star: StarHalf, reviews: "320", price: "$3.20" },
+    { image: Brownie, name: "Salted Caramel Brownie", rating: "4.6", star: StarHalf, reviews: "88", price: "$4.40" },
+    { image: Cake, name: "Red Velvet Cake", rating: "4.7", star: StarHalf, reviews: "74", price: "$4.80" },
+    { image: Creme, name: "Vanilla Bean Crème Brûlée", rating: "4.8", star: StarHalf, reviews: "110", price: "$5.50" },
+    { image: Macaron, name: "Macaron Mix of Five", rating: "4.5", star: StarHalf, reviews: "45", price: "$4.20" },
+    { image: Panna, name: "Vanilla Panna Cotta", rating: "4.7", star: StarHalf, reviews: "95", price: "$3.90" },
+    { image: Meringue, name: "Lemon Meringue Pie", rating: "4.8", star: StarHalf, reviews: "140", price: "$3.60" },
+    { image: Tiramisu, name: "Classic Tiramisu", rating: "4.8", star: StarHalf, reviews: "140", price: "$3.60" },
+    { image: Waffle, name: "Waffle with Berries", rating: "4.8", star: StarHalf, reviews: "140", price: "$3.60" }
   ]
 
   const datasets = [Eat, Drink, Dessert];
@@ -195,7 +206,7 @@ const Recommended: React.FC = () => {
             {datum.map((eat, idx) => (
               <div key={`eat-${menu}-${idx}`} className='rounded-2xl flex justify-between items-center shadow-[0_4px_12px_rgba(0,0,0,0.10)] bg-white p-3 group'>
                 <div className='flex space-x-3 items-center'>
-                  <div className='rounded-full'><img src={eat.image} alt="" /></div>
+                  <div className='rounded-full'><img src={eat.image} className='max-w-[100px] max-h-[100px] rounded-full' alt="" /></div>
                   <div className=''>
                     <p className='text-[15px] lg:text-[18px] font-semibold'>{eat.name}</p>
 
