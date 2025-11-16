@@ -4,26 +4,16 @@ import Navbar from "./layout/Navbar"
 import Burger from "/images/burger-icon.png"
 import GridIcon from "/images/grid-icon.png"
 import ListIcon from "/images/list-icon.png"
-import AvocadoImage from "/images/Avocado-img.png"
-import ChickenBreast from "/images/chicken-breast.png"
-import ChickenSalad from "/images/chicken-salad.png"
-import CurryImage from "/images/curry-img.png"
-import MacImage from "/images/Mac-image.png"
-import PowerImage from "/images/power-img.png"
-import VegImage from "/images/vegetable-img.png"
-import StarHalf from "/images/star-half-icon.png"
-import Baklava from "/images/image-baklava.jpg"
-import Brownie from "/images/image-brownie.jpg"
-import Cake from "/images/image-cake.jpg"
-import Creme from "/images/image-creme-brulee.jpg"
-import Macaron from "/images/image-macaron.jpg"
-import Meringue from "/images/image-meringue.jpg"
-import Panna from "/images/image-panna-cotta.jpg"
-import Tiramisu from "/images/image-tiramisu.jpg"
-import Waffle from "/images/image-waffle.jpg"
-import { NavLink } from 'react-router-dom'
+// import { NavLink } from 'react-router-dom'
+import type { PropType } from "../types"
+import { Eat, Drink, Dessert } from "../data/data"
 
-const Recommended: React.FC = () => {
+type RecommendedProps = {
+  items: PropType[];
+  showSelected?: (item: PropType) => void
+}
+
+const Recommended: React.FC<RecommendedProps> = ({ showSelected }) => {
 
   const [toggle, setToggle] = useState(false)
   const [menuOpen, setMenuOpen] = useState<number | null>(null)
@@ -46,86 +36,6 @@ const Recommended: React.FC = () => {
     setMenuOpen(null)
   }
 
-  const Eat = [
-    {
-      image: AvocadoImage,
-      name: "Avocado and Egg Toast",
-      rating: "4.9",
-      star: StarHalf,
-      reviews: "120",
-      price: "$10.40"
-    },
-    {
-      image: ChickenSalad,
-      name: "Avocado Chicken Salad",
-      rating: "4.9",
-      star: StarHalf,
-      reviews: "120",
-      price: "$10.40"
-    },
-    {
-      image: ChickenBreast,
-      name: "Chicken Breast",
-      rating: "4.9",
-      star: StarHalf,
-      reviews: "120",
-      price: "$10.40"
-    },
-    {
-      image: CurryImage,
-      name: "Curry Salmon",
-      rating: "4.9",
-      star: StarHalf,
-      reviews: "120",
-      price: "$10.40"
-    },
-    {
-      image: MacImage,
-      name: "Mac and Cheese",
-      rating: "4.9",
-      star: StarHalf,
-      reviews: "120",
-      price: "$10.40"
-    },
-    {
-      image: PowerImage,
-      name: "Power Bowl",
-      rating: "4.9",
-      star: StarHalf,
-      reviews: "120",
-      price: "$10.40"
-    },
-    {
-      image: VegImage,
-      name: "Vegetable Salad",
-      rating: "4.9",
-      star: StarHalf,
-      reviews: "120",
-      price: "$10.40"
-    }
-  ]
-
-  const Drink = [
-    { image: PowerImage, name: "Orange Smoothie", rating: "4.8", star: StarHalf, reviews: "98", price: "$4.50" },
-    { image: AvocadoImage, name: "Avocado Shake", rating: "4.7", star: StarHalf, reviews: "76", price: "$5.20" },
-    { image: MacImage, name: "Iced Latte", rating: "4.6", star: StarHalf, reviews: "210", price: "$3.80" },
-    { image: CurryImage, name: "Ginger Tea", rating: "4.5", star: StarHalf, reviews: "44", price: "$2.40" },
-    { image: ChickenSalad, name: "Detox Green Juice", rating: "4.7", star: StarHalf, reviews: "63", price: "$6.00" },
-    { image: VegImage, name: "Berry Blast", rating: "4.9", star: StarHalf, reviews: "150", price: "$5.90" }
-  ]
-
-  const Dessert = [
-    { image: Baklava, name: "Pistachio Baklava", rating: "4.9", star: StarHalf, reviews: "320", price: "$3.20" },
-    { image: Brownie, name: "Salted Caramel Brownie", rating: "4.6", star: StarHalf, reviews: "88", price: "$4.40" },
-    { image: Cake, name: "Red Velvet Cake", rating: "4.7", star: StarHalf, reviews: "74", price: "$4.80" },
-    { image: Creme, name: "Vanilla Bean Crème Brûlée", rating: "4.8", star: StarHalf, reviews: "110", price: "$5.50" },
-    { image: Macaron, name: "Macaron Mix of Five", rating: "4.5", star: StarHalf, reviews: "45", price: "$4.20" },
-    { image: Panna, name: "Vanilla Panna Cotta", rating: "4.7", star: StarHalf, reviews: "95", price: "$3.90" },
-    { image: Meringue, name: "Lemon Meringue Pie", rating: "4.8", star: StarHalf, reviews: "140", price: "$3.60" },
-    { image: Tiramisu, name: "Classic Tiramisu", rating: "4.8", star: StarHalf, reviews: "140", price: "$3.60" },
-    { image: Waffle, name: "Waffle with Berries", rating: "4.8", star: StarHalf, reviews: "140", price: "$3.60" }
-  ]
-
   const datasets = [Eat, Drink, Dessert];
   const datum = datasets[menu];
 
@@ -142,24 +52,25 @@ const Recommended: React.FC = () => {
           </div>
 
           <div className='md:p-4 md:rounded-2xl md:shadow-[0_4px_12px_rgba(0,0,0,0.10)] md:bg-white flex justify-between items-center mb-10'>
-            <div className={`flex md:w-fit h-fit md:mx-0 md:justify-items-normal mx-auto w-full justify-between space-x-4 md:space-x-0 lg:space-x-2 text-[15px] text-black transition-all duration-900`}>
+
+            <div className={`flex md:w-fit h-fit md:mx-0 md:justify-items-normal mx-auto w-full justify-between space-x-4 md:space-x-0 lg:space-x-2 text-[15px] text-black`}>
                 <div
                     onClick={() => setMenu(0)}
-                    className={`relative h-fit text-center py-2 px-4 w-20 rounded-2xl cursor-pointer transition-colors duration-900 ${menu === 0 ? 'bg-amber-500 text-white' : 'bg-none'}`}
+                    className={`relative h-fit text-center py-2 px-4 w-20 rounded-2xl cursor-pointer transition-colors duration-300 ${menu === 0 ? 'bg-amber-500 text-white' : 'bg-none'}`}
                 >
                     Eat
                 </div>
 
                 <div
                     onClick={() => setMenu(1)}
-                    className={`relative h-fit text-center py-2 px-4 w-20 rounded-2xl cursor-pointer transition-colors duration-900 ${menu === 1 ? 'bg-amber-500 text-white' : 'bg-none'}`}
+                    className={`relative h-fit text-center py-2 px-4 w-20 rounded-2xl cursor-pointer transition-colors duration-300 ${menu === 1 ? 'bg-amber-500 text-white' : 'bg-none'}`}
                 >
                     Drink
                 </div>
 
                 <div
                     onClick={() => setMenu(2)}
-                    className={`relative h-fit text-center py-2 px-4 w-20 rounded-2xl cursor-pointer transition-colors duration-900 ${menu === 2 ? 'bg-amber-500 text-white' : 'bg-none'}`}
+                    className={`relative h-fit text-center py-2 px-4 w-20 rounded-2xl cursor-pointer transition-colors duration-300 ${menu === 2 ? 'bg-amber-500 text-white' : 'bg-none'}`}
                 >
                     Dessert
                 </div>
@@ -203,8 +114,8 @@ const Recommended: React.FC = () => {
           </div>
 
           <div className='grid grid-cols-1 sm:grid-cols-2 gap-8'>
-            {datum.map((eat, idx) => (
-              <div key={`eat-${menu}-${idx}`} className='rounded-2xl flex justify-between items-center shadow-[0_4px_12px_rgba(0,0,0,0.10)] bg-white p-3 group'>
+            {datum.map((eat) => (
+              <div key={eat.id} className='rounded-2xl flex justify-between items-center shadow-[0_4px_12px_rgba(0,0,0,0.10)] bg-white p-3 group'>
                 <div className='flex space-x-3 items-center'>
                   <div className='rounded-full'><img src={eat.image} className='max-w-[100px] max-h-[100px] rounded-full' alt="" /></div>
                   <div className=''>
@@ -221,7 +132,10 @@ const Recommended: React.FC = () => {
                     <p className='text-[#FF7B2C] text-[15px] lg:text-[18px] font-extrabold'>{eat.price}</p>
                   </div>
                 </div>
-                <motion.div whileTap={{ scale: 0.9 }} className='hidden group-hover:flex w-fit h-fit cursor-pointer text-[#FF7B2C] text-[24px] font-extrabold rounded-2xl p-2 bg-[#FFF2EA]'>+</motion.div>
+                <motion.div 
+                  whileTap={{ scale: 0.9 }}
+                  onClick={() => showSelected?.(eat)}
+                  className='hidden group-hover:flex w-fit h-fit cursor-pointer text-[#FF7B2C] text-[24px] font-extrabold rounded-2xl p-2 bg-[#FFF2EA]'>+</motion.div>
               </div>
             ))}
           </div>

@@ -20,9 +20,12 @@ type SidebarProps = {
 
 const Sidebar: React.FC<SidebarProps> = ({ toggle, menuOpen, setMenuOpen, onToggle }) => {
 
+  // desktop toggle useState
   const [isOpen, setIsOpen] = useState(false)
+  // menu accordion useState
   const [openMenuId, setOpenMenuId] = useState<number | null>(null)
 
+  
   const controlledOpen = typeof toggle === 'boolean' && typeof onToggle === 'function'
   
   const effectiveIsOpen = controlledOpen ? toggle : isOpen
