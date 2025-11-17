@@ -33,7 +33,6 @@ function App() {
         <Route path="/recommend" element={<Recommend />} />
         <Route path="/step1" element={<Step1 />} />
 
-        {/* Fallback */}
         <Route path="*" element={<Welcome />} />
       </Routes>
     </div>

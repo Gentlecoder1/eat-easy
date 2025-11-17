@@ -1,5 +1,4 @@
 import { MotionContainer, PopIn, FadeIn, SlideIn } from "./animations/motion";
-import ThemeSwitchButton from "./ThemeSwitchButton";
 import { useState, useEffect } from "react";
 import { motion } from "motion/react";
 import { useNavigate } from "react-router-dom";
@@ -12,9 +11,6 @@ function GetStarted() {
 
   return (
     <MotionContainer className="min-h-screen">
-      <div className="absolute top-6 right-6 z-50">
-        <ThemeSwitchButton />
-      </div>
       <div className="w-full lg:hidden space-y-8 flex flex-col justify-center min-h-screen">
         <PopIn>
           <div className="w-full overflow-hidden max-w-[600px] mx-auto">
@@ -33,7 +29,7 @@ function GetStarted() {
                 <motion.div
                   initial={{ scaleX: 0 }}
                   animate={animateBar ? { scaleX: 1 } : { scaleX: 0 }}
-                  transition={{ duration: 2.9, ease: [0.22, 1, 0.36, 1] }}
+                  transition={{ duration: 3.9, ease: [0.22, 1, 0.36, 1] }}
                   style={{ transformOrigin: "left" }}
                   className="absolute left-0 top-0 h-full w-full bg-[#FFB01D] rounded-2xl"
                 />

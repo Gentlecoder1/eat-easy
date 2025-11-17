@@ -2,7 +2,6 @@ import { motion } from "motion/react";
 import { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useTheme } from "../hooks/useTheme";
-import ThemeSwitchButton from "./ThemeSwitchButton";
 
 function Splash() {
   const { theme } = useTheme();
@@ -75,9 +74,6 @@ function Splash() {
       onClick={undefined}
     >
       {/* Theme toggle (top-right) */}
-      <div className="absolute top-6 right-6 z-50">
-        <ThemeSwitchButton />
-      </div>
 
       {/* Full-screen centered enable-sound overlay when autoplay is blocked */}
       {overlayVisible && (
