@@ -7,6 +7,8 @@ import ListIcon from "/images/list-icon.png"
 // import { NavLink } from 'react-router-dom'
 import type { PropType } from "../types"
 import { Eat, Drink, Dessert } from "../data/data"
+import ViewDish from "./ViewDish"
+import { AnimatePresence } from "motion/react";
 
 type RecommendedProps = {
   items: PropType[];
@@ -15,12 +17,9 @@ type RecommendedProps = {
 
 const Recommended: React.FC<RecommendedProps> = ({ showSelected }) => {
 
+  // usestate to open and close sidebar
   const [toggle, setToggle] = useState(false)
   const [menuOpen, setMenuOpen] = useState<number | null>(null)
-
-  const [click, setClick] = useState(0)
-  const [menu, setMenu] = useState(0)
-
   const toggleNav = () => {
     setToggle(prev => !prev)
     if (!toggle) {
@@ -36,10 +35,16 @@ const Recommended: React.FC<RecommendedProps> = ({ showSelected }) => {
     setMenuOpen(null)
   }
 
-  const datasets = [Eat, Drink, Dessert];
-  const datum = datasets[menu];
+  // usestate for the selected item
+  const [selectedItem, setSelectedItem] = useState<PropType | null>(null);
+  // usestate for the mode
+  const [click, setClick] = useState(0)
+  // usestate for the categories
+  const [menu, setMenu] = useState(0)
 
-  
+  const categories = [Eat, Drink, Dessert];
+  const datum = categories[menu];
+
   return (
     <div className="bg-[#F7F7F7] w-full min-h-screen">
 
@@ -115,7 +120,7 @@ const Recommended: React.FC<RecommendedProps> = ({ showSelected }) => {
 
           <div className='grid grid-cols-1 sm:grid-cols-2 gap-8'>
             {datum.map((eat) => (
-              <div key={eat.id} className='rounded-2xl flex justify-between items-center shadow-[0_4px_12px_rgba(0,0,0,0.10)] bg-white p-3 group'>
+              <div key={`${menu}-${eat.id}`} className='rounded-2xl flex justify-between items-center shadow-[0_4px_12px_rgba(0,0,0,0.10)] bg-white p-3 group'>
                 <div className='flex space-x-3 items-center'>
                   <div className='rounded-full'><img src={eat.image} className='max-w-[100px] max-h-[100px] rounded-full' alt="" /></div>
                   <div className=''>
@@ -134,13 +139,22 @@ const Recommended: React.FC<RecommendedProps> = ({ showSelected }) => {
                 </div>
                 <motion.div 
                   whileTap={{ scale: 0.9 }}
-                  onClick={() => showSelected?.(eat)}
+                  onClick={() => { setSelectedItem(eat), showSelected?.(eat) }}
                   className='hidden group-hover:flex w-fit h-fit cursor-pointer text-[#FF7B2C] text-[24px] font-extrabold rounded-2xl p-2 bg-[#FFF2EA]'>+</motion.div>
               </div>
             ))}
           </div>
         </div>
       </div>
+      
+      <AnimatePresence>
+        {selectedItem && (
+          <ViewDish
+            item={selectedItem}
+            onClose={() => setSelectedItem(null)}
+          />
+        )}
+      </AnimatePresence>
     </div>
   )
 }

@@ -91,7 +91,7 @@ const Welcome: React.FC = () => {
                 <div key={idx} className='bg-white rounded-2xl sm:w-[80%] md:w-full p-5 space-y-4 shadow-[0_4px_12px_rgba(0,0,0,0.10)]'>
                   <div><img src={option.image} alt="" /></div>
                   <h1 className='lg:text-[22px] text-[16px] font-bold'>{option.title}</h1>
-                  <div className='flex md:gap-9 items-center'>
+                  <div className='flex gap-4 md:gap-9 items-center'>
                     <p className='lg:text-[16px] text-[16px] font-500 text-[#8E8EA9]'>{option.text}</p>
                     <NavLink to={option.link} className="min-w-10">
                       <motion.button whileTap={{ scale: 0.9 }} className='rounded-xl bg-[#FFF2EA] cursor-pointer'><img src={ArrowRight} className='w-12 h-full p-3' alt="" /></motion.button>
