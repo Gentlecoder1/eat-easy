@@ -26,7 +26,8 @@ export const Eat: PropType[] = [
       rating: 4.9,
       star: StarHalf,
       reviews: 120,
-      price: 10.40
+      price: 10.40,
+      text: "You won't skip the most important meal of the day with this avocado toast recipe. Crispy, lacy eggs and creamy avocado top hot buttered toast. "
     },
     {
       id: 2,

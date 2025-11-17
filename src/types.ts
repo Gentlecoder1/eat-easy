@@ -5,5 +5,6 @@ export type PropType = {
   rating: number,
   star: string,
   reviews: number,
-  price: number;
+  price: number,
+  text?: string
 };

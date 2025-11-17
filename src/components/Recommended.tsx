@@ -136,13 +136,13 @@ const Recommended: React.FC<RecommendedProps> = ({ showSelected }) => {
                       <span>({eat.reviews} reviews)</span>
                     </div>
 
-                    <p className='text-[#FF7B2C] text-[15px] lg:text-[18px] font-extrabold'>{eat.price}</p>
+                    <p className='text-[#FF7B2C] text-[15px] lg:text-[18px] font-extrabold'>${eat.price}</p>
                   </div>
                   <motion.div 
                     whileTap={{ scale: 0.9 }}
                     onClick={() => { setSelectedItem(eat), showSelected?.(eat) }}
                     className='flex justify-self-end absolute right-0 bottom-0'>
-                      <img src={Plus} className='w-fit h-fit cursor-pointer rounded-2xl p-2 bg-[#FFF2EA]' alt="" />
+                      <img src={Plus} className='w-fit h-fit cursor-pointer rounded-xl p-2 bg-[#FFF2EA]' alt="" />
                   </motion.div>
                 </div>
               </div>
