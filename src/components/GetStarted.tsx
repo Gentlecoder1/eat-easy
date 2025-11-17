@@ -2,6 +2,7 @@ import { MotionContainer, PopIn, FadeIn, SlideIn } from "./animations/motion";
 import { useState, useEffect } from "react";
 import { motion } from "motion/react";
 import { useNavigate } from "react-router-dom";
+import ThemeSwitchButton from "./ThemeSwitchButton";
 
 function GetStarted() {
   const [animateBar, setAnimateBar] = useState(false);
@@ -10,7 +11,12 @@ function GetStarted() {
   useEffect(() => setAnimateBar(true), []);
 
   return (
-    <MotionContainer className="min-h-screen">
+    <MotionContainer className="relative min-h-screen">
+      {/* Top-right theme switch */}
+      <div className="absolute top-6 right-6 z-50">
+        <ThemeSwitchButton />
+      </div>
+
       <div className="w-full lg:hidden space-y-8 flex flex-col justify-center min-h-screen">
         <PopIn>
           <div className="w-full overflow-hidden max-w-[600px] mx-auto">
