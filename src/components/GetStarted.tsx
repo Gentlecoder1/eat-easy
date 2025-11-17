@@ -1,9 +1,11 @@
 import { MotionContainer, PopIn, FadeIn, SlideIn } from "./animations/motion";
 import { useState, useEffect } from "react";
 import { motion } from "motion/react";
+import { useNavigate } from "react-router-dom";
 
 function GetStarted() {
   const [animateBar, setAnimateBar] = useState(false);
+  const navigate = useNavigate();
 
   useEffect(() => setAnimateBar(true), []);
 
@@ -27,7 +29,7 @@ function GetStarted() {
                 <motion.div
                   initial={{ scaleX: 0 }}
                   animate={animateBar ? { scaleX: 1 } : { scaleX: 0 }}
-                  transition={{ duration: 2.9, ease: [0.22, 1, 0.36, 1] }}
+                  transition={{ duration: 3.9, ease: [0.22, 1, 0.36, 1] }}
                   style={{ transformOrigin: "left" }}
                   className="absolute left-0 top-0 h-full w-full bg-[#FFB01D] rounded-2xl"
                 />
@@ -51,10 +53,20 @@ function GetStarted() {
 
         <FadeIn className="px-6 pb-6">
           <div className="w-full flex flex-col gap-2.5 max-w-[600px] mx-auto">
-            <motion.button whileHover={{scale: 1.2}} whileTap={{scale: 0.9}} className="font-semibold text-base text-(--purple-3) py-4">
+            <motion.button
+              whileHover={{ scale: 1.2 }}
+              whileTap={{ scale: 0.9 }}
+              onClick={() => navigate("/welcome")}
+              className="font-semibold text-base text-(--purple-3) py-4"
+            >
               Sign up Later
             </motion.button>
-            <motion.button whileHover={{scale: 1.2}} whileTap={{scale: 0.9}} className="py-4 bg-(--purple-2) rounded-2xl text-white font-semibold text-base shadow-lg transform hover:-translate-y-0.5 transition">
+            <motion.button
+              whileHover={{ scale: 1.2 }}
+              whileTap={{ scale: 0.9 }}
+              onClick={() => navigate("/step1")}
+              className="py-4 bg-(--purple-2) rounded-2xl text-white font-semibold text-base shadow-lg transform hover:-translate-y-0.5 transition"
+            >
               Get started
             </motion.button>
           </div>

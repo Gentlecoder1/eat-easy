@@ -73,6 +73,8 @@ function Splash() {
       // overlay handles the manual play gesture; don't attach global click
       onClick={undefined}
     >
+      {/* Theme toggle (top-right) */}
+
       {/* Full-screen centered enable-sound overlay when autoplay is blocked */}
       {overlayVisible && (
         <div className="absolute inset-0 flex items-center justify-center pointer-events-auto z-40">
