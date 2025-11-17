@@ -8,6 +8,7 @@ import Logout from "/images/logout-icon.png"
 import Location from "/images/Map-pin.png"
 import ChevronLeft from "/images/chevron-left.png"
 import FoodMenu from "/images/foodmenu.png"
+import { NavLink } from 'react-router-dom'
 
 type SidebarProps = {
   toggle?: boolean
@@ -19,9 +20,12 @@ type SidebarProps = {
 
 const Sidebar: React.FC<SidebarProps> = ({ toggle, menuOpen, setMenuOpen, onToggle }) => {
 
+  // desktop toggle useState
   const [isOpen, setIsOpen] = useState(false)
+  // menu accordion useState
   const [openMenuId, setOpenMenuId] = useState<number | null>(null)
 
+  
   const controlledOpen = typeof toggle === 'boolean' && typeof onToggle === 'function'
   
   const effectiveIsOpen = controlledOpen ? toggle : isOpen
@@ -87,12 +91,14 @@ const Sidebar: React.FC<SidebarProps> = ({ toggle, menuOpen, setMenuOpen, onTogg
                 whileTap={{ scale: 0.9 }}
                 className='flex items-center mb-3 space-x-3 cursor-pointer'
               >
-                <img src={FoodMenu} className='w-11 h-11 bg-amber-500 rounded-2xl p-3' alt="" />
+                <img src={FoodMenu} className='w-11 h-11 bg-[--yellow-1] rounded-2xl p-3' alt="" />
                 <p className={`md:text-[12px] lg:text-[15px] ${effectiveIsOpen ? 'flex' : 'hidden'}`}>Food Menu</p>
               </motion.button>
               {effectiveIsOpen && (
                 <div className={`border-l-2 border-amber-500 px-7 ml-5 space-y-5 ${activeMenu === 1 ? 'flex flex-col' : 'hidden'}`}>
-                  <motion.div whileTap={{ scale: 0.9 }} className='cursor-pointer md:text-[12px] lg:text-[15px]'>Smart Assistance</motion.div>
+                  <NavLink to="/recommended">
+                    <motion.div whileTap={{ scale: 0.9 }} className='cursor-pointer md:text-[12px] lg:text-[15px]'>Smart Assistance</motion.div>
+                  </NavLink>
                   <motion.div whileTap={{ scale: 0.9 }} className='cursor-pointer md:text-[12px] lg:text-[15px]'>Full Menu</motion.div>
                 </div>
               )}
@@ -109,7 +115,7 @@ const Sidebar: React.FC<SidebarProps> = ({ toggle, menuOpen, setMenuOpen, onTogg
               </motion.button>
             </div>
 
-            <div>
+            <NavLink to="/locations">
               <motion.button
                 // onClick={() => toggleMenu(3)}
                 whileTap={{ scale: 0.9 }}
@@ -118,7 +124,7 @@ const Sidebar: React.FC<SidebarProps> = ({ toggle, menuOpen, setMenuOpen, onTogg
                 <img src={Location} className='w-11 h-11 p-3 hover:bg-gray-600 rounded-2xl' alt="" />
                 <p className={`md:text-[12px] lg:text-[15px] ${effectiveIsOpen ? 'flex' : 'hidden'}`}>Location</p>
               </motion.button>
-            </div>
+            </NavLink>
           </div>
 
           {/* General */}

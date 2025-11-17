@@ -11,12 +11,12 @@ interface NavbarProps {
   closeNav: () => void
   title: string
   text: string
-  image: string
   text1: string
   link: string
+  showBack?: boolean
 }
 
-const Navbar: React.FC<NavbarProps> = ({ toggle, menuOpen, setMenuOpen, toggleNav, closeNav, title, text, image, text1, link }) => {
+const Navbar: React.FC<NavbarProps> = ({ toggle, menuOpen, setMenuOpen, toggleNav, closeNav, title, text, text1, link, showBack }) => {
   const handleSetMenuOpen = (id: number | null) => {
     setMenuOpen(id)
     if (id !== null && !toggle) {
@@ -25,8 +25,9 @@ const Navbar: React.FC<NavbarProps> = ({ toggle, menuOpen, setMenuOpen, toggleNa
   }
 
   return (
-    <header className="w-full bg-white border-b-2 border-[#32324D]">
-      <Header onToggle={toggleNav} toggle={toggle} title={title} text={text} image={image} text1={text1} link={link} />
+    <header className="w-full bg-[#F7F7F7] md:border-b-2 border-[#32324D]">
+      <Header onToggle={toggleNav} toggle={toggle} title={title} text={text} text1={text1} link={link} showBack={showBack} />
+
       <Sidebar toggle={toggle} menuOpen={menuOpen} setMenuOpen={handleSetMenuOpen} onClose={closeNav} onToggle={toggleNav} />
 
       {toggle && (

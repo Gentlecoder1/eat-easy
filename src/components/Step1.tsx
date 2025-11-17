@@ -2,7 +2,6 @@ import React, { useState } from 'react'
 import { motion } from 'framer-motion'
 import Navbar from "./layout/Navbar"
 import { NavLink } from 'react-router-dom'
-import ArrowLeft from "/images/arrow-left.png"
 import Angry from "/images/angry-img.png"
 import Bored from "/images/bored-img.png"
 import Hungry from "/images/hungry-img.png"
@@ -52,14 +51,14 @@ const Step1: React.FC = () => {
   ]
 
   return (
-    <div className="bg-white w-full">
+    <div className="bg-[#F7F7F7] w-full min-h-screen">
 
       <div className=''>
-        <Navbar toggle={toggle} menuOpen={menuOpen} setMenuOpen={setMenuOpen} toggleNav={toggleNav} closeNav={closeNav} title="Food Menu" text="Step 1" image={ArrowLeft} text1='Step 1' link='/recommend' />
+        <Navbar showBack={true} toggle={toggle} menuOpen={menuOpen} setMenuOpen={setMenuOpen} toggleNav={toggleNav} closeNav={closeNav} title="Food Menu &nbsp;&nbsp; | &nbsp;&nbsp; Virtual Assistant" text="Step 1" text1='Step 1' link='/recommend'  />
       </div>
 
       <div className={`transition-all duration-300 ${!toggle ?  'md:ml-[12%] lg:ml-[9%]' : 'md:ml-[20%]'}`}>
-        <div className='max-w-[1280px] mx-auto flex flex-col items-center py-6 px-6 sm:px-20 lg:px-6 space-y-10 my-5'>
+        <div className='max-w-6xl mx-auto flex flex-col items-center py-6 px-6 sm:px-20 lg:px-6 space-y-10 my-5'>
 
             <div className='flex flex-col items-center text-center max-w-xl'>
               <h1 className='text-[22px] lg:text-[32px] text-[#32324D] font-bold mb-2'>How are you feeling right now?</h1>
@@ -80,13 +79,13 @@ const Step1: React.FC = () => {
             </div>
 
             <div className='text-[16px] lg:text-[20px] font-600 text-[#8E8EA9] space-y-4 w-full lg:w-xl flex flex-col items-center'>
-                <NavLink to="/" className="w-full">
+                <NavLink to="/welcome" className="w-full">
                     <motion.button 
                         whileTap={{ scale: 0.95 }}  
                         className='p-4 cursor-pointer w-full hover:bg-gray-600 rounded-2xl'>Take me to the menu
                     </motion.button>
                 </NavLink>
-                <NavLink to="/recommend" className="w-full">
+                <NavLink to="/recommended " className="w-full">
                     <motion.button 
                         whileTap={{ scale: 0.95 }}  
                         className='rounded-2xl bg-[#32324D] p-4 cursor-pointer w-full'>Continue

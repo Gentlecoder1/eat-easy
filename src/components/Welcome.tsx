@@ -40,17 +40,17 @@ const Welcome: React.FC = () => {
       image: Book,
       title: 'Go to the menu',
       text: 'If you already know what to order, this is the best choice.',
-      link: "/"
+      link: "/welcome"
     }
   ]
 
   return (
-    <div className="bg-gray-300 w-full">
+    <div className="bg-[#F7F7F7] w-full min-h-screen">
 
-      <Navbar toggle={toggle} menuOpen={menuOpen} setMenuOpen={setMenuOpen} toggleNav={toggleNav} closeNav={closeNav} title="Food Menu" text="Browse Our Food Menu" image={Location} text1='Gram Bistro' link='/' />
+      <Navbar toggle={toggle} menuOpen={menuOpen} setMenuOpen={setMenuOpen} toggleNav={toggleNav} closeNav={closeNav} title="Food Menu" text="Browse Our Food Menu" text1='Gram Bistro' link='/welcome' />
 
       <div className={`transition-all duration-300 ${!toggle ?  'md:ml-[12%] lg:ml-[9%]' : 'md:ml-[20%]'}`}>
-        <div className='max-w-[1280px] mx-auto flex flex-col p-6 space-y-10'>
+        <div className='max-w-6xl mx-auto flex flex-col p-6 space-y-10'>
           <div className='bg-[#32324D] text-white rounded-3xl hidden md:flex justify-between items-center'>
 
             <div className='xl:mx-12 mx-6 py-5 h-fit space-y-1 md:w-[70%] xl:w-[50%]'>
@@ -88,13 +88,13 @@ const Welcome: React.FC = () => {
 
             <div className='flex flex-col items-center md:items-stretch md:flex-row gap-6 md:gap-2 lg:max-w-1/2 lg:flex-col'>
               {Next.map((option, idx) => (
-                <div key={idx} className='bg-white rounded-2xl sm:w-[80%] md:w-full p-5 space-y-4 shadow-xl'>
+                <div key={idx} className='bg-white rounded-2xl sm:w-[80%] md:w-full p-5 space-y-4 shadow-[0_4px_12px_rgba(0,0,0,0.10)]'>
                   <div><img src={option.image} alt="" /></div>
                   <h1 className='lg:text-[22px] text-[16px] font-bold'>{option.title}</h1>
-                  <div className='flex md:gap-9 items-center'>
+                  <div className='flex gap-4 md:gap-9 items-center'>
                     <p className='lg:text-[16px] text-[16px] font-500 text-[#8E8EA9]'>{option.text}</p>
                     <NavLink to={option.link} className="min-w-10">
-                      <motion.button whileTap={{ scale: 0.9 }} className='rounded-xl bg-[#FFF2EA] p-3 cursor-pointer'><img src={ArrowRight} className='w-8 h-full' alt="" /></motion.button>
+                      <motion.button whileTap={{ scale: 0.9 }} className='rounded-xl bg-[#FFF2EA] cursor-pointer'><img src={ArrowRight} className='w-12 h-full p-3' alt="" /></motion.button>
                     </NavLink>
                   </div>
                 </div>
