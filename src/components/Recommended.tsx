@@ -4,6 +4,7 @@ import Navbar from "./layout/Navbar"
 import Burger from "/images/burger-icon.png"
 import GridIcon from "/images/grid-icon.png"
 import ListIcon from "/images/list-icon.png"
+import Plus from "/images/plus.png"
 // import { NavLink } from 'react-router-dom'
 import type { PropType } from "../types"
 import { Eat, Drink, Dessert } from "../data/data"
@@ -13,6 +14,7 @@ import { AnimatePresence } from "motion/react";
 type RecommendedProps = {
   items: PropType[];
   showSelected?: (item: PropType) => void
+  onClose: () => void;
 }
 
 const Recommended: React.FC<RecommendedProps> = ({ showSelected }) => {
@@ -120,8 +122,8 @@ const Recommended: React.FC<RecommendedProps> = ({ showSelected }) => {
 
           <div className='grid grid-cols-1 sm:grid-cols-2 gap-8'>
             {datum.map((eat) => (
-              <div key={`${menu}-${eat.id}`} className='rounded-2xl flex justify-between items-center shadow-[0_4px_12px_rgba(0,0,0,0.10)] bg-white p-3 group'>
-                <div className='flex space-x-3 items-center'>
+              <div key={`${menu}-${eat.id}`} className='rounded-2xl items-center shadow-[0_4px_12px_rgba(0,0,0,0.10)] bg-white p-3 group'>
+                <div className='flex space-x-3 items-center relative'>
                   <div className='rounded-full'><img src={eat.image} className='max-w-[100px] max-h-[100px] rounded-full' alt="" /></div>
                   <div className=''>
                     <p className='text-[15px] lg:text-[18px] font-semibold'>{eat.name}</p>
@@ -136,11 +138,13 @@ const Recommended: React.FC<RecommendedProps> = ({ showSelected }) => {
 
                     <p className='text-[#FF7B2C] text-[15px] lg:text-[18px] font-extrabold'>{eat.price}</p>
                   </div>
+                  <motion.div 
+                    whileTap={{ scale: 0.9 }}
+                    onClick={() => { setSelectedItem(eat), showSelected?.(eat) }}
+                    className='flex justify-self-end absolute right-0 bottom-0'>
+                      <img src={Plus} className='w-fit h-fit cursor-pointer rounded-2xl p-2 bg-[#FFF2EA]' alt="" />
+                  </motion.div>
                 </div>
-                <motion.div 
-                  whileTap={{ scale: 0.9 }}
-                  onClick={() => { setSelectedItem(eat), showSelected?.(eat) }}
-                  className='hidden group-hover:flex w-fit h-fit cursor-pointer text-[#FF7B2C] text-[24px] font-extrabold rounded-2xl p-2 bg-[#FFF2EA]'>+</motion.div>
               </div>
             ))}
           </div>
@@ -149,11 +153,18 @@ const Recommended: React.FC<RecommendedProps> = ({ showSelected }) => {
       
       <AnimatePresence>
         {selectedItem && (
-          <ViewDish
-            item={selectedItem}
-            onClose={() => setSelectedItem(null)}
-          />
+          <motion.div 
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className='fixed inset-0 flex items-center justify-center bg-black/50 z-40'>
+            <ViewDish
+              item={selectedItem}
+              onClose={() => setSelectedItem(null)}
+            />
+          </motion.div>
         )}
+
       </AnimatePresence>
     </div>
   )
