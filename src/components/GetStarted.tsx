@@ -70,7 +70,7 @@ function GetStarted() {
             <motion.button
               whileHover={{ scale: 1.2 }}
               whileTap={{ scale: 0.9 }}
-              onClick={() => navigate("/step1")}
+              onClick={() => navigate("/signup")}
               className="py-4 bg-(--purple-2) rounded-2xl text-white font-semibold text-base shadow-lg transform hover:-translate-y-0.5 transition"
             >
               Get started
