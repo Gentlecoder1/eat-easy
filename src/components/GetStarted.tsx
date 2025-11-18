@@ -12,7 +12,6 @@ function GetStarted() {
 
   return (
     <MotionContainer className="relative min-h-screen">
-      {/* Top-right theme switch */}
       <div className="absolute top-6 right-6 z-50">
         <ThemeSwitchButton />
       </div>
@@ -77,6 +76,28 @@ function GetStarted() {
             </motion.button>
           </div>
         </FadeIn>
+      </div>
+
+      <div className="hidden lg:flex w-full min-h-screen p-[30px]">
+        <div className="flex-1 min-h-full flex flex-col items-center justify-center gap-[42px]">
+          <div className="space-y-4 text-center w-full max-w-[480px]">
+            <h1 className="font-medium text-[40px] text-(--neutral-800)">
+              Let's Get Started 😁
+            </h1>
+            <p className="font-medium text-(--neutral-600) text-base">
+              Sign up or Login to have a full digital experience in our
+              restaurant
+            </p>
+          </div>
+          <div className="flex flex-col gap-4 w-full max-w-[480px]">
+            <button className="px-6 py-4 bg-(--purple-2) rounded-2xl font-semibold text-base text-white">Get Started</button>
+            <button className="px-6 py-4 text-(--purple-2) font-semibold text-base">Sign up Later</button>
+          </div>
+        </div>
+
+        <div className="bg-white flex-1 min-h-full rounded-3xl">
+          <img src="/images/" alt="" />
+        </div>
       </div>
     </MotionContainer>
   );
