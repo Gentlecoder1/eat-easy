@@ -1,4 +1,5 @@
 @import url("https://fonts.googleapis.com/css2?family=Mulish:ital,wght@0,200..1000;1,200..1000&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&display=swap');
 @import "tailwindcss";
 
 @custom-variant dark (&:where(.dark, .dark *));
@@ -12,11 +13,15 @@
     #f7f7f7 90%,
     #fcfcfc 100%
   );
-  --bar-bg: #EAEAEF;
-  --yellow-1: #FFB01D;
-  --neutral-800: #32324D;
+  
+  --light-progress-bg: #eaeaef;
+  --yellow-1: #ffb01d;
+  --orange-1: #FF7B2C;
+  --neutral-700: #4A4A6A;
+  --neutral-800: #32324d;
   --neutral-600: #666687;
-  --purple-3: #8981AE;
+  --neutral-500: #8E8EA9;
+  --purple-3: #8981ae;
   --purple-2: #615793;
   --orange-text: #ff7b2c;
   --neutral-200: #DCDCE4;
@@ -30,8 +35,9 @@
     #32324d 90%,
     #32324d 100%
   );
-
-  --orange-text: #ff7b2c;
+  --neutral-150: #EAEAEF;
+  --purple-5: #8981AE;
+  
 }
 
 * {
@@ -52,8 +58,12 @@ body {
 
 .scrollbar-hidden {
   -ms-overflow-style: none;
-  scrollbar-width: none; 
+  scrollbar-width: none;
 }
 .scrollbar-hidden::-webkit-scrollbar {
-  display: none; 
+  display: none;
+}
+
+.heading-font{
+  font-family: "DM Sans";
 }
