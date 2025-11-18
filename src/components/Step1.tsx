@@ -85,7 +85,7 @@ const Step1: React.FC = () => {
                         className='p-4 cursor-pointer w-full hover:bg-gray-600 rounded-2xl'>Take me to the menu
                     </motion.button>
                 </NavLink>
-                <NavLink to="/recommended " className="w-full">
+                <NavLink to="/recommended" className="w-full">
                     <motion.button 
                         whileTap={{ scale: 0.95 }}  
                         className='rounded-2xl bg-[#32324D] p-4 cursor-pointer w-full'>Continue

@@ -164,7 +164,6 @@ const Recommended: React.FC<RecommendedProps> = ({ showSelected }) => {
             />
           </motion.div>
         )}
-
       </AnimatePresence>
     </div>
   )

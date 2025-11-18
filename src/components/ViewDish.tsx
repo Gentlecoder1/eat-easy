@@ -1,6 +1,6 @@
 import { motion, type Variants } from "motion/react";
 import type { PropType } from "../types"
-import type { MouseEvent } from "react"
+import { useState, type MouseEvent } from "react"
 import useIsDesktop from "../hooks/useIsDesktop"
 import Plus from "/images/plus.png"
 import minus from "/images/minus.png"
@@ -43,6 +43,12 @@ const ViewDish: React.FC<ViewDishProps> = ({ item, onClose }) => {
 
   if (!item) return null;
 
+  const [count, setCount] = useState(1);
+  const Increment = () => setCount(count + 1)
+  const Decrement = () => setCount(count - 1)
+
+
+
   return (
     <motion.div
       onClick={(e: MouseEvent) => e.stopPropagation()}
@@ -50,10 +56,10 @@ const ViewDish: React.FC<ViewDishProps> = ({ item, onClose }) => {
       initial="hidden"
       animate="visible"
       exit="exit"
-      className="z-50 fixed right-0 w-full sm:w-[55%] md:w-[45%] top-[15%] bottom-0 sm:top-0 sm:bottom-0 rounded-t-2xl sm:rounded-tr-none sm:rounded-l-2xl bg-[#F7F7F7]"
+      className="z-50 fixed right-0 w-full min-h-screen sm:w-[55%] md:w-[45%] lg:w-[37%] top-[15%] bottom-0 sm:top-0 sm:bottom-0 rounded-t-2xl sm:rounded-tr-none sm:rounded-l-2xl bg-[#f1e6e6]"
     >
       <div className="flex flex-col h-full">
-        <div onClick={onClose} className="top-0 mt-2 mx-auto w-[134px] h-[5px] bg-[#C0C0CF] rounded-sm sm:hidden" />
+        <div onClick={onClose} className="top-0 my-2 mx-auto w-[134px] h-[5px] bg-[#C0C0CF] rounded-sm sm:hidden" />
 
         <div className="flex-1 overflow-y-auto scrollbar-hidden py-4">
 
@@ -64,7 +70,7 @@ const ViewDish: React.FC<ViewDishProps> = ({ item, onClose }) => {
 
             <img src={item.image} className="mx-auto absolute w-40 h-40" alt="" />
 
-            <img onClick={onClose} src={Cancel} className="ml-auto relative hidden sm:block" alt="" />
+            <img onClick={onClose} src={Cancel} className="ml-auto bg-white relative hidden sm:block" alt="" />
 
             <div className="text-[14px] text-[#C0C0CF] space-x-1 shadow-[0_4px_12px_rgba(0,0,0,0.50)] font-semibold rounded-xl py-1 px-2 bg-[#F7F7F7] ml-auto mr-3 mt-3 sm:mr-auto sm:ml-3 sm:mt-0 relative flex items-center">
               <img src={item.star} className="w-4 h-4" alt="" />
@@ -90,19 +96,22 @@ const ViewDish: React.FC<ViewDishProps> = ({ item, onClose }) => {
           </div>
         </div>
 
-        <div className="w-full flex justify-center sticky bottom-0 rounded-t-2xl p-6 bg-white z-10 space-x-4">
-          <div className="flex items-center gap-2 rounded-2xl bg-gray-200 p-2">
-            <button aria-label="decrease" type="button" className="p-2">
+        {/* footer section */}
+        <div className="w-full flex justify-center sticky bottom-0 rounded-t-2xl rounded-bl-2xl sm:rounded-b-none p-3 bg-[#FCFCFC] z-10 space-x-4">
+          <div className="flex items-center w-[127px] space-x-3 rounded-2xl bg-gray-200 p-2">
+            <button onClick={Decrement} type="button" className="">
               <img src={minus} className="w-6 h-6 cursor-pointer" alt="-" />
             </button>
-            <p className="min-w-[24px] text-center">0</p>
-            <button aria-label="increase" type="button" className="p-2">
+            <p className=" text-center">{count}</p>
+            <button onClick={Increment} type="button" className="">
               <img src={Plus} className="w-6 h-6 cursor-pointer" alt="+" />
             </button>
           </div>
           <motion.div
               whileTap={{ scale: 0.96 }} 
-              className='p-3 rounded-2xl bg-[#32324D] text-white cursor-pointer'>Add to order
+              className='w-full text-center p-3 rounded-2xl bg-[#32324D] text-white cursor-pointer flex justify-center space-x-2'>
+                <p>Add to order</p>
+                <p className="font-bold">${ (item.price * count).toFixed(2) }</p>
           </motion.div>
         </div>
       </div>
