@@ -44,8 +44,8 @@ const ViewDish: React.FC<ViewDishProps> = ({ item, onClose }) => {
   if (!item) return null;
 
   const [count, setCount] = useState(1);
-  const Increment = () => setCount(count + 1)
-  const Decrement = () => setCount(count - 1)
+  const Increment = () => setCount(c => c + 1);
+  const Decrement = () => setCount(c => Math.max(0, c - 1));
 
 
 
@@ -97,12 +97,15 @@ const ViewDish: React.FC<ViewDishProps> = ({ item, onClose }) => {
         </div>
 
         {/* footer section */}
-        <div className="w-full flex justify-center sticky bottom-0 rounded-t-2xl rounded-bl-2xl sm:rounded-b-none p-3 bg-[#FCFCFC] z-10 space-x-4">
+        <div className="w-full flex justify-center sticky bottom-0 rounded-t-2xl sm:rounded-bl-2xl rounded-b-none p-3 bg-[#FCFCFC] z-10 space-x-4">
           <div className="flex items-center w-[127px] space-x-3 rounded-2xl bg-gray-200 p-2">
-            <button onClick={Decrement} type="button" className="">
-              <img src={minus} className="w-6 h-6 cursor-pointer" alt="-" />
+            {/* decrement button */}
+            <button onClick={Decrement} type="button" disabled={count === 0} className={count === 0 ? 'cursor-not-allowed' : 'cursor-pointer'}>
+              <img src={minus} className="w-6 h-6" alt="-" />
             </button>
+
             <p className=" text-center">{count}</p>
+            {/* increment button */}
             <button onClick={Increment} type="button" className="">
               <img src={Plus} className="w-6 h-6 cursor-pointer" alt="+" />
             </button>
@@ -120,9 +123,3 @@ const ViewDish: React.FC<ViewDishProps> = ({ item, onClose }) => {
 }
 
 export default ViewDish
-
-
-        // <div className="relative">
-        //   <img src={Ellipse} className="absolute" alt="" />
-        //   <img src={PowerImage} className="z-60 w-full h-full mx-auto"  alt="" />
-        // </div>

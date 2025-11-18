@@ -66,9 +66,9 @@ const Sidebar: React.FC<SidebarProps> = ({ toggle, menuOpen, setMenuOpen, onTogg
       <div className={`flex flex-col h-full text-white text-sm font-semibold transition-all duration-300 ${toggle ? '' : ''}`}>
 
         {/* logo */}
-        <div className={`p-4 flex justify-center border-b-2 border-gray-400 text-3xl transition-all duration-300 ${toggle ?  'text-3xl' : 'text-xl'}`}>Eat<span className='text-amber-500'>Easy</span></div>
+        <div className={`p-4 flex justify-center border-b-2 border-gray-400 font-500 transition-all duration-300 ${toggle ?  'text-[24px]' : 'text-xl'}`}>Eat<span className='text-amber-500'>Easy</span></div>
 
-        <div className={`flex-1 overflow-y-auto scrollbar-hidden flex flex-col ${effectiveIsOpen ? '' : 'items-center'}`}>
+        <div className={`flex-1 overflow-y-auto scrollbar-hidden flex flex-col ${effectiveIsOpen ? '' : ''}`}>
 
           {/* profile */}
           <div className={`flex items-center gap-4 px-3 py-4 ${!effectiveIsOpen ? 'flex-row md:flex-col' : ''}`}>

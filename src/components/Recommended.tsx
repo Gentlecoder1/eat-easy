@@ -98,14 +98,14 @@ const Recommended: React.FC<RecommendedProps> = ({ showSelected }) => {
                 <div className={`rounded-2xl border border-[#32324D] flex w-fit h-fit transition-all duration-300`}>
                   <div
                       onClick={() => setClick(0)}
-                      className={`relative w-fit h-fit text-center p-3 rounded-2xl cursor-pointer transition-colors duration-300 ${click === 0 ? 'bg-[#32324D] text-white' : 'bg-none'}`}
+                      className={`relative w-fit h-fit p-3 rounded-2xl cursor-pointer transition-colors duration-300 ${click === 0 ? 'bg-[#32324D] text-white' : 'bg-none'}`}
                   >
                       <img src={ListIcon} className='w-3 h-3' alt="" />
                   </div>
 
                   <div
                       onClick={() => setClick(1)}
-                      className={`relative w-fit h-fit text-center p-3 rounded-2xl cursor-pointer transition-colors duration-300 ${click === 1 ? 'bg-[#32324D] text-white' : 'bg-none'}`}
+                      className={`relative w-fit h-fit p-3 rounded-2xl cursor-pointer transition-colors duration-300 ${click === 1 ? 'bg-[#32324D] text-white' : 'bg-none'}`}
                   >
                       <img src={GridIcon} className='w-3 h-3' alt="" />
                   </div>
