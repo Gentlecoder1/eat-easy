@@ -29,7 +29,7 @@ function GetStarted() {
 
         <FadeIn className="px-6">
           <div className="w-full flex justify-center">
-            <div className="w-full h-1.5 bg-(--bar-bg) max-w-[140px] rounded-2xl mx-auto flex flex-row overflow-hidden">
+            <div className="w-full h-1.5 bg-(--light-progress-bg) dark:bg-(--neutral-700) max-w-[140px] rounded-2xl mx-auto flex flex-row overflow-hidden">
               <div className="w-1/3 relative">
                 <motion.div
                   initial={{ scaleX: 0 }}
@@ -47,10 +47,10 @@ function GetStarted() {
 
         <SlideIn direction="up" className="px-6">
           <div className="w-full flex flex-col text-center gap-3.5">
-            <h1 className="text-(--neutral-800) font-medium text-[26px]">
+            <h1 className="text-(--neutral-800) font-medium text-[26px] dark:text-white">
               Full contactless experience
             </h1>
-            <p className="font-medium text-base text-(--neutral-600) px-8">
+            <p className="font-medium text-base text-(--neutral-600) dark:text-(--neutral-150) px-8">
               From ordering to paying, that's all contactless
             </p>
           </div>
@@ -62,7 +62,7 @@ function GetStarted() {
               whileHover={{ scale: 1.2 }}
               whileTap={{ scale: 0.9 }}
               onClick={() => navigate("/welcome")}
-              className="font-semibold text-base text-(--purple-3) py-4"
+              className="font-semibold text-base text-(--purple-3) py-4 dark:text-(--purple-5)"
             >
               Sign up Later
             </motion.button>
@@ -85,10 +85,10 @@ function GetStarted() {
             className="space-y-4 text-center w-full max-w-[480px]"
           >
             <div>
-              <h1 className="font-medium text-[40px] text-(--neutral-800) heading-font">
+              <h1 className="font-medium text-[40px] text-(--neutral-800) heading-font dark:text-white">
                 Let's Get Started 😁
               </h1>
-              <p className="font-medium text-(--neutral-600) text-base">
+              <p className="font-medium text-(--neutral-600) text-base dark:text-(--neutral-150)">
                 Sign up or Login to have a full digital experience in our
                 restaurant
               </p>
@@ -104,7 +104,7 @@ function GetStarted() {
               Get Started
             </motion.button>
             <motion.button
-              className="px-6 py-4 text-(--purple-2) font-semibold text-base cursor-pointer"
+              className="px-6 py-4 text-(--purple-2) font-semibold text-base cursor-pointer dark:text-(--purple-5)"
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
             >
@@ -113,7 +113,7 @@ function GetStarted() {
           </FadeIn>
         </div>
 
-        <div className="bg-white flex-1 min-h-full rounded-3xl flex flex-col align-center">
+        <div className="bg-white dark:bg-(--neutral-700) flex-1 min-h-full rounded-3xl flex flex-col align-center justify-center">
           <PopIn>
             <div className="w-full max-w-[500px] mx-auto">
               <img
@@ -127,7 +127,7 @@ function GetStarted() {
           <div className="space-y-6">
             <FadeIn className="px-6 mt-[42px]">
               <div className="w-full flex justify-center">
-                <div className="w-full h-1.5 bg-(--bar-bg) max-w-[140px] rounded-2xl mx-auto flex flex-row overflow-hidden">
+                <div className="w-full h-1.5 bg-(--light-progress-bg) dark:bg-(--neutral-800) max-w-[140px] rounded-2xl mx-auto flex flex-row overflow-hidden">
                   <div className="w-1/3 relative">
                     <motion.div
                       initial={{ scaleX: 0 }}
@@ -145,10 +145,10 @@ function GetStarted() {
 
             <SlideIn direction="up" className="text-center space-y-3.5">
               <div>
-                <h2 className="font-medium text-3xl text-(--neutral-700) heading-font">
+                <h2 className="font-medium text-3xl text-(--neutral-700) dark:text-white heading-font">
                   Full Contactless Experience
                 </h2>
-                <p className="font-medium text-base text-(--neutral-500)">
+                <p className="font-medium text-base text-(--neutral-500) dark:text-(-neutral-150)">
                   From ordering to paying, that's all contactless
                 </p>
               </div>
@@ -156,7 +156,7 @@ function GetStarted() {
 
             <FadeIn className="font-medium text-[26px] text-center">
               <p>
-                <span className="text-(--neutral-700)">Eat</span>
+                <span className="text-(--neutral-700) dark:text-white">Eat</span>
                 <span className="text-(--orange-1)">Easy</span>
               </p>
             </FadeIn>

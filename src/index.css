@@ -14,7 +14,7 @@
     #fcfcfc 100%
   );
   
-  --bar-bg: #eaeaef;
+  --light-progress-bg: #eaeaef;
   --yellow-1: #ffb01d;
   --orange-1: #FF7B2C;
   --neutral-700: #4A4A6A;
@@ -23,6 +23,7 @@
   --neutral-500: #8E8EA9;
   --purple-3: #8981ae;
   --purple-2: #615793;
+  --orange-text: #ff7b2c;
 
   --dark-mode-bg: linear-gradient(
     90deg,
@@ -32,8 +33,9 @@
     #32324d 90%,
     #32324d 100%
   );
-
-  --orange-text: #ff7b2c;
+  --neutral-150: #EAEAEF;
+  --purple-5: #8981AE;
+  
 }
 
 * {
