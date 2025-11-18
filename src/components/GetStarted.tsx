@@ -84,7 +84,6 @@ function GetStarted() {
             direction="up"
             className="space-y-4 text-center w-full max-w-[480px]"
           >
-            <div>
               <h1 className="font-medium text-[40px] text-(--neutral-800) heading-font dark:text-white">
                 Let's Get Started 😁
               </h1>
@@ -92,7 +91,6 @@ function GetStarted() {
                 Sign up or Login to have a full digital experience in our
                 restaurant
               </p>
-            </div>
           </SlideIn>
 
           <FadeIn className="flex flex-col gap-4 w-full max-w-[480px]">
@@ -117,7 +115,7 @@ function GetStarted() {
           <PopIn>
             <div className="w-full max-w-[500px] mx-auto">
               <img
-                src="/images/mobile-onboarding-illustration.svg"
+                src="/images/desktop-onboarding-illustration.svg"
                 alt="Onboarding Illustration"
                 className="w-full"
               />
@@ -144,14 +142,12 @@ function GetStarted() {
             </FadeIn>
 
             <SlideIn direction="up" className="text-center space-y-3.5">
-              <div>
                 <h2 className="font-medium text-3xl text-(--neutral-700) dark:text-white heading-font">
                   Full Contactless Experience
                 </h2>
                 <p className="font-medium text-base text-(--neutral-500) dark:text-(-neutral-150)">
                   From ordering to paying, that's all contactless
                 </p>
-              </div>
             </SlideIn>
 
             <FadeIn className="font-medium text-[26px] text-center">
