@@ -1,9 +1,7 @@
 import { MotionContainer, PopIn, FadeIn, SlideIn } from "../animations/motion";
 import { useState, useEffect } from "react";
-import { FaFacebook } from "react-icons/fa";
 import { motion } from "motion/react";
 import ThemeSwitchButton from "../ThemeSwitchButton";
-import { FaGoogle } from "react-icons/fa";
 
 function SignUpMethod() {
   const [animateBar, setAnimateBar] = useState(false);
@@ -44,9 +42,9 @@ function SignUpMethod() {
               <div className="h-0.5 bg-(--neutral-200) w-1/2"></div>
             </div>
             <button className="px-6 py-4 bg-white shadow-sm rounded-2xl w-full flex items-center justify-center gap-2">
-              <FaFacebook size={20}/> <span className="font-semibold text-base text-(--purple-2)">Continue with Facebook</span>
+              <img src="/images/facebook-icon.svg" alt="Social Icon" className="w-5 h-5"/> <span className="font-semibold text-base text-(--purple-2)">Continue with Facebook</span>
             </button>
-            <button className="px-6 py-4 bg-white shadow-sm rounded-2xl w-full flex items-center justify-center gap-2"><FaGoogle size={20}/> <span className="font-semibold text-base text-(--purple-2)">Continue with Gmail</span></button>
+            <button className="px-6 py-4 bg-white shadow-sm rounded-2xl w-full flex items-center justify-center gap-2"><img src="/images/google-icon.svg" alt="Social Icon" className="w-5 h-5"/> <span className="font-semibold text-base text-(--purple-2)">Continue with Gmail</span></button>
           </FadeIn>
         </div>
 
