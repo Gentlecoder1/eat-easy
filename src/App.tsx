@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import { Routes, Route, useLocation } from "react-router-dom";
 import Splash from "./components/Splash";
 import GetStarted from "./components/GetStarted";
+import SignUpMethod from "./components/auth/SignUpMethod";
 import Locations from "./components/Locations";
 import Welcome from "./components/Welcome";
 import Virtual from "./components/Virtual";
@@ -28,6 +29,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Splash />} />
         <Route path="/get-started" element={<GetStarted />} />
+        <Route path="/signup" element={<SignUpMethod />} />
         <Route path="/welcome" element={<Welcome />} />
         <Route path="/locations" element={<Locations />} />
         <Route path="/virtual" element={<Virtual />} />

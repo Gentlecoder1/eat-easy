@@ -1,12 +1,12 @@
-import { MotionContainer, PopIn, FadeIn, SlideIn } from "./animations/motion";
+import { MotionContainer, PopIn, FadeIn, SlideIn } from "../animations/motion";
 import { useState, useEffect } from "react";
+import { FaFacebook } from "react-icons/fa";
 import { motion } from "motion/react";
-import { useNavigate } from "react-router-dom";
-import ThemeSwitchButton from "./ThemeSwitchButton";
+import ThemeSwitchButton from "../ThemeSwitchButton";
+import { FaGoogle } from "react-icons/fa";
 
-function GetStarted() {
+function SignUpMethod() {
   const [animateBar, setAnimateBar] = useState(false);
-  const navigate = useNavigate();
 
   useEffect(() => setAnimateBar(true), []);
 
@@ -16,66 +16,41 @@ function GetStarted() {
         <ThemeSwitchButton />
       </div>
 
-      <div className="w-full lg:hidden space-y-8 flex flex-col justify-center min-h-screen">
-        <PopIn>
-          <div className="w-full overflow-hidden max-w-[600px] mx-auto">
-            <img
-              src="/images/mobile-onboarding-illustration.svg"
-              alt="Illustration"
-              className="w-full block"
-            />
-          </div>
-        </PopIn>
-
-        <FadeIn className="px-6">
-          <div className="w-full flex justify-center">
-            <div className="w-full h-1.5 bg-(--light-progress-bg) dark:bg-(--neutral-700) max-w-[140px] rounded-2xl mx-auto flex flex-row overflow-hidden">
-              <div className="w-1/3 relative">
-                <motion.div
-                  initial={{ scaleX: 0 }}
-                  animate={animateBar ? { scaleX: 1 } : { scaleX: 0 }}
-                  transition={{ duration: 3.9, ease: [0.22, 1, 0.36, 1] }}
-                  style={{ transformOrigin: "left" }}
-                  className="absolute left-0 top-0 h-full w-full bg-[#FFB01D] rounded-2xl"
-                />
-              </div>
-              <div className="flex-1"></div>
-              <div className="flex-1"></div>
-            </div>
-          </div>
-        </FadeIn>
-
+      <div className="w-full lg:hidden space-y-8 flex flex-col items-center justify-center min-h-screen max-w-[700px] mx-auto">
         <SlideIn direction="up" className="px-6">
           <div className="w-full flex flex-col text-center gap-3.5">
-            <h1 className="text-(--neutral-800) font-medium text-[26px] dark:text-white">
-              Full contactless experience
+            <h1 className="text-(--neutral-800) font-medium text-[26px] dark:text-white heading-font">
+              Let's Get Started 😁
             </h1>
-            <p className="font-medium text-base text-(--neutral-600) dark:text-(--neutral-150) px-8">
-              From ordering to paying, that's all contactless
+            <p className="font-medium text-base text-(--neutral-600) dark:text-(--neutral-150)">
+              Sign up or login into to have a full digital experience in our
+              restaurant
             </p>
           </div>
         </SlideIn>
 
-        <FadeIn className="px-6 pb-6">
-          <div className="w-full flex flex-col gap-2.5 max-w-[600px] mx-auto">
+        <div className="w-full px-6 mt-14">
+          <FadeIn className="w-full space-y-3">
             <motion.button
               whileHover={{ scale: 1.2 }}
               whileTap={{ scale: 0.9 }}
-              onClick={() => navigate("/welcome")}
-              className="font-semibold text-base text-(--purple-3) py-4 dark:text-(--purple-5)"
-            >
-              Sign up Later
-            </motion.button>
-            <motion.button
-              whileHover={{ scale: 1.2 }}
-              whileTap={{ scale: 0.9 }}
-              onClick={() => navigate("/signup")}
-              className="py-4 bg-(--purple-2) rounded-2xl text-white font-semibold text-base shadow-lg transform hover:-translate-y-0.5 transition"
+              className="py-4 bg-(--purple-2) rounded-2xl text-white font-semibold text-base w-full"
             >
               Get started
             </motion.button>
-          </div>
-        </FadeIn>
+            <div className="w-full flex items-center justify-between gap-6">
+              <div className="h-0.5 bg-(--neutral-200) w-1/2"></div>
+              <span className="text-(--neutral-400)">OR</span>
+              <div className="h-0.5 bg-(--neutral-200) w-1/2"></div>
+            </div>
+            <button className="px-6 py-4 bg-white shadow-sm rounded-2xl w-full flex items-center justify-center gap-2">
+              <FaFacebook size={20}/> <span className="font-semibold text-base text-(--purple-2)">Continue with Facebook</span>
+            </button>
+            <button className="px-6 py-4 bg-white shadow-sm rounded-2xl w-full flex items-center justify-center gap-2"><FaGoogle size={20}/> <span className="font-semibold text-base text-(--purple-2)">Continue with Gmail</span></button>
+          </FadeIn>
+        </div>
+
+        <button className="px-6 py-4 text-(--purple-3) font-semibold tex-base mt-[145px]">Sign up later</button>
       </div>
 
       <div className="hidden lg:flex w-full min-h-screen p-[30px]">
@@ -84,13 +59,13 @@ function GetStarted() {
             direction="up"
             className="space-y-4 text-center w-full max-w-[480px]"
           >
-              <h1 className="font-medium text-[40px] text-(--neutral-800) heading-font dark:text-white">
-                Let's Get Started 😁
-              </h1>
-              <p className="font-medium text-(--neutral-600) text-base dark:text-(--neutral-150)">
-                Sign up or Login to have a full digital experience in our
-                restaurant
-              </p>
+            <h1 className="font-medium text-[40px] text-(--neutral-800) heading-font dark:text-white">
+              Let's Get Started 😁
+            </h1>
+            <p className="font-medium text-(--neutral-600) text-base dark:text-(--neutral-150)">
+              Sign up or Login to have a full digital experience in our
+              restaurant
+            </p>
           </SlideIn>
 
           <FadeIn className="flex flex-col gap-4 w-full max-w-[480px]">
@@ -142,17 +117,19 @@ function GetStarted() {
             </FadeIn>
 
             <SlideIn direction="up" className="text-center space-y-3.5">
-                <h2 className="font-medium text-3xl text-(--neutral-700) dark:text-white heading-font">
-                  Full Contactless Experience
-                </h2>
-                <p className="font-medium text-base text-(--neutral-500) dark:text-(-neutral-150)">
-                  From ordering to paying, that's all contactless
-                </p>
+              <h2 className="font-medium text-3xl text-(--neutral-700) dark:text-white heading-font">
+                Full Contactless Experience
+              </h2>
+              <p className="font-medium text-base text-(--neutral-500) dark:text-(-neutral-150)">
+                From ordering to paying, that's all contactless
+              </p>
             </SlideIn>
 
             <FadeIn className="font-medium text-[26px] text-center">
               <p>
-                <span className="text-(--neutral-700) dark:text-white">Eat</span>
+                <span className="text-(--neutral-700) dark:text-white">
+                  Eat
+                </span>
                 <span className="text-(--orange-1)">Easy</span>
               </p>
             </FadeIn>
@@ -163,4 +140,4 @@ function GetStarted() {
   );
 }
 
-export default GetStarted;
+export default SignUpMethod;
