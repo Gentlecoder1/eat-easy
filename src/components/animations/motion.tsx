@@ -79,7 +79,7 @@ export const MotionContainer = ({
     className={className}
     style={style}
     initial="hidden"
-    whileInView="show"
+    animate="show"
     viewport={{ once: false, amount: 0.15 }}
     variants={variants}
   >
