@@ -47,8 +47,6 @@ const ViewDish: React.FC<ViewDishProps> = ({ item, onClose }) => {
   const Increment = () => setCount(c => c + 1);
   const Decrement = () => setCount(c => Math.max(0, c - 1));
 
-
-
   return (
     <motion.div
       onClick={(e: MouseEvent) => e.stopPropagation()}
@@ -70,7 +68,7 @@ const ViewDish: React.FC<ViewDishProps> = ({ item, onClose }) => {
 
             <img src={item.image} className="mx-auto absolute w-40 h-40" alt="" />
 
-            <img onClick={onClose} src={Cancel} className="ml-auto bg-white relative hidden sm:block" alt="" />
+            <img onClick={onClose} src={Cancel} className="ml-auto bg-white relative hidden sm:block cursor-pointer" alt="" />
 
             <div className="text-[14px] text-[#C0C0CF] space-x-1 shadow-[0_4px_12px_rgba(0,0,0,0.50)] font-semibold rounded-xl py-1 px-2 bg-[#F7F7F7] ml-auto mr-3 mt-3 sm:mr-auto sm:ml-3 sm:mt-0 relative flex items-center">
               <img src={item.star} className="w-4 h-4" alt="" />
@@ -83,15 +81,6 @@ const ViewDish: React.FC<ViewDishProps> = ({ item, onClose }) => {
               <p className="text-[20px] font-bold">{item.name}</p>
               <p className="text-[#FF7B2C] text-[20px] font-extrabold">${item.price}</p>
             </div>
-            <p className="text-[15px] font-500">{item.text}</p>
-            <p className="text-[15px] font-500">{item.text}</p>
-            <p className="text-[15px] font-500">{item.text}</p>
-            <p className="text-[15px] font-500">{item.text}</p>
-            <p className="text-[15px] font-500">{item.text}</p>
-            <p className="text-[15px] font-500">{item.text}</p>
-            <p className="text-[15px] font-500">{item.text}</p>
-            <p className="text-[15px] font-500">{item.text}</p>
-            <p className="text-[15px] font-500">{item.text}</p>
             <p className="text-[15px] font-500">{item.text}</p>
           </div>
         </div>

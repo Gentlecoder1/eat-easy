@@ -12,9 +12,9 @@ import ViewDish from "./ViewDish"
 import { AnimatePresence } from "motion/react";
 
 type RecommendedProps = {
-  items: PropType[];
+  items?: PropType[];
   showSelected?: (item: PropType) => void
-  onClose: () => void;
+  onClose?: () => void;
 }
 
 const Recommended: React.FC<RecommendedProps> = ({ showSelected }) => {
@@ -48,7 +48,7 @@ const Recommended: React.FC<RecommendedProps> = ({ showSelected }) => {
   const datum = categories[menu];
 
   return (
-    <div className="bg-[#F7F7F7] w-full min-h-screen">
+    <div className="w-full min-h-screen">
 
       <Navbar toggle={toggle} menuOpen={menuOpen} setMenuOpen={setMenuOpen} toggleNav={toggleNav} closeNav={closeNav} title="Virtual Assitant" text="Our Smart Assistant Recommendations" text1='Gram Bistro' link='/Recommended' />
 

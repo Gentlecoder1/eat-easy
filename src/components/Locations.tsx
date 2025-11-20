@@ -1,6 +1,8 @@
 import React, { useState } from 'react'
 import { motion } from 'framer-motion'
+import Header from "./layout/Header"
 import Sidebar from "./layout/Sidebar"
+import Backdrop from "./layout/Backdrop"
 import MapFrame from "/images/Map Frame2.png"
 import Location from "/images/Map-pin.png"
 import SearchIcon from "/images/search-icon.png"
@@ -8,7 +10,9 @@ import PopSign from "/images/popsign.png"
 import ArrowRight from "/images/arrow-right.png"
 import { NavLink } from 'react-router-dom'
 
+
 const Locations: React.FC = () => {
+
   const [isOpen, setIsOpen] = useState(false)
   const [menuOpen, setMenuOpen] = useState<number | null>(null)
 
@@ -16,7 +20,6 @@ const Locations: React.FC = () => {
     setMenuOpen(id)
     if (id !== null && !isOpen) setIsOpen(true) // open sidebar when submenu opens
   }
-
 
   const Available = [
     { address: '790 8th Ave New York', distance: '0.6 km away' },
@@ -29,7 +32,18 @@ const Locations: React.FC = () => {
     <div className="bg-[#F7F7F7] w-full  min-h-screen"
         style={{ backgroundImage: `url(${MapFrame})`, backgroundRepeat: 'no-repeat', backgroundPosition: 'center', backgroundSize: 'cover' }}
     >
-      <div className='hidden md:flex'>
+      <div className='w-full md:hidden'>
+        <Header
+          toggle={isOpen}
+          onToggle={() => setIsOpen(v => !v)}
+          title=''
+          text='' 
+          text1='' 
+          link='' 
+          showBack={false}
+        />
+      </div>
+      <div className='flex'>
         <Sidebar
           toggle={isOpen}
           onToggle={() => setIsOpen(v => !v)}
@@ -37,13 +51,16 @@ const Locations: React.FC = () => {
           setMenuOpen={handleSetMenuOpen}
         />
       </div>
+      {isOpen && (
+        <Backdrop onClick={() => setIsOpen(v => !v)} />
+      )}
 
       <div 
         className={`py-[70px] max-w-6xl transition-all duration-300 ${!isOpen ?  'md:ml-[12%] lg:ml-[9%]' : 'md:ml-[20%]'}`}>
         <div className='bg-white max-w-[700px] mx-auto flex flex-col items-center p-6 space-y-5 rounded-2xl shadow-[0_4px_12px_rgba(0,0,0,0.10)]'>
 
             <div className='flex items-center mb-5'>
-                <p className='lg:text-[28px] md:text-[20px] font-bold'>Set your location</p>
+                <p className='lg:text-[28px] text-[20px] font-bold'>Set your location</p>
                 <span className='lg:w-[30px] lg:h-[30px] w-[25px] h-[25px]'><img src={PopSign} className='w-full h-full' alt="" /></span>
             </div>
 
@@ -64,7 +81,7 @@ const Locations: React.FC = () => {
                  </motion.button>
             </div>
 
-            <div className='flex'>
+            <div className='items-center md:flex'>
               <motion.button
                 whileTap={{ scale: 0.96 }}
                 className='flex items-center px-5 justify-center space-x-2 cursor-pointer'
@@ -75,7 +92,7 @@ const Locations: React.FC = () => {
                 <p className='md:text-[12px] lg:text-[14px] font-600 text-[#8E8EA9]'>Use my current location</p>
               </motion.button>
     
-              <div className='border border-gray-400 my-auto h-4'></div>
+              <div className='border hidden md:flex border-gray-400 my-auto h-4'></div>
     
               <motion.button
                 whileTap={{ scale: 0.96 }}

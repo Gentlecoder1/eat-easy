@@ -17,6 +17,7 @@ interface NavbarProps {
 }
 
 const Navbar: React.FC<NavbarProps> = ({ toggle, menuOpen, setMenuOpen, toggleNav, closeNav, title, text, text1, link, showBack }) => {
+  
   const handleSetMenuOpen = (id: number | null) => {
     setMenuOpen(id)
     if (id !== null && !toggle) {

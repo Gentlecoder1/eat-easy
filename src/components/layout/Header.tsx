@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { motion } from 'framer-motion'
+import { motion } from 'motion/react'
 import Location from "/images/Map-pin.png"
 import ChevronDown from "/images/chevron-down.png"
 import Cart from "/images/cart-img.png"
