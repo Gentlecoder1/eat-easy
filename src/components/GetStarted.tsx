@@ -68,7 +68,7 @@ function GetStarted() {
 
           <PopIn>
             <motion.button
-              onClick={() => navigate("/signup")}
+              onClick={() => navigate("/method")}
               className="px-6 py-4 bg-(--purple-2) text-white font-semibold text-base rounded-2xl w-full"
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
@@ -80,7 +80,7 @@ function GetStarted() {
       </div>
 
       <div className="hidden lg:flex w-full min-h-screen p-[30px]">
-        <div className="flex-1 min-h-full flex flex-col items-center justify-center gap-[42px]">
+        <MotionContainer className="flex-1 min-h-full flex flex-col items-center justify-center gap-[42px]">
           <SlideIn
             direction="up"
             className="space-y-4 text-center w-full max-w-[480px]"
@@ -99,7 +99,7 @@ function GetStarted() {
               className="px-6 py-4 bg-(--purple-2) rounded-2xl font-semibold text-base text-white cursor-pointer"
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
-              onClick={() => navigate("/signup")}
+              onClick={() => navigate("/method")}
             >
               Get Started
             </motion.button>
@@ -112,9 +112,9 @@ function GetStarted() {
               Sign up Later
             </motion.button>
           </FadeIn>
-        </div>
+        </MotionContainer>
 
-        <div className="bg-white dark:bg-(--neutral-700) flex-1 min-h-full rounded-3xl flex flex-col align-center justify-center">
+        <MotionContainer className="bg-white dark:bg-(--neutral-700) flex-1 min-h-full rounded-3xl flex flex-col align-center justify-center">
           <PopIn>
             <div className="w-full max-w-[500px] mx-auto">
               <img
@@ -160,22 +160,22 @@ function GetStarted() {
               </p>
             </FadeIn>
           </div>
-        </div>
+        </MotionContainer>
       </div>
 
       <div className="hidden lg:flex w-full min-h-screen p-[30px]">
-        <div className="flex-1 min-h-full flex flex-col items-center justify-center gap-[42px]">
+        <MotionContainer className="flex-1 min-h-full flex flex-col items-center justify-center gap-[42px]">
           <SlideIn
             direction="up"
             className="space-y-4 text-center w-full max-w-[480px]"
           >
-              <h1 className="font-medium text-[40px] text-(--neutral-800) heading-font dark:text-white">
-                Let's Get Started 😁
-              </h1>
-              <p className="font-medium text-(--neutral-600) text-base dark:text-(--neutral-150)">
-                Sign up or Login to have a full digital experience in our
-                restaurant
-              </p>
+            <h1 className="font-medium text-[40px] text-(--neutral-800) heading-font dark:text-white">
+              Let's Get Started 😁
+            </h1>
+            <p className="font-medium text-(--neutral-600) text-base dark:text-(--neutral-150)">
+              Sign up or Login to have a full digital experience in our
+              restaurant
+            </p>
           </SlideIn>
 
           <FadeIn className="flex flex-col gap-4 w-full max-w-[480px]">
@@ -183,6 +183,7 @@ function GetStarted() {
               className="px-6 py-4 bg-(--purple-2) rounded-2xl font-semibold text-base text-white cursor-pointer"
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
+              onClick={() => navigate("/method")}
             >
               Get Started
             </motion.button>
@@ -190,13 +191,14 @@ function GetStarted() {
               className="px-6 py-4 text-(--purple-2) font-semibold text-base cursor-pointer dark:text-(--purple-5)"
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
+              onClick={() => navigate("/welcome")}
             >
               Sign up Later
             </motion.button>
           </FadeIn>
-        </div>
+        </MotionContainer>
 
-        <div className="bg-white dark:bg-(--neutral-700) flex-1 min-h-full rounded-3xl flex flex-col align-center justify-center">
+        <MotionContainer className="bg-white dark:bg-(--neutral-700) flex-1 min-h-full rounded-3xl flex flex-col align-center justify-center">
           <PopIn>
             <div className="w-full max-w-[500px] mx-auto">
               <img
@@ -227,22 +229,24 @@ function GetStarted() {
             </FadeIn>
 
             <SlideIn direction="up" className="text-center space-y-3.5">
-                <h2 className="font-medium text-3xl text-(--neutral-700) dark:text-white heading-font">
-                  Full Contactless Experience
-                </h2>
-                <p className="font-medium text-base text-(--neutral-500) dark:text-(-neutral-150)">
-                  From ordering to paying, that's all contactless
-                </p>
+              <h2 className="font-medium text-3xl text-(--neutral-700) dark:text-white heading-font">
+                Full Contactless Experience
+              </h2>
+              <p className="font-medium text-base text-(--neutral-500) dark:text-(-neutral-150)">
+                From ordering to paying, that's all contactless
+              </p>
             </SlideIn>
 
             <FadeIn className="font-medium text-[26px] text-center">
               <p>
-                <span className="text-(--neutral-700) dark:text-white">Eat</span>
+                <span className="text-(--neutral-700) dark:text-white">
+                  Eat
+                </span>
                 <span className="text-(--orange-1)">Easy</span>
               </p>
             </FadeIn>
           </div>
-        </div>
+        </MotionContainer>
       </div>
     </MotionContainer>
   );

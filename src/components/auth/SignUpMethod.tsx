@@ -2,9 +2,11 @@ import { MotionContainer, PopIn, FadeIn, SlideIn } from "../animations/motion";
 import { useState, useEffect } from "react";
 import { motion } from "motion/react";
 import ThemeSwitchButton from "../ThemeSwitchButton";
+import { useNavigate } from "react-router-dom";
 
 function SignUpMethod() {
   const [animateBar, setAnimateBar] = useState(false);
+  const navigate = useNavigate();
 
   useEffect(() => setAnimateBar(true), []);
 
@@ -32,6 +34,7 @@ function SignUpMethod() {
             <motion.button
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
+              onClick={() => navigate("/signup")}
               className="py-4 bg-(--purple-2) rounded-2xl text-white font-semibold text-base w-full cursor-pointer"
             >
               Get started
@@ -93,7 +96,7 @@ function SignUpMethod() {
       </div>
 
       <div className="hidden lg:flex w-full min-h-screen p-[30px]">
-        <div className="flex-1 min-h-full flex flex-col items-center justify-center gap-[42px]">
+        <MotionContainer className="flex-1 min-h-full flex flex-col items-center justify-center gap-[42px]">
           <SlideIn
             direction="up"
             className="space-y-4 text-center w-full max-w-[480px]"
@@ -111,6 +114,7 @@ function SignUpMethod() {
               <motion.button
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
+                onClick={() => navigate("/signup")}
                 className="w-full px-6 py-4 bg-(--purple-2) rounded-2xl text-white cursor-pointer"
               >
                 Get Started
@@ -169,9 +173,9 @@ function SignUpMethod() {
               Sign up later
             </motion.button>
           </PopIn>
-        </div>
+        </MotionContainer>
 
-        <div className="bg-white dark:bg-(--neutral-700) flex-1 min-h-full rounded-3xl flex flex-col align-center justify-center">
+        <MotionContainer className="bg-white dark:bg-(--neutral-700) flex-1 min-h-full rounded-3xl flex flex-col align-center justify-center">
           <PopIn>
             <div className="w-full max-w-[500px] mx-auto">
               <img
@@ -219,7 +223,7 @@ function SignUpMethod() {
               </p>
             </FadeIn>
           </div>
-        </div>
+        </MotionContainer>
       </div>
     </MotionContainer>
   );

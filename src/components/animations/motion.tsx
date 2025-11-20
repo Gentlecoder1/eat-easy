@@ -1,5 +1,8 @@
 import React, { type ReactNode } from "react";
 import { motion, type Variants } from "motion/react";
+import {useState, useEffect} from "react"
+
+/* ---------------------- VARIANTS ---------------------- */
 
 export const staggerContainer: Variants = {
   hidden: { opacity: 0 },
@@ -62,6 +65,8 @@ export const slideIn = (
   };
 };
 
+/* ---------------------- WRAPPERS ---------------------- */
+
 interface MotionWrapperProps {
   children: ReactNode;
   className?: string;
@@ -69,35 +74,55 @@ interface MotionWrapperProps {
   style?: React.CSSProperties;
 }
 
+/* Parent-level container for stagger animation */
 export const MotionContainer = ({
   children,
   className,
   variants = staggerContainer,
   style,
+}: MotionWrapperProps) => {
+  const [ready, setReady] = useState(false);
+
+  useEffect(() => {
+    const timeout = setTimeout(() => setReady(true), 10);
+    return () => clearTimeout(timeout);
+  }, []);
+
+  return (
+    <motion.div
+      className={className}
+      style={style}
+      initial="hidden"
+      animate={ready ? "show" : "hidden"}
+      viewport={{ once: false, amount: 0.15 }}
+      variants={variants}
+    >
+      {children}
+    </motion.div>
+  );
+};
+
+
+/* Base motion wrapper for all other components */
+export const MotionItem = ({
+  children,
+  className,
+  variants,
+  style,
 }: MotionWrapperProps) => (
   <motion.div
     className={className}
     style={style}
+    variants={variants}
     initial="hidden"
     animate="show"
-    viewport={{ once: false, amount: 0.15 }}
-    variants={variants}
+    viewport={{ once: true, amount: 0.2 }}
   >
     {children}
   </motion.div>
 );
 
-export const MotionItem = ({
-  children,
-  className,
-  variants = fadeIn,
-  style,
-}: MotionWrapperProps) => (
-  <motion.div className={className} style={style} variants={variants}>
-    {children}
-  </motion.div>
-);
-
+/* Quick animation wrappers */
 export const FadeIn = ({
   children,
   className,
@@ -128,21 +153,28 @@ export const Floaty = ({
   </MotionItem>
 );
 
+/* Slide in from any direction */
 export const SlideIn = ({
   children,
   direction = "up",
   className,
   style,
-}: React.PropsWithChildren<{
+}: {
+  children: ReactNode;
   direction?: "left" | "right" | "up" | "down";
   className?: string;
   style?: React.CSSProperties;
-}>) => (
-  <MotionItem className={className} style={style} variants={slideIn(direction)}>
+}) => (
+  <MotionItem
+    className={className}
+    style={style}
+    variants={slideIn(direction)}
+  >
     {children}
   </MotionItem>
 );
 
+/* Extra animations */
 export const spinIn: Variants = {
   hidden: { opacity: 0, scale: 0.8, rotate: -90 },
   show: {
@@ -178,4 +210,3 @@ export const textReveal: Variants = {
     },
   },
 };
-
