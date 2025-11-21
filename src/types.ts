@@ -6,5 +6,9 @@ export type PropType = {
   star: string,
   reviews: number,
   price: number,
-  text?: string
+  text?: string,
+  amount?: string,
+  unit?: string,
+  ingimage?: string,
+  ingname?: string,
 };

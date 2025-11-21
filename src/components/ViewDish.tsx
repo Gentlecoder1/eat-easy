@@ -5,6 +5,7 @@ import useIsDesktop from "../hooks/useIsDesktop"
 import Plus from "/images/plus.png"
 import minus from "/images/minus.png"
 import Cancel from "/images/Cancel.png"
+import Check from "/images/Checkbox.png"
 // import Ellipse from "/images/Ellipse-bg.png"
 
 export type ViewDishProps = {
@@ -43,6 +44,8 @@ const ViewDish: React.FC<ViewDishProps> = ({ item, onClose }) => {
 
   if (!item) return null;
 
+  const [addTop, setAddTop] = useState<PropType | null>(null)
+
   const [count, setCount] = useState(1);
   const Increment = () => setCount(c => c + 1);
   const Decrement = () => setCount(c => Math.max(0, c - 1));
@@ -59,16 +62,16 @@ const ViewDish: React.FC<ViewDishProps> = ({ item, onClose }) => {
       <div className="flex flex-col h-full">
         <div onClick={onClose} className="top-0 my-2 mx-auto w-[134px] h-[5px] bg-[#C0C0CF] rounded-sm sm:hidden" />
 
+        <img onClick={onClose} src={Cancel} className="sticky ml-auto bg-white relative hidden sm:block cursor-pointer top-2 right-2" alt="" />
+
         <div className="flex-1 overflow-y-auto scrollbar-hidden py-4">
 
           <div className="max-w-[600px] min-h-[204px] flex flex-col items-center overflow-hidden relative">
 
-            <div className="w-[454px] h-[444px] absolute -top-[275px] rounded-[50%] shadow-[0_4px_12px_rgba(0,0,0,0.10)]" />
-            <div className="w-[240px] h-[245px] absolute -top-[91px] rounded-[50%] shadow-[0_4px_12px_rgba(0,0,0,0.10)]" />
+            <div className="w-[454px] h-[444px] absolute -top-[265px] rounded-[50%] shadow-[0_4px_12px_rgba(0,0,0,0.10)]" />
+            <div className="w-[240px] h-[245px] absolute -top-[80px] rounded-[50%] shadow-[0_4px_12px_rgba(0,0,0,0.10)]" />
 
-            <img src={item.image} className="mx-auto absolute w-40 h-40" alt="" />
-
-            <img onClick={onClose} src={Cancel} className="ml-auto bg-white relative hidden sm:block cursor-pointer" alt="" />
+            <img src={item.image} className="mx-auto absolute w-35 h-35 rounded-full" alt="" />
 
             <div className="text-[14px] text-[#C0C0CF] space-x-1 shadow-[0_4px_12px_rgba(0,0,0,0.50)] font-semibold rounded-xl py-1 px-2 bg-[#F7F7F7] ml-auto mr-3 mt-3 sm:mr-auto sm:ml-3 sm:mt-0 relative flex items-center">
               <img src={item.star} className="w-4 h-4" alt="" />
@@ -76,12 +79,54 @@ const ViewDish: React.FC<ViewDishProps> = ({ item, onClose }) => {
             </div>
           </div>
 
-          <div className="p-4">
+          <div className="p-[24px] space-y-[25px] mb-[50px]">
             <div className="flex justify-between items-center">
               <p className="text-[20px] font-bold">{item.name}</p>
               <p className="text-[#FF7B2C] text-[20px] font-extrabold">${item.price}</p>
             </div>
             <p className="text-[15px] font-500">{item.text}</p>
+
+            <div className="p-[10px] space-x-[10px] flex justify-between bg-[#FFFFFF] rounded-xl shadow-[0_4px_12px_rgba(0,0,0,0.10)]">
+              {item.nutrients.map((nut) => (
+                <div className="px-2 text-center">
+                  <p className="text-[14px] font-semibold">{nut.amount}</p>
+                  <p className="text-[12px] font-600">{nut.unit}</p>
+                </div>
+              ))}
+            </div>
+            
+            <div>
+              <h1 className="text-[18px] font-semibold">Ingredients</h1>
+              <div className="py-[10px] space-x-[10px] flex flex-nowrap overflow-x-auto scrollbar-hidden">
+                {item.ingredients.map((ingredient) => (
+                  <div className="py-[12px] min-w-[80px] space-y-[10px] text-center flex flex-col items-center bg-[#FFFFFF] rounded-xl shadow-[0_4px_12px_rgba(0,0,0,0.10)]">
+                    <img src={ingredient.ingimage} alt="" />
+                    <p className="text-[12px] font-600">{ingredient.ingname}</p>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            <div>
+              <h1 className="text-[18px] font-semibold">Add toppings</h1>
+              <div className="py-[10px] space-y-[10px] flex flex-col">
+                {item.toppings.map((top) => (
+
+                  <div key={`${top.id}`} className="p-[14px] text-center flex items-center justify-between bg-[#FFFFFF] rounded-xl shadow-[0_4px_12px_rgba(0,0,0,0.10)]">
+                    <div className="flex space-x-2 items-center">
+                      <motion.div 
+                        whileTap={{ scale: 0.9 }} onClick={() => setAddTop(top)} className="w-4 h-4 border border-black rounded-sm cursor-pointer"><img src={Check} alt="" className={`w-4 h-4 ${addTop ? 'block' : 'hidden'} `} />
+                      </motion.div>
+
+                      <p className="text-[12px] font-600">{top.name}</p>
+                    </div>
+
+                    <p className="text-[14px] font-semibold">{top.price}</p>
+                    <p className="text-[14px] font-semibold">{top.price}</p>
+                  </div>
+                ))}
+              </div>
+            </div>
           </div>
         </div>
 

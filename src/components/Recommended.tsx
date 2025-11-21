@@ -21,6 +21,8 @@ const Recommended: React.FC<RecommendedProps> = ({ showSelected }) => {
 
   // usestate to open and close sidebar
   const [toggle, setToggle] = useState(false)
+
+  // usestate to open and close menuaccordion
   const [menuOpen, setMenuOpen] = useState<number | null>(null)
   const toggleNav = () => {
     setToggle(prev => !prev)
@@ -39,8 +41,10 @@ const Recommended: React.FC<RecommendedProps> = ({ showSelected }) => {
 
   // usestate for the selected item
   const [selectedItem, setSelectedItem] = useState<PropType | null>(null);
+
   // usestate for the mode
   const [click, setClick] = useState(0)
+
   // usestate for the categories
   const [menu, setMenu] = useState(0)
 
