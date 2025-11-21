@@ -24,7 +24,7 @@ const Virtual: React.FC = () => {
   }
 
   return (
-    <div className="bg-[#F7F7F7] w-full min-h-screen">
+    <div className="w-full min-h-screen">
 
       <div className='hidden md:flex'>
         <Navbar showBack={true} toggle={toggle} menuOpen={menuOpen} setMenuOpen={setMenuOpen} toggleNav={toggleNav} closeNav={closeNav} title="Food Menu" text="Virtual Assistant" text1='' link='/welcome' />

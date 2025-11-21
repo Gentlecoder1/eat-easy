@@ -4,6 +4,7 @@ import Splash from "./components/Splash";
 import GetStarted from "./components/GetStarted";
 import SignUpMethod from "./components/auth/SignUpMethod";
 import Locations from "./components/Locations";
+import SetLocation from "./components/SetLocation";
 import Welcome from "./components/Welcome";
 import Virtual from "./components/Virtual";
 import Recommend from "./components/Recommend";
@@ -35,6 +36,7 @@ function App() {
         <Route path="/get-started" element={<GetStarted />} />
         <Route path="/signup" element={<SignUpMethod />} />
         <Route path="/welcome" element={<Welcome />} />
+        <Route path="/setlocation" element={<SetLocation />} />
         <Route path="/locations" element={<Locations />} />
         <Route path="/virtual" element={<Virtual />} />
         <Route path="/recommend" element={<Recommend />} />
