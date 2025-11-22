@@ -240,22 +240,22 @@ export const Eat: PropType[] = [
 ]
 
 export const Drink: PropType[] = [
-  { id: 1, image: '/images/orange-smoothie.jpg', name: "Orange Smoothie", rating: 4.8, star: StarHalf, reviews: 98, price: 4.50 },
-  { id: 2, image: '/images/iced-latte.jpg', name: "Avocado Shake", rating: 4.7, star: StarHalf, reviews: 76, price: 5.20 },
-  { id: 3, image: '/images/iced-latte.jpg', name: "Iced Latte", rating: 4.6, star: StarHalf, reviews: 210, price: 3.80 },
-  { id: 4, image: '/images/green-smoothie.avif', name: "Ginger Tea", rating: 4.5, star: StarHalf, reviews: 44, price: 2.40 },
-  { id: 5, image: '/images/green-detox.jpg', name: "Detox Green Juice", rating: 4.7, star: StarHalf, reviews: 63, price: 6.00 },
-  { id: 6, image: VegImage, name: "Berry Blast", rating: 4.9, star: StarHalf, reviews: 150, price: 5.90 }
+  { id: 1, image: '/images/orange-smoothie.jpg', name: "Orange Smoothie", rating: 4.8, star: StarHalf, reviews: 98, price: 4.50, nutrients: [], ingredients: [], toppings: [] },
+  { id: 2, image: '/images/iced-latte.jpg', name: "Avocado Shake", rating: 4.7, star: StarHalf, reviews: 76, price: 5.20, nutrients: [], ingredients: [], toppings: [] },
+  { id: 3, image: '/images/iced-latte.jpg', name: "Iced Latte", rating: 4.6, star: StarHalf, reviews: 210, price: 3.80, nutrients: [], ingredients: [], toppings: [] },
+  { id: 4, image: '/images/green-smoothie.avif', name: "Ginger Tea", rating: 4.5, star: StarHalf, reviews: 44, price: 2.40, nutrients: [], ingredients: [], toppings: [] },
+  { id: 5, image: '/images/green-detox.jpg', name: "Detox Green Juice", rating: 4.7, star: StarHalf, reviews: 63, price: 6.00, nutrients: [], ingredients: [], toppings: [] },
+  { id: 6, image: VegImage, name: "Berry Blast", rating: 4.9, star: StarHalf, reviews: 150, price: 5.90, nutrients: [], ingredients: [], toppings: [] }
 ]
 
 export const Dessert: PropType[] = [
-  { id: 1, image: Baklava, name: "Pistachio Baklava", rating: 4.9, star: StarHalf, reviews: 322, price: 3.20 },
-  { id: 2, image: Brownie, name: "Salted Caramel Brownie", rating: 4.6, star: StarHalf, reviews: 88, price: 4.40 },
-  { id: 3, image: Cake, name: "Red Velvet Cake", rating: 4.7, star: StarHalf, reviews: 74, price: 4.80 },
-  { id: 4, image: Creme, name: "Vanilla Bean Crème Brûlée", rating: 4.8, star: StarHalf, reviews: 119, price: 5.50 },
-  { id: 5, image: Macaron, name: "Macaron Mix of Five", rating: 4.5, star: StarHalf, reviews: 45, price: 4.20 },
-  { id: 6, image: Panna, name: "Vanilla Panna Cotta", rating: 4.7, star: StarHalf, reviews: 95, price: 3.90 },
-  { id: 7, image: Meringue, name: "Lemon Meringue Pie", rating: 4.8, star: StarHalf, reviews: 145, price: 3.60 },
-  { id: 8, image: Tiramisu, name: "Classic Tiramisu", rating: 4.8, star: StarHalf, reviews: 141, price: 3.60 },
-  { id: 9, image: Waffle, name: "Waffle with Berries", rating: 4.8, star: StarHalf, reviews: 146, price: 3.60 }
+  { id: 1, image: Baklava, name: "Pistachio Baklava", rating: 4.9, star: StarHalf, reviews: 322, price: 3.20, nutrients: [], ingredients: [], toppings: [] },
+  { id: 2, image: Brownie, name: "Salted Caramel Brownie", rating: 4.6, star: StarHalf, reviews: 88, price: 4.40, nutrients: [], ingredients: [], toppings: [] },
+  { id: 3, image: Cake, name: "Red Velvet Cake", rating: 4.7, star: StarHalf, reviews: 74, price: 4.80, nutrients: [], ingredients: [], toppings: [] },
+  { id: 4, image: Creme, name: "Vanilla Bean Crème Brûlée", rating: 4.8, star: StarHalf, reviews: 119, price: 5.50, nutrients: [], ingredients: [], toppings: [] },
+  { id: 5, image: Macaron, name: "Macaron Mix of Five", rating: 4.5, star: StarHalf, reviews: 45, price: 4.20, nutrients: [], ingredients: [], toppings: [] },
+  { id: 6, image: Panna, name: "Vanilla Panna Cotta", rating: 4.7, star: StarHalf, reviews: 95, price: 3.90, nutrients: [], ingredients: [], toppings: [] },
+  { id: 7, image: Meringue, name: "Lemon Meringue Pie", rating: 4.8, star: StarHalf, reviews: 145, price: 3.60, nutrients: [], ingredients: [], toppings: [] },
+  { id: 8, image: Tiramisu, name: "Classic Tiramisu", rating: 4.8, star: StarHalf, reviews: 141, price: 3.60, nutrients: [], ingredients: [], toppings: [] },
+  { id: 9, image: Waffle, name: "Waffle with Berries", rating: 4.8, star: StarHalf, reviews: 146, price: 3.60, nutrients: [], ingredients: [], toppings: [] }
 ]

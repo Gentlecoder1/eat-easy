@@ -44,7 +44,17 @@ const ViewDish: React.FC<ViewDishProps> = ({ item, onClose }) => {
 
   if (!item) return null;
 
-  const [addTop, setAddTop] = useState<PropType | null>(null)
+  // track selected topping ids in a Set for O(1) lookups and independent checks
+  const [selectedToppings, setSelectedToppings] = useState<Set<number>>(() => new Set())
+
+  const toggleCheck = (id: number) => {
+    setSelectedToppings(prev => {
+      const next = new Set(prev)
+      if (next.has(id)) next.delete(id)
+      else next.add(id)
+      return next
+    })
+  }
 
   const [count, setCount] = useState(1);
   const Increment = () => setCount(c => c + 1);
@@ -106,23 +116,25 @@ const ViewDish: React.FC<ViewDishProps> = ({ item, onClose }) => {
                 ))}
               </div>
             </div>
-
+            
+            {/* add toppings */}
             <div>
               <h1 className="text-[18px] font-semibold">Add toppings</h1>
               <div className="py-[10px] space-y-[10px] flex flex-col">
                 {item.toppings.map((top) => (
-
                   <div key={`${top.id}`} className="p-[14px] text-center flex items-center justify-between bg-[#FFFFFF] rounded-xl shadow-[0_4px_12px_rgba(0,0,0,0.10)]">
                     <div className="flex space-x-2 items-center">
-                      <motion.div 
-                        whileTap={{ scale: 0.9 }} onClick={() => setAddTop(top)} className="w-4 h-4 border border-black rounded-sm cursor-pointer"><img src={Check} alt="" className={`w-4 h-4 ${addTop ? 'block' : 'hidden'} `} />
+                      <motion.div
+                        whileTap={{ scale: 0.9 }}
+                        onClick={() => toggleCheck(top.id)}
+                        className="w-4 h-4 border border-black rounded-sm cursor-pointer flex items-center justify-center">
+                        <img src={Check} alt="" className={`w-4 h-4 ${selectedToppings.has(top.id) ? 'block' : 'hidden'}`} />
                       </motion.div>
 
                       <p className="text-[12px] font-600">{top.name}</p>
                     </div>
 
-                    <p className="text-[14px] font-semibold">{top.price}</p>
-                    <p className="text-[14px] font-semibold">{top.price}</p>
+                    <p className="text-[14px] font-semibold">${top.price}</p>
                   </div>
                 ))}
               </div>
