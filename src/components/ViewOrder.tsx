@@ -11,7 +11,7 @@ import Cancel from "/images/Cancel.png"
 import Check from "/images/Checkbox.png"
 // import Ellipse from "/images/Ellipse-bg.png"
 
-export type ViewDishProps = {
+export type ViewOrderProps = {
   item: PropType | null;
   onClose: () => void;
 }
@@ -32,7 +32,7 @@ const display = (isDesktop: boolean): Variants => {
   
   // MOBILE — slide from bottom
   return {
-      hidden: { y: "100vh", opacity: 0 },
+      hidden: { y: "-100vh", opacity: 0 },
       visible: {
           y: "0",
           opacity: 1,
@@ -42,10 +42,8 @@ const display = (isDesktop: boolean): Variants => {
   };
 }
 
-const ViewDish: React.FC<ViewDishProps> = ({ item, onClose }) => {
+const ViewOrder: React.FC<ViewOrderProps> = ({ item, onClose }) => {
   const isDesktop = useIsDesktop();
-
-  // const topPrice = {item.toppings.price}
 
   if (!item) return null;
 
@@ -199,7 +197,7 @@ const ViewDish: React.FC<ViewDishProps> = ({ item, onClose }) => {
   )
 }
 
-export default ViewDish
+export default ViewOrder
 
 
 // my mother says you whole life is in the hand of God : John Bellion

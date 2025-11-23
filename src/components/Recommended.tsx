@@ -56,7 +56,7 @@ const Recommended: React.FC<RecommendedProps> = ({ showSelected }) => {
 
       <Navbar toggle={toggle} menuOpen={menuOpen} setMenuOpen={setMenuOpen} toggleNav={toggleNav} closeNav={closeNav} title="Virtual Assitant" text="Our Smart Assistant Recommendations" text1='Gram Bistro' link='/Recommended' />
 
-      <div className={`transition-all duration-300 ${!toggle ?  'md:ml-[12%] lg:ml-[9%]' : 'md:ml-[20%]'}`}>
+      <div className={`transition-all duration-300 relative top-[85px] ${!toggle ?  'md:ml-[12%] lg:ml-[9%]' : 'md:ml-[20%]'}`}>
         <div className='max-w-6xl mx-auto flex flex-col p-6 space-y-5'>
           <div className='md:hidden flex justify-between items-center'>
             <h1 className='text-[22px] lg:text-[32px] text-[#32324D] font-bold'>We think you might enjoy these specially selected dishes</h1>
@@ -140,7 +140,7 @@ const Recommended: React.FC<RecommendedProps> = ({ showSelected }) => {
                       <span>({eat.reviews} reviews)</span>
                     </div>
 
-                    <p className='text-[#FF7B2C] text-[15px] lg:text-[18px] font-extrabold'>${eat.price}</p>
+                    <p className='text-[#FF7B2C] text-[15px] lg:text-[18px] font-extrabold'>${(eat.price).toFixed(2)}</p>
                   </div>
                   <motion.div 
                     whileTap={{ scale: 0.9 }}

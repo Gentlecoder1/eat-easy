@@ -34,7 +34,7 @@ const Header: React.FC<HeaderProps> = ({ onToggle, toggle, title, text, text1, l
   }
 
   return (
-    <>
+    <div className='bg-[#fcfcfc] md:border-b-2 border-[#32324D] fixed w-full z-40'>
       {/* mobile */}
       <div className="flex md:hidden justify-between items-center mx-auto p-4">
         <div className="flex space-x-2 items-center">
@@ -94,7 +94,7 @@ const Header: React.FC<HeaderProps> = ({ onToggle, toggle, title, text, text1, l
           </motion.button>
 
           <div className='border border-gray-700 my-auto h-7'></div>
-
+          
           <motion.button
             whileTap={{ scale: 0.96 }}
             className='flex items-center px-5 justify-center space-x-2 cursor-pointer'
@@ -106,7 +106,14 @@ const Header: React.FC<HeaderProps> = ({ onToggle, toggle, title, text, text1, l
           </motion.button>
         </div>
       </div>
-    </>
+      <div className='bg-[#FFFFFF] flex gap-5 h-fit max-w-[420px] ml-auto right-6 absolute z-50 rounded-2xl px-[16px] py-[20px] top-[80px] shadow-[0_4px_12px_rgba(0,0,0,0.10)]'>
+        <motion.div whileTap={{ scale: 0.9 }} className='bg-[#3232470A] cursor-pointer rounded-xl shadow-sm p-3 text-[15px]'>View Order</motion.div>
+
+        <NavLink to="">
+          <motion.div whileTap={{ scale: 0.9 }} className='bg-[#3232470A] cursor-pointer rounded-xl shadow-sm p-3 text-[15px]'>Order Status</motion.div>
+        </NavLink>
+      </div>
+    </div>
   )
 }
 
