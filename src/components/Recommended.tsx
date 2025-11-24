@@ -56,7 +56,7 @@ const Recommended: React.FC<RecommendedProps> = ({ showSelected }) => {
 
       <Navbar toggle={toggle} menuOpen={menuOpen} setMenuOpen={setMenuOpen} toggleNav={toggleNav} closeNav={closeNav} title="Virtual Assitant" text="Our Smart Assistant Recommendations" text1='Gram Bistro' link='/Recommended' />
 
-      <div className={`transition-all duration-300 relative top-[85px] ${!toggle ?  'md:ml-[12%] lg:ml-[9%]' : 'md:ml-[20%]'}`}>
+      <div className={`transition-all duration-300 relative ${!toggle ?  'md:ml-[12%] lg:ml-[9%]' : 'md:ml-[20%]'}`}>
         <div className='max-w-6xl mx-auto flex flex-col p-6 space-y-5'>
           <div className='md:hidden flex justify-between items-center'>
             <h1 className='text-[22px] lg:text-[32px] text-[#32324D] font-bold'>We think you might enjoy these specially selected dishes</h1>
@@ -98,7 +98,7 @@ const Recommended: React.FC<RecommendedProps> = ({ showSelected }) => {
             
             {/* Desktop */}
             <div className='hidden md:flex items-center space-x-4 text-[15px]'>
-                <div className='cursor-pointer'>View mode</div>
+                {/* <div className='cursor-pointer'>View mode</div> */}
                 <div className={`rounded-2xl border border-[#32324D] flex w-fit h-fit transition-all duration-300`}>
                   <div
                       onClick={() => setClick(0)}
@@ -119,7 +119,7 @@ const Recommended: React.FC<RecommendedProps> = ({ showSelected }) => {
 
                 <motion.div
                     whileTap={{ scale: 0.96 }} 
-                    className='p-3 rounded-2xl bg-[#32324D] text-white cursor-pointer'>Ask for new proposal
+                    className='p-3 rounded-2xl bg-[#32324D] text-[12px] lg:text-[16px] text-white cursor-pointer'>Ask for new proposal
                 </motion.div>
             </div>
           </div>

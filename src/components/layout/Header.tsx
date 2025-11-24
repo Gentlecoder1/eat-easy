@@ -16,6 +16,7 @@ type HeaderProps = {
   text1?: string
   link: string
   showBack?: boolean
+  // toggleOrder?: boolean
 }
 
 const Header: React.FC<HeaderProps> = ({ onToggle, toggle, title, text, text1, link, showBack }) => {
@@ -32,9 +33,12 @@ const Header: React.FC<HeaderProps> = ({ onToggle, toggle, title, text, text1, l
       setIsOpen((v) => !v)
     }
   }
+  
+  const [toggleOrder, setToggleOrder] = useState(false)
+
 
   return (
-    <div className='bg-[#fcfcfc] md:border-b-2 border-[#32324D] fixed w-full z-40'>
+    <div className='bg-[#fcfcfc] md:border-b-2 border-[#32324D]  w-full z-40'>
       {/* mobile */}
       <div className="flex md:hidden justify-between items-center mx-auto p-4">
         <div className="flex space-x-2 items-center">
@@ -75,7 +79,7 @@ const Header: React.FC<HeaderProps> = ({ onToggle, toggle, title, text, text1, l
           )}
           <div className=''>
             <h1 className='text-[14px] font600 text-[#8E8EA9]'>{title}</h1>
-            <p className="text-[20px] font-500 text-gray-900">{text}</p>
+            <p className="text-[16px] lg:text-[20px] font-500 text-gray-900">{text}</p>
           </div>
         </div>
 
@@ -97,6 +101,7 @@ const Header: React.FC<HeaderProps> = ({ onToggle, toggle, title, text, text1, l
           
           <motion.button
             whileTap={{ scale: 0.96 }}
+            onClick={() => {setToggleOrder(!toggleOrder)}}
             className='flex items-center px-5 justify-center space-x-2 cursor-pointer'
           >
             <div className='w-5 h-5'>
@@ -106,11 +111,12 @@ const Header: React.FC<HeaderProps> = ({ onToggle, toggle, title, text, text1, l
           </motion.button>
         </div>
       </div>
-      <div className='bg-[#FFFFFF] flex gap-5 h-fit max-w-[420px] ml-auto right-6 absolute z-50 rounded-2xl px-[16px] py-[20px] top-[80px] shadow-[0_4px_12px_rgba(0,0,0,0.10)]'>
-        <motion.div whileTap={{ scale: 0.9 }} className='bg-[#3232470A] cursor-pointer rounded-xl shadow-sm p-3 text-[15px]'>View Order</motion.div>
+
+      <div className={`bg-[#FFFFFF] gap-5 h-fit max-w-[420px] ml-auto right-6 absolute z-50 rounded-2xl px-[16px] py-[20px] top-[80px] shadow-[0_4px_12px_rgba(0,0,0,0.10)] ${toggleOrder ? 'hidden md:flex' : 'hidden'}`}>
+        <motion.div whileTap={{ scale: 0.96 }} className='bg-[#3232470B] cursor-pointer rounded-xl shadow-sm p-3 text-[15px]'>View Order</motion.div>
 
         <NavLink to="">
-          <motion.div whileTap={{ scale: 0.9 }} className='bg-[#3232470A] cursor-pointer rounded-xl shadow-sm p-3 text-[15px]'>Order Status</motion.div>
+          <motion.div whileTap={{ scale: 0.96 }} className='bg-[#3232470B] cursor-pointer rounded-xl shadow-sm p-3 text-[15px]'>Order Status</motion.div>
         </NavLink>
       </div>
     </div>

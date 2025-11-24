@@ -49,7 +49,7 @@ const Welcome: React.FC = () => {
 
       <Navbar toggle={toggle} menuOpen={menuOpen} setMenuOpen={setMenuOpen} toggleNav={toggleNav} closeNav={closeNav} title="Food Menu" text="Browse Our Food Menu" text1='Gram Bistro' link='/welcome' />
 
-      <div className={`transition-all duration-300 ${!toggle ?  'md:ml-[12%] lg:ml-[9%]' : 'md:ml-[20%]'}`}>
+      <div className={`transition-all duration-300 relative ${!toggle ?  'md:ml-[12%] lg:ml-[9%]' : 'md:ml-[20%]'}`}>
         <div className='max-w-6xl mx-auto flex flex-col p-6 space-y-10'>
           <div className='bg-[#32324D] text-white rounded-3xl hidden md:flex justify-between items-center'>
 
