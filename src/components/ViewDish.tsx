@@ -45,8 +45,6 @@ const display = (isDesktop: boolean): Variants => {
 const ViewDish: React.FC<ViewDishProps> = ({ item, onClose }) => {
   const isDesktop = useIsDesktop();
 
-  // const topPrice = {item.toppings.price}
-
   if (!item) return null;
 
   // track selected topping ids in a Set for multiple independent checks
@@ -55,19 +53,52 @@ const ViewDish: React.FC<ViewDishProps> = ({ item, onClose }) => {
   const toggleCheck = (id: number) => {
     setSelectedToppings(prev => {
       const next = new Set(prev)
-      if(next.has(id)) next.delete(id)
-      else next.add(id)
+      if (next.has(id)) {
+        // unchecking: remove from selected set and remove any stored counts
+        next.delete(id)
+        setToppingCounts(prevCounts => {
+          const nextCounts = { ...prevCounts }
+          delete nextCounts[id]
+          return nextCounts
+        })
+      } else {
+        next.add(id)
+      }
       return next
     })
   }
-
+  
+  // format prices to two decimals
+  const formatPrice = (n: number) => `$${n.toFixed(2)}`
   const [count, setCount] = useState(1);
   const Increment = () => setCount(c => c + 1);
   const Decrement = () => setCount(c => Math.max(0, c - 1));
+  // track individual counts per topping (keyed by topping id)
+  const [toppingCounts, setToppingCounts] = useState<Record<number, number>>({})
 
-  const [counting, setCounting] = useState(0);
-  const Add = () => setCounting(b => b + 1);
-  const Minus = () => setCounting(b => Math.max(0, b - 1));
+  const incrementTopping = (id: number) => {
+    setToppingCounts(prev => ({ ...prev, [id]: (prev[id] || 0) + 1 }))
+  }
+
+  const decrementTopping = (id: number) => {
+    setToppingCounts(prev => {
+      const current = prev[id] || 0
+      if (current <= 1) {
+        const next = { ...prev }
+        delete next[id]
+        return next
+      }
+      return { ...prev, [id]: current - 1 }
+    })
+  }
+
+  // calculate sum of toppings
+  // when a topping is unchecked its (price * qty) will be subtracted
+  const toppingsTotal = item.toppings.reduce((sum, t) => {
+    const qty = toppingCounts[t.id] || 0
+    if (!selectedToppings.has(t.id)) return sum
+    return sum + t.price * qty
+  }, 0)
 
   return (
     <motion.div
@@ -130,35 +161,46 @@ const ViewDish: React.FC<ViewDishProps> = ({ item, onClose }) => {
             <div>
               <h1 className="text-[#666687] text-[18px] font-semibold">Add toppings</h1>
               <div className="py-[10px] space-y-[10px] flex flex-col">
-                {item.toppings.map((top) => (
-                  <div key={`${top.id}`} className="flex bg-[#FFFFFF] rounded-xl shadow-[0_4px_12px_rgba(0,0,0,0.10)]">
-                    <div className="p-[14px] text-center flex w-full items-center justify-between ">
-                      <div className="flex space-x-2 items-center">
-                        <motion.div
-                          whileTap={{ scale: 0.9 }}
-                          onClick={() => toggleCheck(top.id)}
-                          className="w-4 h-4 border border-black rounded-sm cursor-pointer flex items-center justify-center">
-                          <img src={Check} alt="" className={`w-4 h-4 ${selectedToppings.has(top.id) ? 'block' : 'hidden'}`} />
-                        </motion.div>
+                {item.toppings.map((top) => {
+                  const topCount = toppingCounts[top.id] || 1
+                  return (
+                    <div key={`${top.id}`} className="flex bg-[#FFFFFF] rounded-xl shadow-[0_4px_12px_rgba(0,0,0,0.10)]">
+                      <div className="p-[14px] text-center flex w-full items-center justify-between ">
+                        <div className="flex space-x-2 items-center">
+                          <motion.div
+                            whileTap={{ scale: 0.9 }}
+                            onClick={() => {
+                              toggleCheck(top.id)
+                              // when selecting a topping initialize its count to 1 if not present
+                              if (!selectedToppings.has(top.id)) setToppingCounts(prev => ({ ...prev, [top.id]: (prev[top.id] || 0) || 1 }))
+                            }}
+                            className="w-4 h-4 border border-black rounded-sm cursor-pointer flex items-center justify-center">
+                            <img src={Check} alt="" className={`w-4 h-4 ${selectedToppings.has(top.id) ? 'block' : 'hidden'}`} />
+                          </motion.div>
 
-                        <p className="text-[12px] md:text-[16px] font-600">{top.name}</p>
+                          <p className="text-[12px] md:text-[16px] font-600">{top.name}</p>
+                        </div>
+                        <p className="text-[#FF7B2C] text-[14px] md:text-[16px] font-semibold">
+                          {!selectedToppings.has(top.id) ? formatPrice(top.price) : formatPrice(top.price * topCount)}
+                        </p>
                       </div>
-                      <p className="text-[#FF7B2C] text-[14px] md:text-[16px] font-semibold">${(top.price).toFixed(2)}</p>
-                    </div>
 
-                    <div className={`${selectedToppings.has(top.id) ? 'w-[94px] rounded-r-xl flex items-center justify-center gap-[14px] bg-[#EAEAEF] p-2' : 'hidden'}`}>
-                      {/* minus top */}
-                      <button onClick={Minus} type="button" disabled={counting === 0} className={counting === 0 ? 'cursor-not-allowed' : 'cursor-pointer'}>
-                        <img src={minus} className="w-8 h-8" alt="-" />
-                      </button>
+                      <div className={`${selectedToppings.has(top.id) ? 'w-[94px] rounded-r-xl flex items-center justify-center gap-[14px] bg-[#EAEAEF] p-2' : 'hidden'}`}>
+                        {/* minus top */}
+                        <button onClick={() => decrementTopping(top.id)} type="button" disabled={topCount === 0} className={topCount === 0 ? 'cursor-not-allowed' : 'cursor-pointer'}>
+                          <img src={minus} className="w-8 h-8" alt="-" />
+                        </button>
 
-                      {/* add top */}
-                      <button onClick={Add} type="button" className="">
-                        <img src={Plus} className="w-8 h-8 cursor-pointer" alt="+" />
-                      </button>
+                        <p className="text-[14px] font-semibold">{topCount}</p>
+
+                        {/* add top */}
+                        <button onClick={() => incrementTopping(top.id)} type="button" className="">
+                          <img src={Plus} className="w-8 h-8 cursor-pointer" alt="+" />
+                        </button>
+                      </div>
                     </div>
-                  </div>
-                ))}
+                  )
+                })}
               </div>
             </div>
 
@@ -188,10 +230,10 @@ const ViewDish: React.FC<ViewDishProps> = ({ item, onClose }) => {
           </div>
 
           <motion.div
-              whileTap={{ scale: 0.96 }} 
-              className='w-full text-center p-3 rounded-2xl bg-[#32324D] text-white cursor-pointer flex justify-center space-x-2'>
-                <p>Add to order</p>
-                <p className="font-bold">${ (item.price * count).toFixed(2) }</p>
+            whileTap={{ scale: 0.96 }} 
+            className='w-full text-center p-3 rounded-2xl bg-[#32324D] text-white cursor-pointer flex justify-center space-x-2'>
+              <p>Add to order</p>
+              <p className="font-bold">{formatPrice((item.price + toppingsTotal) * count)}</p>
           </motion.div>
         </div>
       </div>

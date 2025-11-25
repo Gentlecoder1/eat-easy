@@ -118,8 +118,8 @@ const Recommended: React.FC<RecommendedProps> = ({ showSelected }) => {
                 <div className='border border-gray-400 my-auto h-4'></div>
 
                 <motion.div
-                    whileTap={{ scale: 0.96 }} 
-                    className='p-3 rounded-2xl bg-[#32324D] text-[12px] lg:text-[16px] text-white cursor-pointer'>Ask for new proposal
+                  whileTap={{ scale: 0.96 }} 
+                  className='p-3 rounded-2xl bg-[#32324D] text-[12px] lg:text-[16px] text-white cursor-pointer'>Ask for new proposal
                 </motion.div>
             </div>
           </div>
