@@ -41,7 +41,7 @@ const Locations: React.FC = () => {
           text='' 
           text1='' 
           link='' 
-          showBack={false}
+          // showBack={false}
         />
       </div>
       {/* sidebar */}

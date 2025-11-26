@@ -2,7 +2,9 @@ import { motion, type Variants } from "motion/react";
 // import { MotionContainer, PopIn, FadeIn, SlideIn } from "../animations/motion";
 import type { PropType } from "../types"
 import { useState, type MouseEvent } from "react"
-import Header from "./layout/Header"
+import Navbar from "./layout/Navbar"
+import ArrowLeft from "/images/arrow-left.png"
+import Burger from "/images/burger-icon.png"
 import Plus from "/images/plus.svg"
 import minus from "/images/minus.svg"
 import Cancel from "/images/Cancel.png"
@@ -41,9 +43,27 @@ export type ViewOrderProps = {
 const ViewOrder: React.FC<ViewOrderProps> = ({ items, onClose }) => {
   // const isDesktop = useIsDesktop();
 
-  if (!items || items.length === 0) return null;
+  // usestate to open and close sidebar
+  const [toggle, setToggle] = useState(false)
 
-  const [isOpen, setIsOpen] = useState(false)
+  // usestate to open and close menuaccordion
+  const [menuOpen, setMenuOpen] = useState<number | null>(null)
+  const toggleNav = () => {
+    setToggle(prev => !prev)
+    if (!toggle) {
+      // when opening, keep menuOpen as is
+    } else {
+      // when closing clear submenu
+      setMenuOpen(null)
+    }
+  }
+
+  const closeNav = () => {
+    setToggle(false)
+    setMenuOpen(null)
+  }
+
+  if (!items || items.length === 0) return null;
 
   // const [count, setCount] = useState(1);
   // const Increment = () => setCount(c => c + 1);
@@ -66,29 +86,47 @@ const ViewOrder: React.FC<ViewOrderProps> = ({ items, onClose }) => {
         transition: { duration: 0.25 }
       }}
       exit={{ x: "100vw", opacity: 0 }}
-      className="z-50 right-0 w-full min-h-screen sm:w-[55%] md:w-[45%] lg:w-[37%] md:rounded-l-2xl bg-[#f1e6e6]"
+      className="z-50 top-0 fixed right-0 w-full min-h-screen sm:w-[55%] md:w-[45%] lg:w-[37%] sm:rounded-l-2xl bg-[#f1e6e6]"
     >
       {/* header for mobile */}
-      <div className='w-full md:hidden'>
-        <Header
-          toggle={isOpen}
-          onToggle={() => setIsOpen(v => !v)}
-          title='Gram Bistro'
-          text='Your order' 
-          text1='' 
-          link='' 
-          showBack={true}
-        />
+      {/* <div className='w-full sm:hidden'>
+        <Navbar showHeader={true} showAside={true} showBack={true} toggle={toggle} menuOpen={menuOpen} setMenuOpen={setMenuOpen} toggleNav={toggleNav} closeNav={closeNav} title="Gram Bistro" text="Your Order" text1='Gram Bistro' link='/Recommended' />
+      </div> */}
+
+      <div className="flex md:hidden justify-between items-center mx-auto p-4">
+        <div className="flex space-x-2 items-center">
+        
+          <motion.button whileTap={{ scale: 0.9 }}
+            onClick={onClose}
+            className='p-2 cursor-pointer border border-gray-600 rounded-sm' aria-label="Back">
+            <img src={ArrowLeft} className='w-4 h-4' alt="Back" />
+          </motion.button>
+            
+          <div className=''>
+            <h1 className='text-[14px] font600 text-[#8E8EA9]'>Gram Bistro</h1>
+            <p className="text-[16px] lg:text-[20px] font-500 text-gray-900">Your Order</p>
+          </div>
+        </div>
+
+        <motion.button
+          whileHover={{ scale: 1.05 }}
+          whileTap={{ scale: 0.96 }}
+          // onClick={handleToggle}
+          className='w-5 h-4 cursor-pointer'
+          // aria-pressed={effectiveOpen}
+        >
+          <img src={Burger} className='w-full h-full' alt="" />
+        </motion.button>
       </div>
 
       {/* header for destop */}
-      <div className="hidden md:flex justify-between items-center p-4 mx-auto">
+      <div className="hidden sm:flex justify-between items-center p-4 mx-auto">
         <div className="flex items-center">
           <h1 className="px-3">My Order</h1>
 
-          <div className='border border-gray-700 my-auto h-7'></div>
+          <div className='border border-gray-700 my-auto h-5'></div>
 
-          <div className="px-3">
+          <div className="px-3 flex items-center">
             <div className='w-5 h-5'>
               <img src={Location} className='w-full h-full' alt="" />
             </div>
@@ -107,7 +145,7 @@ const ViewOrder: React.FC<ViewOrderProps> = ({ items, onClose }) => {
       <div className="flex-1 overflow-y-auto scrollbar-hidden justify-center">
         <div className="p-[24px] space-y-[25px]">
 
-          <div className='flex flex-col'>
+          <div className='flex flex-col space-y-5'>
             {items.map((order) => (
               <div key={`${order.id}`} className='rounded-2xl items-center shadow-[0_4px_12px_rgba(0,0,0,0.10)] bg-white p-3 group'>
                 <div className='flex space-x-3 items-center relative'>
