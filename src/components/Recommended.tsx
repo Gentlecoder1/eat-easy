@@ -179,7 +179,7 @@ const Recommended: React.FC<RecommendedProps> = ({ showSelected }) => {
             className='fixed inset-0 flex items-center justify-center bg-black/50 z-40'>
             <ViewDish
               item={selectedItem}
-              onClose={() => setSelectedItem(null)}
+              onClose={() => { setSelectedItem(null), setShowOrder(true) }}
               onAddToOrder={addToOrder}
             />
           </motion.div>

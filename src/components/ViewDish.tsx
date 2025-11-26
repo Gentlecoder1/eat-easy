@@ -108,12 +108,12 @@ const ViewDish: React.FC<ViewDishProps> = ({ item, onClose, onAddToOrder }) => {
       initial="hidden"
       animate="visible"
       exit="exit"
-      className="z-50 fixed right-0 w-full min-h-screen sm:w-[55%] md:w-[45%] lg:w-[37%] top-[15%] bottom-0 sm:top-0 sm:bottom-0 rounded-t-2xl sm:rounded-tr-none sm:rounded-l-2xl bg-[#f1e6e6]"
+      className="z-50 fixed right-0 w-full min-h-screen sm:w-[55%] md:w-[45%] lg:w-[37%] top-[15%] bottom-0 sm:top-0 sm:bottom-0 rounded-t-2xl sm:rounded-tr-none sm:rounded-l-2xl bg-[#f7f7f7]"
     >
       <div className="flex flex-col h-full">
         <div onClick={onClose} className="top-0 my-2 mx-auto w-[134px] h-[5px] bg-[#C0C0CF] rounded-sm sm:hidden" />
 
-        <motion.img whileTap={{ scale: 0.96 }} onClick={onClose} src={Cancel} className="sticky ml-auto bg-white hidden sm:block cursor-pointer top-6 right-2 z-50" alt="" />
+        <motion.img whileTap={{ scale: 0.96 }} onClick={onClose} src={Cancel} className="sticky ml-auto hidden sm:block cursor-pointer top-6 right-2 z-50" alt="" />
 
         <div className="flex-1 overflow-y-auto scrollbar-hidden">
 
@@ -186,7 +186,7 @@ const ViewDish: React.FC<ViewDishProps> = ({ item, onClose, onAddToOrder }) => {
                         </p>
                       </div>
 
-                      <div className={`${selectedToppings.has(top.id) ? 'w-[94px] rounded-r-xl flex items-center justify-center gap-[14px] bg-[#EAEAEF] p-2' : 'hidden'}`}>
+                      <div className={`${selectedToppings.has(top.id) ? 'w-[98px] rounded-r-xl flex items-center justify-center gap-[8px] bg-[#EAEAEF] p-2' : 'hidden'}`}>
                         {/* minus top */}
                         <button onClick={() => decrementTopping(top.id)} type="button" disabled={topCount === 0} className={topCount === 0 ? 'cursor-not-allowed' : 'cursor-pointer'}>
                           <img src={minus} className="w-8 h-8" alt="-" />

@@ -97,7 +97,7 @@ const Header: React.FC<HeaderProps> = ({ onToggle, toggle, title, text, text1, l
             </div>
           </motion.button>
 
-          <div className='border border-gray-700 my-auto h-7'></div>
+          <div className='border border-gray-700 my-auto h-5'></div>
           
           <motion.button
             whileTap={{ scale: 0.96 }}
@@ -112,13 +112,13 @@ const Header: React.FC<HeaderProps> = ({ onToggle, toggle, title, text, text1, l
         </div>
       </div>
 
-      <div className={`bg-[#32324D] gap-5 h-fit max-w-[420px] ml-auto right-6 absolute z-50 rounded-2xl px-[16px] py-[20px] top-[80px] shadow-[0_4px_12px_rgba(0,0,0,0.10)] ${toggleOrder ? 'hidden md:flex' : 'hidden'}`}>
+      {/* <div className={`bg-[#32324D] gap-5 h-fit max-w-[420px] ml-auto right-6 absolute z-50 rounded-2xl px-[16px] py-[20px] top-[80px] shadow-[0_4px_12px_rgba(0,0,0,0.10)] ${toggleOrder ? 'hidden md:flex' : 'hidden'}`}>
         <motion.div whileTap={{ scale: 0.96 }} className='bg-[#FFFFFF] cursor-pointer rounded-xl shadow-sm p-3 text-[15px]'>View Order</motion.div>
 
         <NavLink to="">
           <motion.div whileTap={{ scale: 0.96 }} className='bg-[#FFFFFF] cursor-pointer rounded-xl shadow-sm p-3 text-[15px]'>Order Status</motion.div>
         </NavLink>
-      </div>
+      </div> */}
     </div>
   )
 }
