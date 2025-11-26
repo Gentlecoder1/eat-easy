@@ -9,6 +9,7 @@ import Plus from "/images/plus.png"
 import type { PropType } from "../types"
 import { Eat, Drink, Dessert } from "../data/data"
 import ViewDish from "./ViewDish"
+import ViewOrder from "./ViewOrder"
 import { AnimatePresence } from "motion/react";
 
 type RecommendedProps = {
@@ -41,6 +42,14 @@ const Recommended: React.FC<RecommendedProps> = ({ showSelected }) => {
 
   // usestate for the selected item
   const [selectedItem, setSelectedItem] = useState<PropType | null>(null);
+  // order items collected from ViewDish
+  const [orderItems, setOrderItems] = useState<any[]>([])
+  const [showOrder, setShowOrder] = useState(false)
+
+  const addToOrder = (order: any) => {
+    setOrderItems(prev => [...prev, order])
+    setShowOrder(true)
+  }
 
   // usestate for the mode
   const [click, setClick] = useState(0)
@@ -154,6 +163,12 @@ const Recommended: React.FC<RecommendedProps> = ({ showSelected }) => {
           </div>
         </div>
       </div>
+      {/* floating cart button */}
+      <div className='fixed right-6 bottom-6 z-50'>
+        <button onClick={() => setShowOrder(v => !v)} className='bg-amber-500 text-white rounded-full px-4 py-3 shadow-lg'>
+          Cart ({orderItems.length})
+        </button>
+      </div>
       
       <AnimatePresence>
         {selectedItem && (
@@ -165,7 +180,16 @@ const Recommended: React.FC<RecommendedProps> = ({ showSelected }) => {
             <ViewDish
               item={selectedItem}
               onClose={() => setSelectedItem(null)}
+              onAddToOrder={addToOrder}
             />
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      <AnimatePresence>
+        {showOrder && (
+          <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className='fixed inset-0 flex items-center justify-center bg-black/50 z-40'>
+            <ViewOrder items={orderItems} onClose={() => setShowOrder(false)} />
           </motion.div>
         )}
       </AnimatePresence>

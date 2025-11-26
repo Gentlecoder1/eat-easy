@@ -14,6 +14,7 @@ import Check from "/images/Checkbox.png"
 export type ViewDishProps = {
   item: PropType | null;
   onClose: () => void;
+  onAddToOrder?: (order: any) => void;
 }
 
 const display = (isDesktop: boolean): Variants => {
@@ -42,7 +43,7 @@ const display = (isDesktop: boolean): Variants => {
   };
 }
 
-const ViewDish: React.FC<ViewDishProps> = ({ item, onClose }) => {
+const ViewDish: React.FC<ViewDishProps> = ({ item, onClose, onAddToOrder }) => {
   const isDesktop = useIsDesktop();
 
   if (!item) return null;
@@ -231,6 +232,29 @@ const ViewDish: React.FC<ViewDishProps> = ({ item, onClose }) => {
 
           <motion.div
             whileTap={{ scale: 0.96 }} 
+            onClick={() => {
+              const selected = Array.from(selectedToppings).map(id => {
+                const t = item.toppings.find(tt => tt.id === id)!
+                const qty = toppingCounts[id] || 0
+                return { id: t.id, name: t.name, price: t.price, qty, total: t.price * qty }
+              })
+
+              const order = {
+                id: item.id,
+                name: item.name,
+                image: item.image,
+                star: item.star,
+                rating: item.rating,
+                reviews: item.reviews,
+                basePrice: item.price,
+                toppings: selected,
+                qty: count,
+                price: (item.price + toppingsTotal) * count,
+              }
+
+              onAddToOrder?.(order)
+              onClose()
+            }}
             className='w-full text-center p-3 rounded-2xl bg-[#32324D] text-white cursor-pointer flex justify-center space-x-2'>
               <p>Add to order</p>
               <p className="font-bold">{formatPrice((item.price + toppingsTotal) * count)}</p>
