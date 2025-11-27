@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { motion } from 'framer-motion'
 import Navbar from "./layout/Navbar"
 import Burger from "/images/burger-icon.png"
@@ -62,6 +62,23 @@ const Recommended: React.FC<RecommendedProps> = ({ showSelected }) => {
 
   const categories = [Eat, Drink, Dessert];
   const datum = categories[menu];
+
+  const isMobile = window.innerWidth < 768;
+
+  const isModalOpen = Boolean(
+    selectedItem ||
+    showOrder ||
+    filter ||
+    (isMobile && toggle)
+  );
+
+  useEffect(() => {
+    if (isModalOpen) {
+      document.body.classList.add("overflow-hidden");
+    } else {
+      document.body.classList.remove("overflow-hidden");
+    }
+  }, [selectedItem, showOrder, filter, toggle]);
 
   return (
     <div className="w-full min-h-screen">
@@ -183,7 +200,7 @@ const Recommended: React.FC<RecommendedProps> = ({ showSelected }) => {
             className='fixed inset-0 flex items-center justify-center bg-black/50 z-40'>
             <ViewDish
               item={selectedItem}
-              onClose={() => { setSelectedItem(null), setShowOrder(true) }}
+              onClose={() => setSelectedItem(null)}
               onAddToOrder={addToOrder}
             />
           </motion.div>

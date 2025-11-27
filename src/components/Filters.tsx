@@ -34,7 +34,7 @@ const display = (isDesktop: boolean): Variants => {
       exit: { y: "100vh", opacity: 0 }
   };
 }
-
+ 
 const ProductTypes = [
     { name: 'Pizza' },
     { name: 'Butter' },
@@ -83,7 +83,7 @@ const Filters: React.FC<FiltersProps> = ({ onClose }) => {
       initial="hidden"
       animate="visible"
       exit="exit"
-      className="z-50 fixed right-0 w-full min-h-screen sm:w-[55%] md:w-[45%] lg:w-[37%] top-[15%] bottom-0 sm:top-0 sm:bottom-0 rounded-t-2xl sm:rounded-tr-none sm:rounded-l-2xl bg-[#f7f7f7]"
+      className="z-50 fixed right-0 w-full sm:min-h-screen sm:w-[55%] md:w-[45%] lg:w-[450px] top-[15%] bottom-0 sm:top-0 sm:bottom-0 rounded-t-2xl sm:rounded-tr-none sm:rounded-l-2xl bg-[#f7f7f7]"
     >
       <div className="flex flex-col h-full px-[24px] py-[16px]">
         <div onClick={onClose} className="top-0 my-2 mx-auto w-[134px] h-[5px] bg-[#C0C0CF] rounded-sm sm:hidden" />
@@ -94,8 +94,8 @@ const Filters: React.FC<FiltersProps> = ({ onClose }) => {
         </div>
 
         <div className="flex-1 overflow-y-auto scrollbar-hidden space-y-[24px]">
-            <div>
-                <h1 className="text-[#666687] text-[18px] font-semibold">Select Categories</h1>
+            <div className='space-y-[15px]'>
+                <h1 className="text-[#666687] text-[16px] font-600">Select Categories</h1>
 
                 <div className={`flex w-full justify-between space-x-4 md:space-x-0 lg:space-x-2 text-[15px] text-black`}>
                     <div
@@ -121,48 +121,51 @@ const Filters: React.FC<FiltersProps> = ({ onClose }) => {
                 </div>
             </div>
 
-            <div>
-                <h1 className="text-[#666687] text-[18px] font-semibold">Select Product Type</h1>
+            <div className='space-y-[15px]'>
+                <h1 className="text-[#666687] text-[16px] font-600">Select Product Type</h1>
 
-                <div className='text-[16px] font-600 text-[#8E8EA9] gap-4 flex flex-wrap justify-center items-center'>
+                <div className='text-[16px] font-600 text-[#8E8EA9] gap-4 flex flex-wrap  items-center'>
                     {ProductTypes.map((type, idx) => (
                     <motion.button
                         key={idx}
                         onClick={() => toggleProductType(idx)}
                         whileTap={{ scale: 0.95 }}
-                        className={`rounded-2xl px-3 md:px-4 py-2 cursor-pointer flex items-center gap-2 ${selectedProductType.includes(idx) ? 'bg-amber-500 text-white' : 'bg-[#FFFFFF] border-2 border-gray-500'}`}>
+                        className={`rounded-2xl px-3 md:px-4 py-2 cursor-pointer flex items-center gap-2 ${selectedProductType.includes(idx) ? 'bg-amber-500 text-white' : 'bg-[#FFFFFF] border border-gray-500'}`}>
                         <p>{type.name}</p>
                     </motion.button>
                     ))}
                 </div>
             </div>
 
-            <div>
-                <h1 className="text-[#666687] text-[18px] font-semibold">Rating</h1>
+            <div className='space-y-[15px]'>
+                <h1 className="text-[#666687] text-[16px] font-600">Rating</h1>
 
-                <div className='text-[16px] font-600 text-[#8E8EA9] gap-4 flex flex-wrap justify-center items-center'>
+                <div className='text-[16px] font-600 text-[#8E8EA9] gap-4 flex flex-wrap  items-center'>
                     {Ratings.map((Rating, idx) => (
                     <motion.button
                         key={idx}
                         onClick={() => toggleRating(idx)}
                         whileTap={{ scale: 0.95 }}
-                        className={`rounded-2xl px-3 md:px-4 py-2 cursor-pointer flex items-center gap-2 border-2 border-gray-500 ${selectedRatings.includes(idx) ? 'bg-amber-500 text-white' : 'bg-[#FFFFFF]'}`}>
-                        <p>{Rating.name}</p>
-                        <img src={Star} className='w-5 h-5 md:w-7 md:h-7' alt="" />
+                        className={`rounded-2xl px-3 md:px-4 py-2 cursor-pointer flex items-center gap-2 border border-gray-500 ${selectedRatings.includes(idx) ? 'bg-amber-500 text-white' : 'bg-[#FFFFFF]'}`}>
+                        <img src={Star} className='w-[18px] h-[18px]' alt="" />
+                        <p className='text-[16px]'>{Rating.name}</p>
                     </motion.button>
                     ))}
                 </div>
             </div>
 
-            <div>
-                <h1 className="text-[#666687] text-[18px] font-semibold">Rating</h1>
+            <div className='space-y-[15px]'>
+                <h1 className="text-[#666687] text-[16px] font-600">Price Range</h1>
 
             </div>
+            
+            <div  className='space-y-[15px]'>
+                <motion.button 
+                    whileTap={{ scale: 0.98 }}  
+                    className='rounded-2xl bg-[#32324D] p-4 cursor-pointer w-full'>Apply
+                </motion.button>
 
-            <motion.button 
-                whileTap={{ scale: 0.98 }}  
-                className='rounded-2xl bg-[#32324D] p-4 cursor-pointer w-full'>Apply
-            </motion.button>
+            </div>
         </div>
       </div>
     </motion.div>
