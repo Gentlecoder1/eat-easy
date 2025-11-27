@@ -38,7 +38,7 @@ const Header: React.FC<HeaderProps> = ({ onToggle, toggle, title, text, text1, l
 
 
   return (
-    <div className='bg-[#fcfcfc] md:border-b-2 border-[#32324D]  w-full z-40'>
+    <div className='bg-[#f7f7f7] md:border-b-2 border-[#32324D]  w-full z-40'>
       {/* mobile */}
       <div className="flex md:hidden justify-between items-center mx-auto p-4">
         <div className="flex space-x-2 items-center">

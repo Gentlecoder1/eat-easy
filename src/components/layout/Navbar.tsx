@@ -29,6 +29,7 @@ const Navbar: React.FC<NavbarProps> = ({ toggle, menuOpen, setMenuOpen, toggleNa
 
   return (
     <header className="w-full bg-[#F7F7F7]">
+      
       <Header onToggle={toggleNav} toggle={toggle} title={title} text={text} text1={text1} link={link} showBack={showBack} />
 
       {showAside && (
