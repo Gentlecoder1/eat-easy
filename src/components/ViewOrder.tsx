@@ -15,9 +15,10 @@ import { NavLink } from 'react-router-dom'
 export type ViewOrderProps = {
   items: PropType[];
   onClose: () => void;
+  removeOrder?: (order: any) => void;
 }
 
-const ViewOrder: React.FC<ViewOrderProps> = ({ items, onClose }) => {
+const ViewOrder: React.FC<ViewOrderProps> = ({ items, onClose, removeOrder }) => {
   // const isDesktop = useIsDesktop();
 
   if (!items || items.length === 0) return null;
@@ -93,6 +94,7 @@ const ViewOrder: React.FC<ViewOrderProps> = ({ items, onClose }) => {
               <div key={`${order.id}`} className='rounded-2xl items-center shadow-[0_4px_12px_rgba(0,0,0,0.10)] bg-white p-3 group'>
                 <div className='flex space-x-3 items-center relative'>
                   <div className='rounded-full'><img src={order.image} className='max-w-[100px] max-h-[100px] rounded-full' alt="" /></div>
+
                   <div className=''>
                     <p className='text-[15px] lg:text-[18px] font-semibold'>{order.name}</p>
 
@@ -106,7 +108,10 @@ const ViewOrder: React.FC<ViewOrderProps> = ({ items, onClose }) => {
 
                     <p className='text-[#FF7B2C] text-[15px] lg:text-[18px] font-extrabold'>${(order.price).toFixed(2)}</p>
                   </div>
+
+                  {/* remove order */}
                   <motion.div 
+                    onClick={() => removeOrder?.(order)}
                     whileTap={{ scale: 0.9 }}
                     className='flex justify-self-end absolute right-0 bottom-0'>
                       <img src={Delete} className='w-fit h-fit cursor-pointer' alt="" />

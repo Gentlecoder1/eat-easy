@@ -63,14 +63,7 @@ const Recommended: React.FC<RecommendedProps> = ({ showSelected }) => {
   const categories = [Eat, Drink, Dessert];
   const datum = categories[menu];
 
-  const isMobile = window.innerWidth < 768;
-
-  const isModalOpen = Boolean(
-    selectedItem ||
-    showOrder ||
-    filter ||
-    (isMobile && toggle)
-  );
+  const isModalOpen = Boolean(selectedItem || showOrder || filter);
 
   useEffect(() => {
     if (isModalOpen) {
@@ -78,7 +71,7 @@ const Recommended: React.FC<RecommendedProps> = ({ showSelected }) => {
     } else {
       document.body.classList.remove("overflow-hidden");
     }
-  }, [selectedItem, showOrder, filter, toggle]);
+  }, [selectedItem, showOrder, filter]);
 
   return (
     <div className="w-full min-h-screen">
