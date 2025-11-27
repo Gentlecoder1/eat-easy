@@ -10,6 +10,7 @@ import type { PropType } from "../types"
 import { Eat, Drink, Dessert } from "../data/data"
 import ViewDish from "./ViewDish"
 import ViewOrder from "./ViewOrder"
+import Filters from "./Filters"
 import { AnimatePresence } from "motion/react";
 
 type RecommendedProps = {
@@ -54,6 +55,8 @@ const Recommended: React.FC<RecommendedProps> = ({ showSelected }) => {
   // usestate for the mode
   const [click, setClick] = useState(0)
 
+  const [filter, setFilter] = useState(false)
+
   // usestate for the categories
   const [menu, setMenu] = useState(0)
 
@@ -82,22 +85,22 @@ const Recommended: React.FC<RecommendedProps> = ({ showSelected }) => {
               </div>
 
               <div
-                  onClick={() => setMenu(1)}
-                  className={`relative h-fit text-center py-2 px-4 w-20 rounded-2xl cursor-pointer transition-colors duration-300 ${menu === 1 ? 'bg-amber-500 text-white' : 'bg-none'}`}
+                onClick={() => setMenu(1)}
+                className={`relative h-fit text-center py-2 px-4 w-20 rounded-2xl cursor-pointer transition-colors duration-300 ${menu === 1 ? 'bg-amber-500 text-white' : 'bg-none'}`}
               >
                   Drink
               </div>
 
               <div
-                  onClick={() => setMenu(2)}
-                  className={`relative h-fit text-center py-2 px-4 w-20 rounded-2xl cursor-pointer transition-colors duration-300 ${menu === 2 ? 'bg-amber-500 text-white' : 'bg-none'}`}
+                onClick={() => setMenu(2)}
+                className={`relative h-fit text-center py-2 px-4 w-20 rounded-2xl cursor-pointer transition-colors duration-300 ${menu === 2 ? 'bg-amber-500 text-white' : 'bg-none'}`}
               >
                   Dessert
               </div>
               <motion.button
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.96 }}
-                  // onClick={handleToggle}
+                  onClick={() => setFilter(!filter)}
                   className='cursor-pointer bg-white rounded-2xl p-3 md:hidden'
                   >
                   <img src={Burger} className='w-4 h-3' alt="" />
@@ -128,6 +131,7 @@ const Recommended: React.FC<RecommendedProps> = ({ showSelected }) => {
 
               <motion.div
                 whileTap={{ scale: 0.96 }} 
+                onClick={() => setFilter(!filter)}
                 className='p-3 rounded-2xl bg-[#32324D] text-[12px] lg:text-[16px] text-white cursor-pointer'>Ask for new proposal
               </motion.div>
             </div>
@@ -190,6 +194,14 @@ const Recommended: React.FC<RecommendedProps> = ({ showSelected }) => {
         {showOrder && (
           <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className='fixed inset-0 flex items-center justify-center bg-black/50 z-40'>
             <ViewOrder items={orderItems} onClose={() => setShowOrder(false)} />
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      <AnimatePresence>
+        {filter && (
+          <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className='fixed inset-0 flex items-center justify-center bg-black/50 z-40'>
+            <Filters onClose={() => setFilter(false)} />
           </motion.div>
         )}
       </AnimatePresence>
