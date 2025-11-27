@@ -1,12 +1,12 @@
 import { MotionContainer, PopIn, FadeIn, SlideIn } from "../animations/motion";
 import { useState, useEffect } from "react";
-import { FaFacebook } from "react-icons/fa";
 import { motion } from "motion/react";
 import ThemeSwitchButton from "../ThemeSwitchButton";
-import { FaGoogle } from "react-icons/fa";
+import { useNavigate } from "react-router-dom";
 
 function SignUpMethod() {
   const [animateBar, setAnimateBar] = useState(false);
+  const navigate = useNavigate();
 
   useEffect(() => setAnimateBar(true), []);
 
@@ -16,7 +16,7 @@ function SignUpMethod() {
         <ThemeSwitchButton />
       </div>
 
-      <div className="w-full lg:hidden space-y-8 flex flex-col items-center justify-center min-h-screen max-w-[700px] mx-auto">
+      <div className="w-full lg:hidden space-y-8 flex flex-col items-center justify-center min-h-screen max-w-[700px] mx-auto relative">
         <SlideIn direction="up" className="px-6">
           <div className="w-full flex flex-col text-center gap-3.5">
             <h1 className="text-(--neutral-800) font-medium text-[26px] dark:text-white heading-font">
@@ -32,29 +32,71 @@ function SignUpMethod() {
         <div className="w-full px-6 mt-14">
           <FadeIn className="w-full space-y-3">
             <motion.button
-              whileHover={{ scale: 1.2 }}
-              whileTap={{ scale: 0.9 }}
-              className="py-4 bg-(--purple-2) rounded-2xl text-white font-semibold text-base w-full"
+              whileHover={{ scale: 1.02 }}
+              whileTap={{ scale: 0.98 }}
+              onClick={() => navigate("/signup")}
+              className="py-4 bg-(--purple-2) rounded-2xl text-white font-semibold text-base w-full cursor-pointer"
             >
               Get started
             </motion.button>
+
             <div className="w-full flex items-center justify-between gap-6">
-              <div className="h-0.5 bg-(--neutral-200) w-1/2"></div>
-              <span className="text-(--neutral-400)">OR</span>
-              <div className="h-0.5 bg-(--neutral-200) w-1/2"></div>
+              <div className="h-0.5 bg-(--neutral-200) w-1/2 dark:bg-(--neutral-600)"></div>
+              <span className="text-(--neutral-400) dark:text-(--purple-4)">
+                OR
+              </span>
+              <div className="h-0.5 bg-(--neutral-200) w-1/2 dark:bg-(--neutral-600)"></div>
             </div>
-            <button className="px-6 py-4 bg-white shadow-sm rounded-2xl w-full flex items-center justify-center gap-2">
-              <FaFacebook size={20}/> <span className="font-semibold text-base text-(--purple-2)">Continue with Facebook</span>
-            </button>
-            <button className="px-6 py-4 bg-white shadow-sm rounded-2xl w-full flex items-center justify-center gap-2"><FaGoogle size={20}/> <span className="font-semibold text-base text-(--purple-2)">Continue with Gmail</span></button>
+
+            <PopIn>
+              <motion.button
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
+                className="px-6 py-4 bg-white dark:bg-(--neutral-800) dark:border dark:border-(--purple-3) shadow-sm rounded-2xl w-full flex items-center justify-center gap-2"
+              >
+                <img
+                  src="/images/facebook-icon.svg"
+                  alt="Social Icon"
+                  className="w-5 h-5"
+                />
+                <span className="font-semibold text-base text-(--purple-2) dark:text-(--purple-5)">
+                  Continue with Facebook
+                </span>
+              </motion.button>
+            </PopIn>
+
+            <PopIn>
+              <motion.button
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
+                className="px-6 py-4 bg-white dark:bg-(--neutral-800) dark:border dark:border-(--purple-3) shadow-sm rounded-2xl w-full flex items-center justify-center gap-2 cursor-pointer"
+              >
+                <img
+                  src="/images/google-icon.svg"
+                  alt="Social Icon"
+                  className="w-5 h-5"
+                />
+                <span className="font-semibold text-base text-(--purple-2) dark:text-(--purple-5)">
+                  Continue with Gmail
+                </span>
+              </motion.button>
+            </PopIn>
           </FadeIn>
         </div>
 
-        <button className="px-6 py-4 text-(--purple-3) font-semibold tex-base mt-[145px]">Sign up later</button>
+        <PopIn>
+          <motion.button
+            whileHover={{ scale: 1.02 }}
+            whileTap={{ scale: 0.98 }}
+            className="px-6 py-4 text-(--purple-3) font-semibold tex-base mt-[145px] dark:text-(--purple-5)"
+          >
+            Sign up later
+          </motion.button>
+        </PopIn>
       </div>
 
       <div className="hidden lg:flex w-full min-h-screen p-[30px]">
-        <div className="flex-1 min-h-full flex flex-col items-center justify-center gap-[42px]">
+        <MotionContainer className="flex-1 min-h-full flex flex-col items-center justify-center gap-[42px]">
           <SlideIn
             direction="up"
             className="space-y-4 text-center w-full max-w-[480px]"
@@ -67,26 +109,73 @@ function SignUpMethod() {
               restaurant
             </p>
           </SlideIn>
+          <FadeIn className="w-full flex-col space-y-4 max-w-[480px] mx-auto justify-center">
+            <PopIn>
+              <motion.button
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
+                onClick={() => navigate("/signup")}
+                className="w-full px-6 py-4 bg-(--purple-2) rounded-2xl text-white cursor-pointer"
+              >
+                Get Started
+              </motion.button>
+            </PopIn>
 
-          <FadeIn className="flex flex-col gap-4 w-full max-w-[480px]">
-            <motion.button
-              className="px-6 py-4 bg-(--purple-2) rounded-2xl font-semibold text-base text-white cursor-pointer"
-              whileHover={{ scale: 1.02 }}
-              whileTap={{ scale: 0.98 }}
-            >
-              Get Started
-            </motion.button>
-            <motion.button
-              className="px-6 py-4 text-(--purple-2) font-semibold text-base cursor-pointer dark:text-(--purple-5)"
-              whileHover={{ scale: 1.02 }}
-              whileTap={{ scale: 0.98 }}
-            >
-              Sign up Later
-            </motion.button>
+            <div className="w-full flex items-center justify-between gap-6">
+              <div className="h-0.5 bg-(--neutral-200) w-1/2 dark:bg-(--neutral-600)"></div>
+              <span className="text-(--neutral-400) dark:text-(--purple-4)">
+                OR
+              </span>
+              <div className="h-0.5 bg-(--neutral-200) w-1/2 dark:bg-(--neutral-600)"></div>
+            </div>
+
+            <PopIn>
+              <motion.button
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
+                className="px-6 py-4 bg-white border border-(--neutral-500) dark:bg-(--neutral-800) dark:border dark:border-(--purple-3) rounded-2xl w-full flex items-center justify-center gap-2 cursor-pointer"
+              >
+                <img
+                  src="/images/facebook-icon.svg"
+                  alt="Social Icon"
+                  className="w-5 h-5"
+                />
+                <span className="font-semibold text-base text-(--neutral-500) dark:text-(--purple-5)">
+                  Continue with Facebook
+                </span>
+              </motion.button>
+            </PopIn>
+
+            <PopIn>
+              <motion.button
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
+                className="px-6 py-4 bg-white border border-(--neutral-500) dark:bg-(--neutral-800) dark:border dark:border-(--purple-3) rounded-2xl w-full flex items-center justify-center gap-2 cursor-pointer"
+              >
+                <img
+                  src="/images/google-icon.svg"
+                  alt="Social Icon"
+                  className="w-5 h-5"
+                />
+                <span className="font-semibold text-base text-(--neutral-500) dark:text-(--purple-5)">
+                  Continue with Gmail
+                </span>
+              </motion.button>
+            </PopIn>
           </FadeIn>
-        </div>
 
-        <div className="bg-white dark:bg-(--neutral-700) flex-1 min-h-full rounded-3xl flex flex-col align-center justify-center">
+          <PopIn>
+            <motion.button
+              whileHover={{ scale: 1.02 }}
+              whileTap={{ scale: 0.98 }}
+              className="relative -bottom-[150px] px-6 py-4 text-(--purple-2) font-semibold text-base dark:text-(--purple-5) cursor-pointer"
+            >
+              Sign up later
+            </motion.button>
+          </PopIn>
+        </MotionContainer>
+
+        <MotionContainer className="bg-white dark:bg-(--neutral-700) flex-1 min-h-full rounded-3xl flex flex-col align-center justify-center">
           <PopIn>
             <div className="w-full max-w-[500px] mx-auto">
               <img
@@ -134,7 +223,7 @@ function SignUpMethod() {
               </p>
             </FadeIn>
           </div>
-        </div>
+        </MotionContainer>
       </div>
     </MotionContainer>
   );

@@ -3,6 +3,7 @@ import { Routes, Route, useLocation } from "react-router-dom";
 import Splash from "./components/Splash";
 import GetStarted from "./components/GetStarted";
 import SignUpMethod from "./components/auth/SignUpMethod";
+import Signup from "./components/auth/SignUp"
 import Locations from "./components/Locations";
 import SetLocation from "./components/SetLocation";
 import Welcome from "./components/Welcome";
@@ -34,7 +35,8 @@ function App() {
       <Routes>
         <Route path="/" element={<Splash />} />
         <Route path="/get-started" element={<GetStarted />} />
-        <Route path="/signup" element={<SignUpMethod />} />
+        <Route path="/method" element={<SignUpMethod />} />
+        <Route path="/signup" element={<Signup />} />
         <Route path="/welcome" element={<Welcome />} />
         <Route path="/setlocation" element={<SetLocation />} />
         <Route path="/locations" element={<Locations />} />
