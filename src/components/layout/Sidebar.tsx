@@ -50,7 +50,7 @@ const Sidebar: React.FC<SidebarProps> = ({ toggle, menuOpen, setMenuOpen, onTogg
 
   return (
     <aside 
-      className={`w-[70%] sm:w-[75%] h-screen bg-[#32324D] transition-all duration-300 ease-in-out rounded-r-2xl fixed left-0 top-0 z-50 ${effectiveIsOpen ?  'md:w-[20%]' : 'md:-translate-x-0 md:w-[12%] lg:w-[9%]  -translate-x-[100%]'}`}>
+      className={`w-[70%] sm:w-[75%] h-screen bg-[#32324D] transition-all duration-300 ease-in-out rounded-r-2xl fixed left-0 top-0 z-50 ${effectiveIsOpen ?  'md:w-[20%]' : 'md:translate-x-0 md:w-[12%] lg:w-[9%]  translate-x-full'}`}>
 
       {/* sidebar toggle button for desktop */}
       <motion.button
