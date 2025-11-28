@@ -52,6 +52,15 @@ const Recommended: React.FC<RecommendedProps> = ({ showSelected }) => {
     setShowOrder(true)
   }
 
+  const removeOrder = (order: any) => {
+    setOrderItems(prev => {
+      const next = prev.filter(o => o !== order)
+      // if cart becomes empty, close the order modal
+      if (next.length === 0) setShowOrder(false)
+      return next
+    })
+  }
+
   // usestate for the mode
   const [click, setClick] = useState(0)
 
@@ -184,6 +193,7 @@ const Recommended: React.FC<RecommendedProps> = ({ showSelected }) => {
         </button>
       </motion.div>
       
+      {/* viewdish component */}
       <AnimatePresence>
         {selectedItem && (
           <motion.div 
@@ -199,15 +209,17 @@ const Recommended: React.FC<RecommendedProps> = ({ showSelected }) => {
           </motion.div>
         )}
       </AnimatePresence>
-
+      
+      {/* vieworder component */}
       <AnimatePresence>
         {showOrder && (
           <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className='fixed inset-0 flex items-center justify-center bg-black/50 z-40'>
-            <ViewOrder items={orderItems} onClose={() => setShowOrder(false)} />
+            <ViewOrder items={orderItems} onClose={() => setShowOrder(false)} removeOrder={removeOrder} />
           </motion.div>
         )}
       </AnimatePresence>
-
+      
+      {/* filter component */}
       <AnimatePresence>
         {filter && (
           <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className='fixed inset-0 flex items-center justify-center bg-black/50 z-40'>

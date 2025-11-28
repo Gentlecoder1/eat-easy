@@ -23,9 +23,9 @@ const ViewOrder: React.FC<ViewOrderProps> = ({ items, onClose, removeOrder }) =>
 
   if (!items || items.length === 0) return null;
 
-  // const [count, setCount] = useState(1);
-  // const Increment = () => setCount(c => c + 1);
-  // const Decrement = () => setCount(c => Math.max(0, c - 1));
+  const [count, setCount] = useState(1);
+  const Increment = () => setCount(c => c + 1);
+  const Decrement = () => setCount(c => Math.max(0, c - 1));
 
   // subtotal: sum of item prices (you can expand to include toppings/counts)
   const orderTotal = items.reduce((sum, t) => sum + (t.price || 0), 0)
@@ -109,13 +109,30 @@ const ViewOrder: React.FC<ViewOrderProps> = ({ items, onClose, removeOrder }) =>
                     <p className='text-[#FF7B2C] text-[15px] lg:text-[18px] font-extrabold'>${(order.price).toFixed(2)}</p>
                   </div>
 
-                  {/* remove order */}
-                  <motion.div 
-                    onClick={() => removeOrder?.(order)}
-                    whileTap={{ scale: 0.9 }}
-                    className='flex justify-self-end absolute right-0 bottom-0'>
-                      <img src={Delete} className='w-fit h-fit cursor-pointer' alt="" />
-                  </motion.div>
+                  <div className='flex md:items-center justify-self-end absolute right-0 bottom-0 '>
+                    <div className="md:flex items-center gap-[8px] px-2">
+                      {/* decrement button */}
+                      <button onClick={Decrement} type="button" disabled={count === 0} className={count === 0 ? 'cursor-not-allowed' : 'cursor-pointer'}>
+                        <img src={minus} className="w-6 h-6" alt="-" />
+                      </button>
+
+                      <p className=" text-center">{count}</p>
+
+                      {/* increment button */}
+                      <button onClick={Increment} type="button" className="">
+                        <img src={Plus} className="w-6 h-6 cursor-pointer" alt="+" />
+                      </button>
+                    </div>
+
+                    {/* remove order */}
+                    <motion.div 
+                      onClick={() => removeOrder?.(order)}
+                      whileTap={{ scale: 0.9 }}
+                      className=""
+                    >
+                        <img src={Delete} className='w-fit h-fit cursor-pointer' alt="" />
+                    </motion.div>
+                  </div>
                 </div>
               </div>
             ))}

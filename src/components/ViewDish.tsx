@@ -110,7 +110,7 @@ const ViewDish: React.FC<ViewDishProps> = ({ item, onClose, onAddToOrder }) => {
       exit="exit"
       className="z-50 fixed right-0 w-full min-h-screen sm:w-[55%] md:w-[45%] lg:w-[37%] top-[15%] bottom-0 sm:top-0 sm:bottom-0 rounded-t-2xl sm:rounded-tr-none sm:rounded-l-2xl bg-[#f7f7f7]"
     >
-      <div className="flex flex-col h-full">
+      <div className="flex flex-col h-full text-neutral-800 dark:text-white">
         <div onClick={onClose} className="top-0 my-2 mx-auto w-[134px] h-[5px] bg-[#C0C0CF] rounded-sm sm:hidden" />
 
         <motion.img whileTap={{ scale: 0.96 }} onClick={onClose} src={Cancel} className="sticky ml-auto hidden sm:block cursor-pointer top-6 right-2 z-50" alt="" />
