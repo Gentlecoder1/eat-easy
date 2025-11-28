@@ -1,5 +1,5 @@
 @import url("https://fonts.googleapis.com/css2?family=Mulish:ital,wght@0,200..1000;1,200..1000&display=swap");
-@import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&display=swap");
 @import "tailwindcss";
 
 @custom-variant dark (&:where(.dark, .dark *));
@@ -13,19 +13,19 @@
     #f7f7f7 90%,
     #fcfcfc 100%
   );
-  
+
   --light-progress-bg: #eaeaef;
   --yellow-1: #ffb01d;
-  --orange-1: #FF7B2C;
-  --neutral-700: #4A4A6A;
+  --orange-1: #ff7b2c;
+  --neutral-700: #4a4a6a;
   --neutral-800: #32324d;
   --neutral-600: #666687;
-  --neutral-500: #8E8EA9;
+  --neutral-500: #8e8ea9;
   --purple-3: #8981ae;
   --purple-2: #615793;
   --orange-text: #ff7b2c;
-  --neutral-200: #DCDCE4;
-  --neutral-400: #A5A5BA;
+  --neutral-200: #dcdce4;
+  --neutral-400: #a5a5ba;
 
   --dark-mode-bg: linear-gradient(
     90deg,
@@ -35,10 +35,10 @@
     #32324d 90%,
     #32324d 100%
   );
-  --neutral-150: #EAEAEF;
-  --purple-4: #C4C0D7;
-  --purple-5: #EBEAF2;
-  
+  --neutral-150: #eaeaef;
+  --purple-4: #c4c0d7;
+  --purple-5: #ebeaf2;
+  --dark-mode-input-bg: #4a4a6a;
 }
 
 * {
@@ -65,6 +65,44 @@ body {
   display: none;
 }
 
-.heading-font{
+.heading-font {
   font-family: "DM Sans";
+}
+
+.phone-input {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  background: white;
+  border-radius: 1rem;
+  border: 1px solid var(--neutral-150);
+}
+
+.phone-input .PhoneInputInput {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--neutral-500);
+  border: none;
+  outline: none;
+  background: transparent;
+}
+
+.phone-input .PhoneInputInput:focus {
+  outline: none;
+  box-shadow: none;
+}
+
+.phone-input .PhoneInputCountry {
+  padding-left: 16px;
+}
+
+.dark .phone-input {
+  background: var(--dark-mode-input-bg);
+  border: 1px solid var(--neutral-600);
+}
+
+.dark .phone-input .PhoneInputInput {
+  color: var(--neutral-200);
 }
