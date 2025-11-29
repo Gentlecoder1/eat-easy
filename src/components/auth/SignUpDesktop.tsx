@@ -17,6 +17,7 @@ import { motion } from "motion/react";
 import { Controller } from "react-hook-form";
 import PhoneInput from "react-phone-number-input";
 import { ClipLoader } from "react-spinners";
+import { useNavigate } from "react-router-dom";
 
 function SignUpDesktop() {
   const {
@@ -33,6 +34,7 @@ function SignUpDesktop() {
   const [showPassword, setShowPassword] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [animateBar, setAnimateBar] = useState(false);
+  const navigate = useNavigate();
 
   useEffect(() => setAnimateBar(true), []);
 
@@ -49,6 +51,7 @@ function SignUpDesktop() {
         password: "",
       });
       setShowPassword(false);
+      navigate("/verify-code");
     }, 2000);
   };
 

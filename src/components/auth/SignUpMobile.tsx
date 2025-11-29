@@ -10,6 +10,7 @@ import { motion } from "motion/react";
 import { Controller } from "react-hook-form";
 import PhoneInput from "react-phone-number-input";
 import { ClipLoader } from "react-spinners";
+import { useNavigate } from "react-router-dom";
 
 function SignUpMobile() {
   const {
@@ -25,6 +26,7 @@ function SignUpMobile() {
 
   const [showPassword, setShowPassword] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const navigate  = useNavigate();
 
   const handleSignup = (data: z.infer<typeof SignUpSchema>) => {
     console.log(data);
@@ -39,6 +41,7 @@ function SignUpMobile() {
         password: "",
       });
       setShowPassword(false);
+      navigate("/verify-code", {state: {email: data.email}});
     }, 2000);
   };
 
