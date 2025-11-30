@@ -23,10 +23,6 @@ const ViewOrder: React.FC<ViewOrderProps> = ({ items, onClose, removeOrder }) =>
 
   if (!items || items.length === 0) return null;
 
-  const [count, setCount] = useState(1);
-  const Increment = () => setCount(c => c + 1);
-  const Decrement = () => setCount(c => Math.max(0, c - 1));
-
   // subtotal: sum of item prices (you can expand to include toppings/counts)
   const orderTotal = items.reduce((sum, t) => sum + (t.price || 0), 0)
 
@@ -96,7 +92,7 @@ const ViewOrder: React.FC<ViewOrderProps> = ({ items, onClose, removeOrder }) =>
                   <div className='rounded-full'><img src={order.image} className='max-w-[100px] max-h-[100px] rounded-full' alt="" /></div>
 
                   <div className=''>
-                    <p className='text-[15px] lg:text-[18px] font-semibold'>{order.name}</p>
+                    <p className='text-[15px] lg:text-[18px] font-semibold'>{order.name} X {order.qty}</p>
 
                     <div className=' text-[14px] text-[#C0C0CF] font-semibold mb-2 flex space-x-1 flex-wrap items-center'>
                       <div className='space-x-1 flex items-center'>
@@ -110,20 +106,6 @@ const ViewOrder: React.FC<ViewOrderProps> = ({ items, onClose, removeOrder }) =>
                   </div>
 
                   <div className='flex md:items-center justify-self-end absolute right-0 bottom-0 '>
-                    <div className="md:flex items-center gap-[8px] px-2">
-                      {/* decrement button */}
-                      <button onClick={Decrement} type="button" disabled={count === 0} className={count === 0 ? 'cursor-not-allowed' : 'cursor-pointer'}>
-                        <img src={minus} className="w-6 h-6" alt="-" />
-                      </button>
-
-                      <p className=" text-center">{count}</p>
-
-                      {/* increment button */}
-                      <button onClick={Increment} type="button" className="">
-                        <img src={Plus} className="w-6 h-6 cursor-pointer" alt="+" />
-                      </button>
-                    </div>
-
                     {/* remove order */}
                     <motion.div 
                       onClick={() => removeOrder?.(order)}

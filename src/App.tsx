@@ -11,6 +11,7 @@ import Virtual from "./components/Virtual";
 import Recommend from "./components/Recommend";
 import Recommended from "./components/Recommended";
 import Step1 from "./components/Step1";
+import OrderStatus from "./components/OrderStatus";
 import { useTheme } from "./hooks/useTheme";
 import ThemeSwitchButton from "./components/ThemeSwitchButton";
 
@@ -44,6 +45,7 @@ function App() {
         <Route path="/recommend" element={<Recommend />} />
         <Route path="/step1" element={<Step1 />} />
         <Route path="/recommended" element={<Recommended />} />
+        <Route path="/orderStatus" element={<OrderStatus />} />
         <Route path="*" element={<Welcome />} />
       </Routes>
     </div>

@@ -14,6 +14,7 @@ import Check from "/images/Checkbox.png"
 export type ViewDishProps = {
   item: PropType | null;
   onClose: () => void;
+  qty: number;
   onAddToOrder?: (order: any) => void;
 }
 
@@ -43,7 +44,7 @@ const display = (isDesktop: boolean): Variants => {
   };
 }
 
-const ViewDish: React.FC<ViewDishProps> = ({ item, onClose, onAddToOrder }) => {
+const ViewDish: React.FC<ViewDishProps> = ({ item, qty, onClose, onAddToOrder }) => {
   const isDesktop = useIsDesktop();
 
   if (!item) return null;
@@ -248,7 +249,7 @@ const ViewDish: React.FC<ViewDishProps> = ({ item, onClose, onAddToOrder }) => {
                 reviews: item.reviews,
                 basePrice: item.price,
                 toppings: selected,
-                qty: count,
+                qty: setCount(1),
                 price: (item.price + toppingsTotal) * count,
               }
 

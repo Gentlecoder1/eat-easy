@@ -42,7 +42,7 @@ const Header: React.FC<HeaderProps> = ({ onToggle, toggle, title, text, text1, l
       {/* mobile */}
       <div className="flex md:hidden justify-between items-center mx-auto p-4">
         <div className="flex space-x-2 items-center">
-          { (showBack && link) ? (
+          { !(showBack && link) ? (
             <NavLink to={link}>
               <motion.button whileTap={{ scale: 0.9 }}
                 className='p-2 cursor-pointer border border-gray-600 rounded-sm' aria-label="Back">
@@ -85,6 +85,7 @@ const Header: React.FC<HeaderProps> = ({ onToggle, toggle, title, text, text1, l
 
         <div className='flex'>
           <motion.button
+            onClick={() => {setToggleOrder(!toggleOrder)}}
             whileTap={{ scale: 0.96 }}
             className='flex items-center px-5 justify-center space-x-2 cursor-pointer'
           >
@@ -93,7 +94,7 @@ const Header: React.FC<HeaderProps> = ({ onToggle, toggle, title, text, text1, l
             </div>
             <p className='md:text-[12px] lg:text-[14px] font-600 text-[#8E8EA9]'>Gram Bistro</p>
             <div className='w-5 h-5'>
-              <img src={ChevronDown} className='w-full h-full' alt="" />
+              <img src={ChevronDown} className={`w-full h-full ${ toggleOrder ? 'rotate-180' : '' }`} alt="" />
             </div>
           </motion.button>
 
