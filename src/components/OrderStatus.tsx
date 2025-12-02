@@ -6,6 +6,12 @@ import AI from "/images/AI-image.png"
 import Add from "/images/add.svg"
 import ChevronDown from "/images/chevron-down.png"
 import Avocado from "/images/Avocado-img.png"
+import type { PropType } from "../types"
+
+export type OrderStatusProps = {
+  items: PropType[];
+  onClose: () => void;
+}
 
 const OrderStatus: React.FC = () => {
   const [toggle, setToggle] = useState(false)
@@ -48,59 +54,39 @@ const OrderStatus: React.FC = () => {
                 </div>
 
                 <div className='bg-[#FFFFFF] text-center shadow-[0_4px_12px_rgba(0,0,0,0.10)] rounded-[16px] p-[14px] space-y-[16px]'>
-                    <div className='flex justify-between items-center'>
-                        <p className='text-[#DCDCE4] font-semibold'>Order list and prices</p>
-                        <img 
-                            onClick={() => {setToggleList(!toggleList)}} 
-                            src={ChevronDown} 
-                            className={`w-5 h-5 ${ toggleList ? 'rotate-180' : '' }`} 
-                            alt="" 
-                        />
-                    </div>
+                  <div className='flex justify-between items-center'>
+                      <p className='text-[#DCDCE4] font-semibold'>Order list and prices</p>
+                      <img 
+                          onClick={() => {setToggleList(!toggleList)}} 
+                          src={ChevronDown} 
+                          className={`w-5 h-5 ${ toggleList ? 'rotate-180' : '' }`} 
+                          alt="" 
+                      />
+                  </div>
 
-                    <div className='space-y-[12px]'>
-                        <div className='flex justify-between items-center '>
-                            <div className='flex items-center gap-[px]'>
-                                <img src={Avocado} className='w-[50px] h-[50px] rounded-full' alt="" />
+                  <div className='space-y-[12px]'>
+                    {items.map(sent) => (
+                      <div className='flex justify-between items-center '>
+                          <div className='flex items-center gap-[px]'>
+                              <img src={Avocado} className='w-[50px] h-[50px] rounded-full' alt="" />
 
-                                <p className='text-[14px] font-semibold'>Avocado and Egg Toast</p>
-                            </div>
-                            <p className='text-[14px]'>
-                                <span>2</span>x
-                                $<b>20.00</b>
-                            </p>
-                        </div>
-                        <div className='flex justify-between items-center '>
-                            <div className='flex items-center gap-[px]'>
-                                <img src={Avocado} className='w-[50px] h-[50px] rounded-full' alt="" />
+                              <p className='text-[14px] font-semibold'>Avocado and Egg Toast</p>
+                          </div>
+                          <p className='text-[14px]'>
+                              <span>2</span>x
+                              $<b>20.00</b>
+                          </p>
+                      </div>
+                    )}
+                  </div>
 
-                                <p className='text-[14px] font-semibold'>Avocado and Egg Toast</p>
-                            </div>
-                            <p className='text-[14px]'>
-                                <span>2</span>x
-                                $<b>20.00</b>
-                            </p>
-                        </div>
-                        <div className='flex justify-between items-center '>
-                            <div className='flex items-center gap-[px]'>
-                                <img src={Avocado} className='w-[50px] h-[50px] rounded-full' alt="" />
-
-                                <p className='text-[14px] font-semibold'>Avocado and Egg Toast</p>
-                            </div>
-                            <p className='text-[14px]'>
-                                <span>2</span>x
-                                $<b>20.00</b>
-                            </p>
-                        </div>
-                    </div>
-
-                    <motion.div 
-                        whileTap={{ scale: 0.96 }}
-                        className="flex mx-auto items-center cursor-pointer space-x-2 w-fit"
-                    >
-                        <img src={Add} alt="" />
-                        <p className="text-[#FFB01D]">Add more food to order</p>
-                    </motion.div>
+                  <motion.div 
+                      whileTap={{ scale: 0.96 }}
+                      className="flex mx-auto items-center cursor-pointer space-x-2 w-fit"
+                  >
+                      <img src={Add} alt="" />
+                      <p className="text-[#FFB01D]">Add more food to order</p>
+                  </motion.div>
 
                 </div>
             </div>

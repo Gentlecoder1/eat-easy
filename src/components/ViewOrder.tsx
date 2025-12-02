@@ -1,13 +1,11 @@
-import { motion, type Variants } from "motion/react";
+import { motion } from "motion/react";
 // import { MotionContainer, PopIn, FadeIn, SlideIn } from "../animations/motion";
 import type { PropType } from "../types"
-import { useState, type MouseEvent } from "react"
+import { type MouseEvent } from "react"
 import ArrowLeft from "/images/arrow-left.png"
 import ArrowRight from "/images/arrow-right.png"
-import Plus from "/images/plus.svg"
 import Delete from "/images/delete.svg"
 import Add from "/images/add.svg"
-import minus from "/images/minus.svg"
 import Cancel from "/images/Cancel.png"
 import Location from "/images/Map-pin.png"
 import { NavLink } from 'react-router-dom'
@@ -16,10 +14,10 @@ export type ViewOrderProps = {
   items: PropType[];
   onClose: () => void;
   removeOrder?: (order: any) => void;
+  onSend?: (sent: any) => void;
 }
 
-const ViewOrder: React.FC<ViewOrderProps> = ({ items, onClose, removeOrder }) => {
-  // const isDesktop = useIsDesktop();
+const ViewOrder: React.FC<ViewOrderProps> = ({ items, onClose, removeOrder, onSend }) => {
 
   if (!items || items.length === 0) return null;
 
@@ -92,7 +90,7 @@ const ViewOrder: React.FC<ViewOrderProps> = ({ items, onClose, removeOrder }) =>
                   <div className='rounded-full'><img src={order.image} className='max-w-[100px] max-h-[100px] rounded-full' alt="" /></div>
 
                   <div className=''>
-                    <p className='text-[15px] lg:text-[18px] font-semibold'>{order.name} X {order.qty}</p>
+                    <p className='text-[15px] lg:text-[18px] font-semibold'>{order.name} x <b className='text-[#FF7B2C]'>{(order as any).qty ?? 1}</b></p>
 
                     <div className=' text-[14px] text-[#C0C0CF] font-semibold mb-2 flex space-x-1 flex-wrap items-center'>
                       <div className='space-x-1 flex items-center'>
@@ -148,14 +146,28 @@ const ViewOrder: React.FC<ViewOrderProps> = ({ items, onClose, removeOrder }) =>
       </div>
 
       <div className="w-full flex justify-center bottom-0 p-3">
-        <NavLink to="" className="w-full">
-          <motion.button 
-            whileTap={{ scale: 0.98 }}  
-            className='group rounded-2xl bg-[#615793] p-4 cursor-pointer w-full flex items-center justify-center space-x-2'>
-              <p className="text-[16px] text-[#FFFFFF] font-semibold">Send Order</p>
-              <motion.img className="group-hover:translate-x-3 transition-all duration-300" src={ArrowRight} alt="" />
-          </motion.button>
-        </NavLink>
+        <motion.button 
+          onClick={() => {
+            // compute total qty across all items (fall back to 1 per item when qty missing)
+            const totalQty = items.reduce((sum, it) => sum + ((it as any).qty ?? 1), 0)
+
+            const sent = {
+              name: item.name,
+              image: item.image,
+              subtotal: orderTotal,
+              tax,
+              total: orderTotal + tax,
+              qty: totalQty,
+            }
+
+            onSend?.(sent)
+            onClose()
+          }}
+          whileTap={{ scale: 0.98 }}  
+          className='group rounded-2xl bg-[#615793] p-4 cursor-pointer w-full flex items-center justify-center space-x-2'>
+            <p className="text-[16px] text-[#FFFFFF] font-semibold">Send Order</p>
+            <motion.img className="group-hover:translate-x-3 transition-all duration-300" src={ArrowRight} alt="" />
+        </motion.button>
       </div>
 
     </motion.div>
