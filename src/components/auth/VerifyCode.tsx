@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { useLocation } from "react-router-dom";
 import { ClipLoader } from "react-spinners";
 import { MotionContainer, PopIn, SlideIn } from "../animations/motion";
+import ThemeSwitchButton from "../ThemeSwitchButton";
 
 const VerifyCode = () => {
   const { state } = useLocation();
@@ -14,9 +15,18 @@ const VerifyCode = () => {
   const [digits, setDigits] = useState<string[]>(Array(4).fill(""));
   const inputsRef = useRef<Array<HTMLInputElement | null>>([]);
   const [error, setError] = useState<string | null>(null);
+  const [focusedIndex, setFocusedIndex] = useState<number>(-1);
+
+  const getOutlineStyle = (i: number): React.CSSProperties | undefined => {
+    if (focusedIndex !== i) return undefined;
+    const isDark =
+      typeof document !== "undefined" &&
+      document.documentElement.classList.contains("dark");
+    const varName = isDark ? "--purple-2" : "--purple-5";
+    return { outline: `2px solid var(${varName})`, outlineOffset: "2px" };
+  };
 
   const confirmCode = () => {
-    // Validate all fields filled
     if (digits.some((d) => d === "")) {
       setError("Please enter the full 4-digit code.");
       const firstEmpty = digits.findIndex((d) => d === "");
@@ -28,6 +38,11 @@ const VerifyCode = () => {
 
     setTimeout(() => {
       setLoading(false);
+      // Clear inputs after successful submission
+      setDigits(Array(4).fill(""));
+      setFocusedIndex(-1);
+      // also blur any focused input
+      inputsRef.current.forEach((el) => el && el.blur());
     }, 2000);
   };
 
@@ -53,7 +68,6 @@ const VerifyCode = () => {
   ) => {
     if (e.key === "Backspace") {
       if (digits[idx]) {
-        // clear current value
         setDigits((prev) => {
           const copy = [...prev];
           copy[idx] = "";
@@ -95,27 +109,35 @@ const VerifyCode = () => {
   return (
     <MotionContainer className="w-full px-6 py-[15px] relative min-h-screen">
       <button
-        className="px-3 py-[13px] rounded-2xl bg-white shadow-md max-w-11"
+        className="px-3 py-3 rounded-2xl bg-white shadow-md max-w-11 dark:bg-(--neutral-700)"
         onClick={() => navigate(-1) || navigate("/signup")}
       >
-        <FaArrowLeft />
+        <FaArrowLeft className="dark:text-white" />
       </button>
+
+      <div className="absolute top-6 right-6 z-50">
+        <ThemeSwitchButton />
+      </div>
+
       <PopIn className="mt-3 text-center space-y-3.5">
-        <h1 className="flex items-center heading-font font-medium text-[22px] justify-center text-(--neutral-800)">
+        <h1 className="flex items-center heading-font font-medium text-[22px] justify-center text-(--neutral-800) dark:text-white">
           <span>Verify Code </span>
           <RxLightningBolt color="yellow" />{" "}
         </h1>
-        <p className="font-medium text-base text-(--neutral-600)">
+        <p className="font-medium text-base text-(--neutral-600) dark:text-(--neutral-150)">
           We just send a 4-digit verification code to{" "}
-          <span className="font-bold text-(--neutral-700)">{gmail}</span>. Enter
-          the code in the box below to continue.
+          <span className="font-bold text-(--neutral-700) dark:text-(--neutral-150)">
+            {gmail}
+          </span>
+          . Enter the code in the box below to continue.
         </p>
       </PopIn>
       <div className="mt-10 flex items-center justify-center gap-[29px]">
         {Array.from({ length: 4 }).map((_, i) => (
           <PopIn
             key={i}
-            className="w-[54px] h-[54px] text-center flex items-center justify-center rounded-2xl bg-white border border-(--neutral-150)"
+            className="w-[54px] h-[54px] text-center flex items-center justify-center rounded-2xl bg-white border border-(--neutral-150) dark:border-(--neutral-600) dark:bg-(--dark-mode-input-bg)"
+            style={getOutlineStyle(i)}
           >
             <input
               ref={(el) => {
@@ -126,11 +148,13 @@ const VerifyCode = () => {
               pattern="\\d*"
               maxLength={1}
               value={digits[i]}
+              onFocus={() => setFocusedIndex(i)}
+              onBlur={() => setFocusedIndex(-1)}
               onChange={(e) => handleChange(e, i)}
               onKeyDown={(e) => handleKeyDown(e, i)}
               onPaste={(e) => handlePaste(e, i)}
               placeholder="-"
-              className="w-full h-full flex items-center justify-center text-center border-none outline-none"
+              className="w-full h-full flex items-center justify-center text-center border-none outline-none dark:text-white font-normal text-xl"
               aria-label={`digit-${i + 1}`}
             />
           </PopIn>
@@ -141,9 +165,11 @@ const VerifyCode = () => {
           {error}
         </p>
       )}
-      <p className="text-center mt-[22px] font-semibold text-base text-(--neutral-500)">
+      <p className="text-center mt-[22px] font-semibold text-base text-(--neutral-500) dark:text-white">
         Didn't receive a code?{" "}
-        <span className="font-bold text-(--yellow-1)">Resend Code</span>
+        <button className="font-bold text-(--yellow-1) cusor-pointer">
+          Resend Code
+        </button>
       </p>
       <SlideIn
         className="absolute left-0 bottom-[15px] w-full text-center px-6"
@@ -151,7 +177,7 @@ const VerifyCode = () => {
       >
         <div>
           <button
-            className="px-6 py-4 bg-(--purple-2) text-white rounded-2xl w-full cursor-pointer"
+            className="px-6 py-4 bg-(--purple-2) text-white rounded-2xl w-full cursor-pointer font-semibold text-base"
             onClick={() => confirmCode()}
           >
             {loading ? <ClipLoader color="white" size={18} /> : "Next"}

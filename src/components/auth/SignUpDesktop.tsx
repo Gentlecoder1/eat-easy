@@ -51,7 +51,7 @@ function SignUpDesktop() {
         password: "",
       });
       setShowPassword(false);
-      navigate("/verify-code");
+      navigate("/verify-code", { state: { email: data.email } });
     }, 2000);
   };
 
