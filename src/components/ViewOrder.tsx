@@ -51,8 +51,8 @@ const ViewOrder: React.FC<ViewOrderProps> = ({ items, onClose, removeOrder, onSe
           </motion.button>
             
           <div className=''>
-            <h1 className='text-[14px] font-600 text-[#8E8EA9]'>Gram Bistro</h1>
-            <p className="text-[18px] font-bold text-[#32324D]">My Order</p>
+            <h1 className='text-[14px] font-600 text-[#8E8EA9] dark:text-[#EBEAF2]'>Gram Bistro</h1>
+            <p className="text-[18px] font-bold text-[#32324D] dark:text-[#FFFFFF]">My Order</p>
           </div>
         </div>
       </div>
@@ -60,7 +60,7 @@ const ViewOrder: React.FC<ViewOrderProps> = ({ items, onClose, removeOrder, onSe
       {/* header for destop */}
       <div className="hidden sm:flex justify-between p-4">
         <div className="flex items-center">
-          <h1 className="px-3 text-[16px] lg:text-[20px] font-bold">My Order</h1>
+          <h1 className="px-3 text-[16px] lg:text-[20px] font-bold dark:text-[#FFFFFF]">My Order</h1>
 
           <div className='border border-gray-700 my-auto h-5'></div>
 
@@ -68,7 +68,7 @@ const ViewOrder: React.FC<ViewOrderProps> = ({ items, onClose, removeOrder, onSe
             <div className='w-5 h-5'>
               <img src={Location} className='w-full h-full' alt="" />
             </div>
-            <p className='text-[14px] lg:text-[16px] font-semibold text-[#8E8EA9]'>Gram Bistro</p>
+            <p className='text-[14px] lg:text-[16px] font-semibold text-[#8E8EA9] dark:text-[#EBEAF2]'>Gram Bistro</p>
           </div>
         </div>
 
@@ -85,12 +85,12 @@ const ViewOrder: React.FC<ViewOrderProps> = ({ items, onClose, removeOrder, onSe
 
           <div className='flex flex-col space-y-5'>
             {items.map((order) => (
-              <div key={`${order.id}`} className='rounded-2xl items-center shadow-[0_4px_12px_rgba(0,0,0,0.10)] bg-white p-3 group'>
+              <div key={`${order.id}`} className='rounded-2xl items-center shadow-[0_4px_12px_rgba(0,0,0,0.10)] bg-white dark:bg-[#4A4A6A] p-3 group'>
                 <div className='flex space-x-3 items-center relative'>
                   <div className='rounded-full'><img src={order.image} className='max-w-[100px] max-h-[100px] rounded-full' alt="" /></div>
 
                   <div className=''>
-                    <p className='text-[15px] lg:text-[18px] font-semibold'>{order.name} x <b className='text-[#FF7B2C]'>{(order as any).qty ?? 1}</b></p>
+                    <p className='text-[15px] lg:text-[18px] font-semibold dark:text-[#FFFFFF]'>{order.name} x <b className='text-[#FF7B2C]'>{(order as any).qty ?? 1}</b></p>
 
                     <div className=' text-[14px] text-[#C0C0CF] font-semibold mb-2 flex space-x-1 flex-wrap items-center'>
                       <div className='space-x-1 flex items-center'>
@@ -128,17 +128,17 @@ const ViewOrder: React.FC<ViewOrderProps> = ({ items, onClose, removeOrder, onSe
 
           <div className="border-y border-gray-500 py-5 space-y-5">
             <div className="flex justify-between items-center">
-              <p className="text-[16px] font-semibold">Subtotal</p>
-              <p className="text-[16px] font-extrabold">${(orderTotal).toFixed(2)}</p>
+              <p className="text-[16px] font-semibold dark:text-[#DCDCE4]">Subtotal</p>
+              <p className="text-[16px] font-extrabold dark:text-[#F6F6F9]">${(orderTotal).toFixed(2)}</p>
             </div>
               <div className="flex justify-between items-center">
-              <p className="text-[16px] font-semibold">Tax</p>
-              <p className="text-[16px] font-extrabold">${tax.toFixed(2)}</p>
+              <p className="text-[16px] font-semibold dark:text-[#DCDCE4]">Tax</p>
+              <p className="text-[16px] font-extrabold dark:text-[#F6F6F9]">${tax.toFixed(2)}</p>
             </div>
           </div>
 
           <div className="flex justify-between items-center">
-            <p className="text-[18px] font-bold">Total Price</p>
+            <p className="text-[18px] font-bold dark:text-[#DCDCE4]">Total Price</p>
             <p className="text-[18px] font-extrabold text-[#FF7B2C]">${(orderTotal + tax).toFixed(2)}</p>
           </div>
 

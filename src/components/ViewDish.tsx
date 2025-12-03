@@ -247,6 +247,7 @@ const ViewDish: React.FC<ViewDishProps> = ({ item, onClose, onAddToOrder }) => {
                 reviews: item.reviews,
                 basePrice: item.price,
                 toppings: selected,
+                qty: count,
                 price: (item.price + toppingsTotal) * count,
               }
 
