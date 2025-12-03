@@ -97,7 +97,7 @@ const Welcome: React.FC = () => {
                       <motion.button whileTap={{ scale: 0.9 }} className='rounded-xl bg-[#FFF2EA] dark:bg-[#FF7B2C] cursor-pointer p-2'>
                         {/* <img src={ArrowRight} className='w-12 h-full ' alt="" /> */}
                         <HiArrowSmRight size={27} className='fill-[#FF7B2C] dark:fill-[#FFF2EA]' />
-                        </motion.button>
+                      </motion.button>
                     </NavLink>
                   </div>
                 </div>

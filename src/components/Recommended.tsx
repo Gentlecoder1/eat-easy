@@ -5,7 +5,7 @@ import Navbar from "./layout/Navbar"
 import Burger from "/images/burger-icon.png"
 import GridIcon from "/images/grid-icon.png"
 import ListIcon from "/images/list-icon.png"
-import Plus from "/images/plus.png"
+import { AiOutlinePlus } from "react-icons/ai";
 // import { NavLink } from 'react-router-dom'
 import type { PropType } from "../types"
 import { Eat, Drink, Dessert } from "../data/data"
@@ -106,26 +106,26 @@ const Recommended: React.FC<RecommendedProps> = ({ showSelected }) => {
             <h1 className='text-[22px] lg:text-[32px] text-[#32324D] font-bold'>We think you might enjoy these specially selected dishes</h1>
           </div>
 
-          <div className='md:p-4 md:rounded-2xl md:shadow-[0_4px_12px_rgba(0,0,0,0.10)] md:bg-white flex justify-between items-center mb-10'>
+          <div className='md:p-4 md:rounded-2xl md:shadow-[0_4px_12px_rgba(0,0,0,0.10)] md:bg-white md:dark:bg-[#4A4A6A] flex justify-between items-center mb-10'>
 
-            <div className={`flex md:w-fit h-fit md:mx-0 md:justify-items-normal mx-auto w-full justify-between space-x-4 md:space-x-0 lg:space-x-2 text-[15px] text-black`}>
+            <div className={`flex md:w-fit h-fit md:mx-0 md:justify-items-normal mx-auto w-full justify-between space-x-4 md:space-x-0 lg:space-x-2 text-[15px] text-black dark:text-[#F6F6F9]`}>
               <div
                 onClick={() => setMenu(0)}
-                className={`relative h-fit text-center py-2 px-4 w-20 rounded-2xl cursor-pointer transition-colors duration-300 ${menu === 0 ? 'bg-amber-500 text-white' : 'bg-none'}`}
+                className={`relative h-fit text-center py-2 px-4 w-20 rounded-2xl cursor-pointer transition-colors duration-300 ${menu === 0 ? 'bg-amber-500 text-white dark:text-black' : 'bg-none'}`}
               >
                 Eat
               </div>
 
               <div
                 onClick={() => setMenu(1)}
-                className={`relative h-fit text-center py-2 px-4 w-20 rounded-2xl cursor-pointer transition-colors duration-300 ${menu === 1 ? 'bg-amber-500 text-white' : 'bg-none'}`}
+                className={`relative h-fit text-center py-2 px-4 w-20 rounded-2xl cursor-pointer transition-colors duration-300 ${menu === 1 ? 'bg-amber-500 text-white dark:text-black' : 'bg-none'}`}
               >
                   Drink
               </div>
 
               <div
                 onClick={() => setMenu(2)}
-                className={`relative h-fit text-center py-2 px-4 w-20 rounded-2xl cursor-pointer transition-colors duration-300 ${menu === 2 ? 'bg-amber-500 text-white' : 'bg-none'}`}
+                className={`relative h-fit text-center py-2 px-4 w-20 rounded-2xl cursor-pointer transition-colors duration-300 ${menu === 2 ? 'bg-amber-500 text-white dark:text-black' : 'bg-none'}`}
               >
                   Dessert
               </div>
@@ -164,18 +164,18 @@ const Recommended: React.FC<RecommendedProps> = ({ showSelected }) => {
               <motion.div
                 whileTap={{ scale: 0.96 }} 
                 onClick={() => setFilter(!filter)}
-                className='p-3 rounded-2xl bg-[#32324D] text-[12px] lg:text-[16px] text-white cursor-pointer'>Ask for new proposal
+                className='p-3 rounded-2xl bg-[#32324D] dark:bg-[#615793] text-[12px] lg:text-[16px] text-white cursor-pointer'>Ask for new proposal
               </motion.div>
             </div>
           </div>
 
           <div className='grid grid-cols-1 sm:grid-cols-2 gap-8'>
             {datum.map((eat) => (
-              <div key={`${menu}-${eat.id}`} className='rounded-2xl items-center shadow-[0_4px_12px_rgba(0,0,0,0.10)] bg-white p-3 group'>
+              <div key={`${menu}-${eat.id}`} className='rounded-2xl items-center shadow-[0_4px_12px_rgba(0,0,0,0.10)] bg-white dark:bg-[#4A4A6A] p-3 group'>
                 <div className='flex space-x-3 items-center relative'>
                   <div className='rounded-full'><img src={eat.image} className='max-w-[100px] max-h-[100px] rounded-full' alt="" /></div>
                   <div className=''>
-                    <p className='text-[15px] lg:text-[18px] font-semibold'>{eat.name}</p>
+                    <p className='text-[15px] lg:text-[18px] dark:text-[#FFFFFF] font-semibold'>{eat.name}</p>
 
                     <div className=' text-[14px] text-[#C0C0CF] font-semibold mb-2'>
                       <div className='space-x-1 flex items-center'>
@@ -190,8 +190,8 @@ const Recommended: React.FC<RecommendedProps> = ({ showSelected }) => {
                   <motion.div 
                     whileTap={{ scale: 0.9 }}
                     onClick={() => { setSelectedItem(eat), showSelected?.(eat) }}
-                    className='flex justify-self-end absolute right-0 bottom-0'>
-                      <img src={Plus} className='w-fit h-fit cursor-pointer rounded-xl p-2 bg-[#FFF2EA]' alt="" />
+                    className='flex justify-self-end absolute right-0 bottom-0 cursor-pointer rounded-xl p-2 bg-[#FFF2EA] dark:bg-[#FF7B2C]'>
+                      <AiOutlinePlus className='w-fit h-fit fill-[#FF7B2C] dark:fill-[#FFF2EA]' />
                   </motion.div>
                 </div>
               </div>

@@ -38,7 +38,7 @@ const ViewOrder: React.FC<ViewOrderProps> = ({ items, onClose, removeOrder, onSe
         transition: { duration: 0.25 }
       }}
       exit={{ x: "100vw", opacity: 0 }}
-      className="z-50 top-0 fixed right-0 w-full h-screen flex flex-col sm:w-[55%] md:w-[45%] lg:w-[37%] sm:rounded-l-2xl bg-[#f7f7f7]"
+      className="z-50 top-0 fixed right-0 w-full h-screen flex flex-col sm:w-[55%] md:w-[45%] lg:w-[37%] sm:rounded-l-2xl bg-[#f7f7f7] dark:bg-[#32324D]"
     >
       {/* header for mobile */}
       <div className="flex sm:hidden p-4">
