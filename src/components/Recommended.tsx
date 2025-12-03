@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { motion } from 'framer-motion'
+import { useNavigate } from 'react-router-dom'
 import Navbar from "./layout/Navbar"
 import Burger from "/images/burger-icon.png"
 import GridIcon from "/images/grid-icon.png"
@@ -50,6 +51,18 @@ const Recommended: React.FC<RecommendedProps> = ({ showSelected }) => {
   const addToOrder = (order: any) => {
     setOrderItems(prev => [...prev, order])
     setShowOrder(true)
+  }
+
+  const navigate = useNavigate()
+
+  const handleSend = (sent: any) => {
+    try {
+      localStorage.setItem('eat-easy-last-order', JSON.stringify(sent))
+    } catch (e) {
+      console.error('Failed to save order to localStorage', e)
+    }
+    setShowOrder(false)
+    navigate('/orderStatus')
   }
 
   const removeOrder = (order: any) => {
@@ -214,7 +227,7 @@ const Recommended: React.FC<RecommendedProps> = ({ showSelected }) => {
       <AnimatePresence>
         {showOrder && (
           <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className='fixed inset-0 flex items-center justify-center bg-black/50 z-40'>
-            <ViewOrder items={orderItems} onClose={() => setShowOrder(false)} removeOrder={removeOrder} />
+            <ViewOrder items={orderItems} onClose={() => setShowOrder(false)} removeOrder={removeOrder} onSend={handleSend} />
           </motion.div>
         )}
       </AnimatePresence>

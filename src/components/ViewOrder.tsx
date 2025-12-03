@@ -151,9 +151,16 @@ const ViewOrder: React.FC<ViewOrderProps> = ({ items, onClose, removeOrder, onSe
             // compute total qty across all items (fall back to 1 per item when qty missing)
             const totalQty = items.reduce((sum, it) => sum + ((it as any).qty ?? 1), 0)
 
+            const sentItems = items.map(it => ({
+              id: it.id,
+              name: it.name,
+              image: it.image,
+              qty: (it as any).qty ?? 1,
+              price: it.price ?? 0
+            }))
+
             const sent = {
-              name: item.name,
-              image: item.image,
+              items: sentItems,
               subtotal: orderTotal,
               tax,
               total: orderTotal + tax,
