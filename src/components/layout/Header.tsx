@@ -100,16 +100,18 @@ const Header: React.FC<HeaderProps> = ({ onToggle, toggle, title, text, text1, l
 
           <div className='border border-gray-700 my-auto h-5'></div>
           
-          <motion.button
-            whileTap={{ scale: 0.96 }}
-            onClick={() => {setToggleOrder(!toggleOrder)}}
-            className='flex items-center px-5 justify-center space-x-2 cursor-pointer'
-          >
-            <div className='w-5 h-5'>
-              <img src={Cart} className='w-full h-full' alt="" />
-            </div>
-            <p className='md:text-[12px] lg:text-[14px] font-600 text-[#8E8EA9]'>My Order</p>
-          </motion.button>
+          <NavLink to="/orderStatus">
+            <motion.button
+              whileTap={{ scale: 0.96 }}
+              onClick={() => {setToggleOrder(!toggleOrder)}}
+              className='flex items-center px-5 justify-center space-x-2 cursor-pointer'
+            >
+              <div className='w-5 h-5'>
+                <img src={Cart} className='w-full h-full' alt="" />
+              </div>
+              <p className='md:text-[12px] lg:text-[14px] font-600 text-[#8E8EA9]'>My Order</p>
+            </motion.button>
+          </NavLink>
         </div>
       </div>
 
