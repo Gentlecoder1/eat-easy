@@ -41,7 +41,7 @@ function SignUpDesktop() {
   const handleSignup = async (data: z.infer<typeof SignUpSchema>) => {
     setIsSubmitting(true);
     try {
-      const res = await fetch("http://localhost:5174/api/auth/send-code", {
+      const res = await fetch("/api/auth/send-code", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email: data.email, username: data.username }),
@@ -207,7 +207,9 @@ function SignUpDesktop() {
               <motion.button
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
-                className="w-full text-center px-6 py-4 rounded-2xl bg-(--purple-2) text-white oultine-none border-none cursor-pointer"
+                type="submit"
+                disabled={isSubmitting}
+                className="w-full text-center px-6 py-4 rounded-2xl bg-(--purple-2) text-white oultine-none border-none cursor-pointer disabled:opacity-70 disabled:cursor-not-allowed"
               >
                 {isSubmitting ? <ClipLoader color="white" size={19} /> : "Next"}
               </motion.button>

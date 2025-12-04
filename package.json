@@ -8,8 +8,7 @@
     "build": "tsc -b && vite build",
     "lint": "eslint .",
     "preview": "vite preview",
-    "server": "tsx src/Server.ts",
-    "dev:full": "pnpm -w run server & vite"
+    "server": "tsx src/Server.ts"
   },
   "dependencies": {
     "@hookform/resolvers": "^5.2.2",

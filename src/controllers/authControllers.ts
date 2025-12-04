@@ -1,6 +1,9 @@
 import { type Request, type Response } from "express";
 import { sendEmail } from "../utils/sendEmail";
 
+type CodeRecord = { code: string; expiresAt: number };
+const codeStore = new Map<string, CodeRecord>();
+
 export const sendVerificationCode = async (
   req: Request,
   res: Response
@@ -14,6 +17,7 @@ export const sendVerificationCode = async (
   }
 
   const code = Math.floor(1000 + Math.random() * 9000); // 4-digit OTP
+  const expiresAt = Date.now() + 10 * 60 * 1000; // 10 minutes
 
   const html = `
     <div style="font-family: system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif; line-height: 1.6;">
@@ -28,6 +32,7 @@ export const sendVerificationCode = async (
 
   try {
     await sendEmail(email, "Your EatEasy verification code", html);
+    codeStore.set(email, { code: String(code), expiresAt });
     return res.status(200).json({
       success: true,
       message: "Verification code sent to email",
@@ -39,4 +44,37 @@ export const sendVerificationCode = async (
       message: "Failed to send email",
     });
   }
+};
+
+export const verifyCode = async (
+  req: Request,
+  res: Response
+): Promise<Response> => {
+  const { email, code } = req.body as { email?: string; code?: string };
+
+  if (!email || !code) {
+    return res
+      .status(400)
+      .json({ success: false, message: "Email and code are required" });
+  }
+
+  const record = codeStore.get(email);
+  if (!record) {
+    return res
+      .status(400)
+      .json({ success: false, message: "No code requested for this email" });
+  }
+
+  if (Date.now() > record.expiresAt) {
+    codeStore.delete(email);
+    return res.status(400).json({ success: false, message: "Code expired" });
+  }
+
+  if (String(code) !== record.code) {
+    return res.status(400).json({ success: false, message: "Invalid code" });
+  }
+
+  // Verification success: clear stored code
+  codeStore.delete(email);
+  return res.status(200).json({ success: true });
 };
