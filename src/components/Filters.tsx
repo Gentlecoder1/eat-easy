@@ -4,6 +4,9 @@ import { useState, type MouseEvent } from "react"
 import useIsDesktop from "../hooks/useIsDesktop"
 import Cancel from "/images/Cancel.png"
 import Star from "/images/star.svg"
+import MultiRangeSlider from "multi-range-slider-react";
+// import the component's default styles so we can override them
+import 'multi-range-slider-react/lib/multirangeslider.css';
 
 export type FiltersProps = {
   onClose: () => void;
@@ -80,6 +83,14 @@ const Filters: React.FC<FiltersProps> = ({ onClose }) => {
         setSelectedRatings(prev => prev === id ? null : id)
     }
 
+    // slider state management
+    const [minValue, set_minValue] = useState<number>(2);
+    const [maxValue, set_maxValue] = useState<number>(4);
+    const handleInput = (e: { minValue: number; maxValue: number }) => {
+        set_minValue(e.minValue);
+        set_maxValue(e.maxValue);
+    };
+
   return (
     <motion.div
       onClick={(e: MouseEvent) => e.stopPropagation()}
@@ -150,6 +161,25 @@ const Filters: React.FC<FiltersProps> = ({ onClose }) => {
             <div className='space-y-[15px]'>
                 <h1 className="text-[#666687] text-[16px] font-600">Price Range</h1>
 
+                <div className='space-y-10'>
+                    <div className="App">
+                        <MultiRangeSlider
+                            min={1.0}
+                            max={6.0}
+                            step={1}
+                            minValue={minValue}
+                            maxValue={maxValue}
+                            onInput={(e) => handleInput(e)}
+                        />
+                    </div>
+                    <div className="flex gap-4 items-center">
+                        <div className='text-[14px] font-600 text-[#8E8EA9] rounded-2xl px-[16px] py-[12px] flex items-center bg-[#FFFFFF] border border-gray-500'>Minimum price: ${minValue.toFixed(2)}</div>
+
+                        <div className='w-[16px] border border-[#DCDCE4]'></div>
+
+                        <div className='text-[14px] font-600 text-[#8E8EA9] rounded-2xl px-[16px] py-[12px] flex items-center bg-[#FFFFFF] border border-gray-500'>Maximum price: ${maxValue.toFixed(2)}</div>
+                    </div>
+                </div>
             </div>
             
             <div  className='space-y-[15px]'>
@@ -157,7 +187,6 @@ const Filters: React.FC<FiltersProps> = ({ onClose }) => {
                     whileTap={{ scale: 0.98 }}  
                     className='rounded-2xl bg-[#32324D] p-4 cursor-pointer w-full'>Apply
                 </motion.button>
-
             </div>
         </div>
       </div>
