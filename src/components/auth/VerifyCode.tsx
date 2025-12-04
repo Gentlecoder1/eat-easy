@@ -26,7 +26,7 @@ const VerifyCode = () => {
 
   useEffect(() => {
     if (gmail && expiresAt == null) {
-      const expiryMs = Date.now() + 10 * 60 * 1000; 
+      const expiryMs = Date.now() + 10 * 60 * 1000;
       setExpiresAt(expiryMs);
     }
   }, [gmail, expiresAt]);
@@ -82,7 +82,7 @@ const VerifyCode = () => {
       setDigits(Array(4).fill(""));
       setFocusedIndex(-1);
       inputsRef.current.forEach((el) => el && el.blur());
-      navigate("/Dashboard/Home");
+      navigate("/welcome");
     } catch (e) {
       setError("Incorrect or expired code. Please try again.");
     } finally {
