@@ -46,29 +46,29 @@ const OrderStatus: React.FC = () => {
       </div>
 
       <div className={`transition-all duration-300 ${!toggle ?  'md:ml-[12%] lg:ml-[9%]' : 'md:ml-[20%]'}`}>
-        <div className='max-w-6xl mx-auto flex flex-col items-center py-6 px-6 sm:px-20 md:px-6 space-y-10 my-5'>
+        <div className='max-w-6xl mx-auto flex flex-col items-center py-6 px-6 space-y-10 my-5 '>
 
-          <div className='flex flex-col md:flex-row gap-[12px] w-full'>
+          <div className='flex flex-col sm:flex-row gap-[12px] lg:gap-[32px] w-full items-center sm:items-start'>
 
-            <div className='bg-[#FFFFFF] dark:bg-[#4A4A6A] text-center shadow-[0_4px_12px_rgba(0,0,0,0.10)] rounded-[16px] pt-[30px] min-w-[327px] md:w-[65%] h-[388px] md:h-fit overflow-clip gap-[21px] flex flex-col items-center'>
+            <div className='bg-[#FFFFFF] dark:bg-[#4A4A6A] text-center shadow-[0_4px_12px_rgba(0,0,0,0.10)] rounded-[16px] pt-[30px] max-w-[340px] sm:max-w-full sm:w-[60%] h-[388px] sm:h-fit overflow-clip gap-[21px] lg:gap-[60px] flex flex-col items-center'>
                 
-              <h1 className='w-[200px] text-[16px] text-[#8E8EA9] font-semibold dark:text-[#DCDCE4]'>Your order will be ready in <b className='text-[18px] text-[#FFB01D] font-extrabold'>10 minutes</b></h1>
+              <h1 className='text-[16px] lg:text-[24px] text-[#8E8EA9] font-semibold dark:text-[#DCDCE4]'>Your order will be ready in <br /> <b className='text-[18px] lg:text-[24px] text-[#FFB01D] font-extrabold'>10 minutes</b></h1>
 
-              <div className='lg:max-w-1/2'>
+              <div className='lg:max-w-full'>
                   <img src={Thumbsup} alt="" />
               </div>
             </div>
 
-            <div className='bg-[#FFFFFF] dark:bg-[#4A4A6A] text-center shadow-[0_4px_12px_rgba(0,0,0,0.10)] rounded-[16px] p-[20px] space-y-[16px] min-w-[327px] md:w-[35%] h-[437px] md:h-fit'>
+            <div className='bg-[#FFFFFF] dark:bg-[#4A4A6A] text-center shadow-[0_4px_12px_rgba(0,0,0,0.10)] rounded-[16px] p-[20px] lg:p-[30px] space-y-[16px] max-w-[340px] sm:max-w-full sm:w-[40%] h-fit'>
               <div className='flex justify-between items-center'>
                 <p className='text-[#DCDCE4] font-semibold dark:text-[#DCDCE4]'>Order list and prices</p>
                 <FaChevronDown 
-                    onClick={() => {setToggleList(!toggleList)}}  
-                    className={`w-5 h-5 fill-[#DCDCE4] dark:fill-[#FFB01D] ${ toggleList ? 'rotate-180' : '' }`} 
+                  onClick={() => {setToggleList(!toggleList)}}  
+                  className={`w-5 h-5 cursor-pointer fill-[#DCDCE4] dark:fill-[#FFB01D] ${ toggleList ? 'rotate-180' : '' }`} 
                 />
               </div>
 
-              <div className='space-y-[12px]'>
+              <div className={`space-y-[12px] ${!toggleList ? 'flex' : 'hidden'}`}>
                 {order?.items ? (
                   order.items.map((sent: any) => (
                     <div key={sent.id} className='dark:text-[#FFFFFF] flex justify-between items-center gap-[8px]'>
@@ -97,6 +97,15 @@ const OrderStatus: React.FC = () => {
               </motion.div>
 
             </div>
+          </div>
+
+          <div className='hidden w-full md:flex justify-between items-center rounded-2xl px-[20px] py-[16px] text-[#8E8EA9] font-semibold dark:text-[#DCDCE4] bg-[#FFFFFF] dark:bg-[#4A4A6A]'>
+            <p className='text-[18px] font-600'>Your order is being made. Would you like to order anything else?</p>
+
+            <motion.div
+              whileTap={{ scale: 0.96 }} 
+              className='p-3 rounded-2xl bg-[#32324D] dark:bg-[#615793] text-[12px] lg:text-[16px] text-white cursor-pointer'>Ask for Recommendations
+            </motion.div>
           </div>
         </div>
       </div>

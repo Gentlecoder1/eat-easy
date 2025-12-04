@@ -48,11 +48,22 @@ const Recommended: React.FC<RecommendedProps> = ({ showSelected }) => {
   const [orderItems, setOrderItems] = useState<any[]>([])
   const [showOrder, setShowOrder] = useState(false)
 
+  // add a dish to vieworder
   const addToOrder = (order: any) => {
     setOrderItems(prev => [...prev, order])
     setShowOrder(true)
   }
-
+  // remove a dish from the vieworder
+  const removeOrder = (order: any) => {
+    setOrderItems(prev => {
+      const next = prev.filter(o => o !== order)
+      // if cart becomes empty, close the order modal
+      if (next.length === 0) setShowOrder(false)
+      return next
+    })
+  }
+  
+  // store ordered dishes and then navigate to the OrderStatus
   const navigate = useNavigate()
 
   const handleSend = (sent: any) => {
@@ -65,15 +76,7 @@ const Recommended: React.FC<RecommendedProps> = ({ showSelected }) => {
     navigate('/orderStatus')
   }
 
-  const removeOrder = (order: any) => {
-    setOrderItems(prev => {
-      const next = prev.filter(o => o !== order)
-      // if cart becomes empty, close the order modal
-      if (next.length === 0) setShowOrder(false)
-      return next
-    })
-  }
-
+  
   // usestate for the mode
   const [click, setClick] = useState(0)
 
@@ -81,12 +84,11 @@ const Recommended: React.FC<RecommendedProps> = ({ showSelected }) => {
 
   // usestate for the categories
   const [menu, setMenu] = useState(0)
-
   const categories = [Eat, Drink, Dessert];
   const datum = categories[menu];
 
+  // stop background scroll effect when any of this is open
   const isModalOpen = Boolean(selectedItem || showOrder || filter);
-
   useEffect(() => {
     if (isModalOpen) {
       document.body.classList.add("overflow-hidden");
@@ -103,7 +105,7 @@ const Recommended: React.FC<RecommendedProps> = ({ showSelected }) => {
       <div className={`transition-all duration-300 relative ${!toggle ?  'md:ml-[12%] lg:ml-[9%]' : 'md:ml-[20%]'}`}>
         <div className='max-w-6xl mx-auto flex flex-col p-6 space-y-5'>
           <div className='md:hidden flex justify-between items-center'>
-            <h1 className='text-[22px] lg:text-[32px] text-[#32324D] font-bold'>We think you might enjoy these specially selected dishes</h1>
+            <h1 className='text-[22px] lg:text-[32px] text-[#32324D] dark:text-[#FFFFFF] font-bold'>We think you might enjoy these specially selected dishes</h1>
           </div>
 
           <div className='md:p-4 md:rounded-2xl md:shadow-[0_4px_12px_rgba(0,0,0,0.10)] md:bg-white md:dark:bg-[#4A4A6A] flex justify-between items-center mb-10'>
