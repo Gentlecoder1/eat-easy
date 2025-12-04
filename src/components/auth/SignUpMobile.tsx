@@ -26,23 +26,29 @@ function SignUpMobile() {
 
   const [showPassword, setShowPassword] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const navigate  = useNavigate();
+  const navigate = useNavigate();
 
-  const handleSignup = (data: z.infer<typeof SignUpSchema>) => {
-    console.log(data);
-
+  const handleSignup = async (data: z.infer<typeof SignUpSchema>) => {
     setIsSubmitting(true);
-    setTimeout(() => {
-      setIsSubmitting(false);
-      reset({
-        username: "",
-        email: "",
-        phoneNumber: undefined,
-        password: "",
+    try {
+      const res = await fetch(`/api/auth/send-code`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email: data.email, username: data.username }),
       });
+      const json = await res.json();
+      if (!res.ok || !json?.success) {
+        throw new Error(json?.message || "Failed to send code");
+      }
+      reset({ username: "", email: "", phoneNumber: undefined, password: "" });
       setShowPassword(false);
-      navigate("/verify-code", {state: {email: data.email}});
-    }, 2000);
+      navigate("/verify-code", { state: { email: data.email } });
+    } catch (e) {
+      console.error(e);
+      alert("Could not send verification code. Please try again.");
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (

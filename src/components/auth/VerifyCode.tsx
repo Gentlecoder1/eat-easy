@@ -7,6 +7,7 @@ import { ClipLoader } from "react-spinners";
 import { motion } from "motion/react";
 import { MotionContainer, PopIn, SlideIn, FadeIn } from "../animations/motion";
 import ThemeSwitchButton from "../ThemeSwitchButton";
+// using fetch API for requests
 
 const VerifyCode = () => {
   const { state } = useLocation();
@@ -18,8 +19,54 @@ const VerifyCode = () => {
   const inputsRef = useRef<Array<HTMLInputElement | null>>([]);
   const [error, setError] = useState<string | null>(null);
   const [focusedIndex, setFocusedIndex] = useState<number>(-1);
+  const [serverCode, setServerCode] = useState<string | null>(null);
+  const [expiresAt, setExpiresAt] = useState<number | null>(null);
+  const [resendLoading, setResendLoading] = useState(false);
+  const [timeLeft, setTimeLeft] = useState<number>(0);
 
   useEffect(() => setAnimateBar(true), []);
+
+  // Request a code when the component mounts
+  useEffect(() => {
+    const requestCode = async () => {
+      if (!gmail) return;
+      try {
+        const res = await fetch(`/api/auth/send-code`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ email: gmail }),
+        });
+        const data = await res.json();
+        const code = String(data?.code ?? "");
+        if (code.length === 4) {
+          setServerCode(code);
+          const expiryMs = Date.now() + 10 * 60 * 1000; // 10 minutes
+          setExpiresAt(expiryMs);
+        }
+      } catch (e) {
+        setError("Failed to send verification code. Please try again.");
+      }
+    };
+    requestCode();
+  }, [gmail]);
+
+  // Countdown timer for expiry
+  useEffect(() => {
+    if (!expiresAt) return;
+    const tick = () => {
+      const remaining = Math.max(
+        0,
+        Math.floor((expiresAt - Date.now()) / 1000)
+      );
+      setTimeLeft(remaining);
+      if (remaining === 0) {
+        setServerCode(null);
+      }
+    };
+    tick();
+    const id = setInterval(tick, 1000);
+    return () => clearInterval(id);
+  }, [expiresAt]);
 
   const getOutlineStyle = (i: number): React.CSSProperties | undefined => {
     if (focusedIndex !== i) return undefined;
@@ -37,15 +84,26 @@ const VerifyCode = () => {
       if (firstEmpty >= 0) inputsRef.current[firstEmpty]?.focus();
       return;
     }
+    if (!serverCode) {
+      setError("Verification code has expired. Please resend a new code.");
+      return;
+    }
+    const entered = digits.join("");
+    if (entered !== serverCode) {
+      setError("Incorrect code. Please check and try again.");
+      return;
+    }
+
     setError(null);
     setLoading(true);
-
+    // Simulate verification complete; in real app, navigate forward
     setTimeout(() => {
       setLoading(false);
       setDigits(Array(4).fill(""));
       setFocusedIndex(-1);
       inputsRef.current.forEach((el) => el && el.blur());
-    }, 2000);
+      navigate("/signup");
+    }, 700);
   };
 
   const handleChange = (
@@ -105,6 +163,34 @@ const VerifyCode = () => {
     const nextEmpty = digits.findIndex((d, i) => i >= idx && d === "");
     if (nextEmpty >= 0) inputsRef.current[nextEmpty]?.focus();
     else inputsRef.current[focusIndex]?.focus();
+  };
+
+  const resendCode = async () => {
+    if (!gmail) return;
+    setResendLoading(true);
+    setError(null);
+    try {
+      const res = await fetch(`/api/auth/send-code`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email: gmail }),
+      });
+      const data = await res.json();
+      const code = String(data?.code ?? "");
+      if (code.length === 4) {
+        setServerCode(code);
+        const expiryMs = Date.now() + 10 * 60 * 1000; // reset 10 minutes
+        setExpiresAt(expiryMs);
+        setDigits(Array(4).fill(""));
+        inputsRef.current[0]?.focus();
+      } else {
+        setError("Failed to resend code. Please try again.");
+      }
+    } catch (e) {
+      setError("Failed to resend code. Please try again.");
+    } finally {
+      setResendLoading(false);
+    }
   };
 
   return (
@@ -171,9 +257,25 @@ const VerifyCode = () => {
                 </p>
               )}
               <p className="text-center mt-[22px] font-semibold text-base text-(--neutral-500) dark:text-white">
+                {timeLeft > 0 ? (
+                  <span>
+                    Code expires in {Math.floor(timeLeft / 60)}m {timeLeft % 60}
+                    s
+                  </span>
+                ) : (
+                  <span className="text-red-500">
+                    Code expired. Please resend.
+                  </span>
+                )}
+              </p>
+              <p className="text-center mt-2 font-semibold text-base text-(--neutral-500) dark:text-white">
                 Didn't receive a code?{" "}
-                <button className="font-bold text-(--yellow-1) cusor-pointer">
-                  Resend Code
+                <button
+                  className="font-bold text-(--yellow-1) cursor-pointer disabled:opacity-60"
+                  disabled={resendLoading}
+                  onClick={resendCode}
+                >
+                  {resendLoading ? "Resending..." : "Resend Code"}
                 </button>
               </p>
             </div>
