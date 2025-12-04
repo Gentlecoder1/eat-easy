@@ -1,5 +1,15 @@
 import nodemailer from "nodemailer";
-import { codeStore } from "./codeStore";
+
+// Persist code store across serverless invocations
+const globalStore = globalThis as unknown as {
+  __eatEasyCodeStore?: Map<string, { code: string; expiresAt: number }>;
+};
+const codeStore =
+  globalStore.__eatEasyCodeStore ??
+  (globalStore.__eatEasyCodeStore = new Map<
+    string,
+    { code: string; expiresAt: number }
+  >());
 
 export default async function handler(req: any, res: any) {
   if (req.method !== "POST") {
@@ -12,32 +22,18 @@ export default async function handler(req: any, res: any) {
     return res.status(400).json({ success: false, message: "Email required" });
   }
 
-  if (!process.env.EMAIL_USER || !process.env.EMAIL_PASS) {
-    return res.status(500).json({
-      success: false,
-      message: "Email credentials not configured",
-    });
-  }
-
   const code = Math.floor(1000 + Math.random() * 9000).toString();
   const expiresAt = Date.now() + 10 * 60 * 1000;
 
-  let transporter;
-  try {
-    transporter = nodemailer.createTransport({
-      service: "gmail",
-      auth: {
-        user: process.env.EMAIL_USER,
-        pass: process.env.EMAIL_PASS,
-      },
-    });
-  } catch (e) {
-    console.log("TRANSPORTER ERROR:", e);
-    return res
-      .status(500)
-      .json({ success: false, message: "Email transport init failed" });
-  }
+  const transporter = nodemailer.createTransport({
+    service: "gmail",
+    auth: {
+      user: process.env.EMAIL_USER,
+      pass: process.env.EMAIL_PASS, // Must be Gmail APP password
+    },
+  });
 
+  // Match local email styling from controllers/authControllers.ts
   const html = `
     <div style="font-family: system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif; line-height: 1.6;">
       <h2 style="margin: 0 0 8px;">Welcome${
@@ -60,13 +56,10 @@ export default async function handler(req: any, res: any) {
     codeStore.set(email, { code, expiresAt });
 
     return res.status(200).json({ success: true });
-  } catch (err: any) {
+  } catch (err) {
     console.log("EMAIL ERROR:", err);
     return res
       .status(500)
-      .json({
-        success: false,
-        message: err?.message || "Failed to send email",
-      });
+      .json({ success: false, message: "Failed to send email" });
   }
 }

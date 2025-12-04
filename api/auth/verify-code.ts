@@ -1,4 +1,12 @@
-import { codeStore } from "./codeStore";
+const globalStore = globalThis as unknown as {
+  __eatEasyCodeStore?: Map<string, { code: string; expiresAt: number }>;
+};
+const codeStore =
+  globalStore.__eatEasyCodeStore ??
+  (globalStore.__eatEasyCodeStore = new Map<
+    string,
+    { code: string; expiresAt: number }
+  >());
 
 export default async function handler(req: any, res: any) {
   if (req.method !== "POST") {
