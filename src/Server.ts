@@ -24,7 +24,4 @@ export function startServer() {
   });
 }
 
-// Auto-start when run directly via ts-node or node
-if (import.meta.env?.MODE === undefined) {
-  startServer();
-}
+startServer();

@@ -31,7 +31,7 @@ function SignUpMobile() {
   const handleSignup = async (data: z.infer<typeof SignUpSchema>) => {
     setIsSubmitting(true);
     try {
-      const res = await fetch(`/api/auth/send-code`, {
+      const res = await fetch("http://localhost:5174/api/auth/send-code", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email: data.email, username: data.username }),

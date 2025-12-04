@@ -36,6 +36,11 @@ const VerifyCode = () => {
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ email: gmail }),
         });
+        const contentType = res.headers.get("content-type") || "";
+        if (!res.ok) throw new Error("Failed to send code");
+        if (!contentType.includes("application/json")) {
+          throw new Error("Server returned non-JSON response");
+        }
         const data = await res.json();
         const code = String(data?.code ?? "");
         if (code.length === 4) {
@@ -175,6 +180,11 @@ const VerifyCode = () => {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email: gmail }),
       });
+      const contentType = res.headers.get("content-type") || "";
+      if (!res.ok) throw new Error("Failed to resend code");
+      if (!contentType.includes("application/json")) {
+        throw new Error("Server returned non-JSON response");
+      }
       const data = await res.json();
       const code = String(data?.code ?? "");
       if (code.length === 4) {
