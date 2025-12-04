@@ -1,6 +1,5 @@
 import { type Request, type Response } from "express";
 import { sendEmail } from "../utils/sendEmail";
-import { supabase } from "../config/supabaseClient";
 
 type CodeRecord = { code: string; expiresAt: number };
 const codeStore = new Map<string, CodeRecord>();
@@ -76,18 +75,6 @@ export const verifyCode = async (
   }
 
   codeStore.delete(email);
-  // Fetch basic user info to return with success
-  let user: { username?: string; email?: string } | null = null;
-  try {
-    const { data } = await supabase
-      .from("eat-easy-profile")
-      .select("username,email")
-      .eq("email", email)
-      .limit(1)
-      .maybeSingle();
-    if (data) user = data as any;
-  } catch (_) {
-    // ignore errors
-  }
-  return res.status(200).json({ success: true, user });
+ 
+  return res.status(200).json({ success: true });
 };
