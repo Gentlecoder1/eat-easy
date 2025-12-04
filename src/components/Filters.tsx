@@ -34,46 +34,50 @@ const display = (isDesktop: boolean): Variants => {
       exit: { y: "100vh", opacity: 0 }
   };
 }
- 
-const ProductTypes = [
-    { name: 'Pizza' },
-    { name: 'Butter' },
-    { name: 'Salad' },
-    { name: 'Soup' },
-    { name: 'Chicken' },
-    { name: 'Grill' },
-    { name: 'Breakfast' },
+
+const Categories = [
+    { id: 1, name: 'Eat', },
+    { id: 2, name: 'Drink', },
+    { id: 3, name: 'Dessert', }
 ]
 
-// NOTE: component state/hooks are declared inside the component below
+const ProductTypes = [
+    { id: 1, name: 'Pizza' },
+    { id: 2, name: 'Butter' },
+    { id: 3, name: 'Salad' },
+    { id: 4, name: 'Soup' },
+    { id: 5, name: 'Chicken' },
+    { id: 6, name: 'Grill' },
+    { id: 7, name: 'Breakfast' },
+]
 
 const Ratings = [
-    { name: '1' },
-    { name: '2' },
-    { name: '3' },
-    { name: '4' },
-    { name: '5' }
+    { id: 1, name: '1' },
+    { id: 2, name: '2' },
+    { id: 3, name: '3' },
+    { id: 4, name: '4' },
+    { id: 5, name: '5' }
 ]
 
 const Filters: React.FC<FiltersProps> = ({ onClose }) => {
   const isDesktop = useIsDesktop();
 
-    // allow multiple ProductTypes to be selected; store selected indices
-    const [selectedProductType, setSelectedProductType] = useState<number[]>([])
+    const [selectedCategory, setSelectedCategory] = useState<number | null>(null)
 
-    const toggleProductType = (index: number) => {
-        setSelectedProductType(prev =>
-                prev.includes(index) ? prev.filter(i => i !== index) : [...prev, index]
-        )
+    const toggleCategory = (id: number) => {
+        setSelectedCategory(prev => prev === id ? null : id)
     }
 
-    // allow multiple ratings to be selected; store selected indices
-    const [selectedRatings, setSelectedRatings] = useState<number[]>([])
+    const [selectedProductType, setSelectedProductType] = useState<number | null>(null)
 
-    const toggleRating = (index: number) => {
-        setSelectedRatings(prev =>
-                prev.includes(index) ? prev.filter(i => i !== index) : [...prev, index]
-        )
+    const toggleProductType = (id: number) => {
+        setSelectedProductType(prev => prev === id ? null : id)
+    }
+
+    const [selectedRatings, setSelectedRatings] = useState<number | null>(null)
+
+    const toggleRating = (id: number) => {
+        setSelectedRatings(prev => prev === id ? null : id)
     }
 
   return (
@@ -97,43 +101,32 @@ const Filters: React.FC<FiltersProps> = ({ onClose }) => {
             <div className='space-y-[15px]'>
                 <h1 className="text-[#666687] text-[16px] font-600">Select Categories</h1>
 
-                <div className={`flex w-full justify-between space-x-4 md:space-x-0 lg:space-x-2 text-[15px] text-black`}>
-                    <div
-                        // onClick={() => setMenu(0)}
-                        className={`relative h-fit text-center py-2 px-4 w-20 rounded-2xl cursor-pointer transition-colors duration-300`}
-                    >
-                        Eat
-                    </div>
-
-                    <div
-                        // onClick={() => setMenu(1)}
-                        className={`relative h-fit text-center py-2 px-4 w-20 rounded-2xl cursor-pointer transition-colors duration-300`}
-                    >
-                        Drink
-                    </div>
-
-                    <div
-                        // onClick={() => setMenu(2)}
-                        className={`relative h-fit text-center py-2 px-4 w-20 rounded-2xl cursor-pointer transition-colors duration-300 `}
-                    >
-                        Dessert
-                    </div>
+                <div className='text-[16px] font-600 text-[#8E8EA9] gap-4 flex flex-wrap items-center'>
+                    {Categories.map((cat) => (
+                        <motion.button
+                            key={cat.id}
+                            onClick={() => toggleCategory(cat.id)}
+                            whileTap={{ scale: 0.95 }}
+                            className={`rounded-2xl px-3 md:px-4 py-2 cursor-pointer flex items-center gap-2 ${selectedCategory === cat.id ? 'bg-amber-500 text-white' : 'bg-[#FFFFFF] border border-gray-500'}`}>
+                            <p>{cat.name}</p>
+                        </motion.button>
+                        ))}
                 </div>
             </div>
 
             <div className='space-y-[15px]'>
                 <h1 className="text-[#666687] text-[16px] font-600">Select Product Type</h1>
 
-                <div className='text-[16px] font-600 text-[#8E8EA9] gap-4 flex flex-wrap  items-center'>
-                    {ProductTypes.map((type, idx) => (
-                    <motion.button
-                        key={idx}
-                        onClick={() => toggleProductType(idx)}
-                        whileTap={{ scale: 0.95 }}
-                        className={`rounded-2xl px-3 md:px-4 py-2 cursor-pointer flex items-center gap-2 ${selectedProductType.includes(idx) ? 'bg-amber-500 text-white' : 'bg-[#FFFFFF] border border-gray-500'}`}>
-                        <p>{type.name}</p>
-                    </motion.button>
-                    ))}
+                <div className='text-[16px] font-600 text-[#8E8EA9] gap-4 flex flex-wrap items-center'>
+                    {ProductTypes.map((type) => (
+                        <motion.button
+                            key={type.id}
+                            onClick={() => toggleProductType(type.id)}
+                            whileTap={{ scale: 0.95 }}
+                            className={`rounded-2xl px-3 md:px-4 py-2 cursor-pointer flex items-center gap-2 ${selectedProductType === type.id ? 'bg-amber-500 text-white' : 'bg-[#FFFFFF] border border-gray-500'}`}>
+                            <p>{type.name}</p>
+                        </motion.button>
+                        ))}
                 </div>
             </div>
 
@@ -141,14 +134,14 @@ const Filters: React.FC<FiltersProps> = ({ onClose }) => {
                 <h1 className="text-[#666687] text-[16px] font-600">Rating</h1>
 
                 <div className='text-[16px] font-600 text-[#8E8EA9] gap-4 flex flex-wrap  items-center'>
-                    {Ratings.map((Rating, idx) => (
+                    {Ratings.map((rating) => (
                     <motion.button
-                        key={idx}
-                        onClick={() => toggleRating(idx)}
+                        key={rating.id}
+                        onClick={() => toggleRating(rating.id)}
                         whileTap={{ scale: 0.95 }}
-                        className={`rounded-2xl px-3 md:px-4 py-2 cursor-pointer flex items-center gap-2 border border-gray-500 ${selectedRatings.includes(idx) ? 'bg-amber-500 text-white' : 'bg-[#FFFFFF]'}`}>
+                        className={`rounded-2xl px-3 md:px-4 py-2 cursor-pointer flex items-center gap-2 border border-gray-500 ${selectedRatings === rating.id ? 'bg-amber-500 text-white' : 'bg-[#FFFFFF]'}`}>
                         <img src={Star} className='w-[18px] h-[18px]' alt="" />
-                        <p className='text-[16px]'>{Rating.name}</p>
+                        <p className='text-[16px]'>{rating.name}</p>
                     </motion.button>
                     ))}
                 </div>

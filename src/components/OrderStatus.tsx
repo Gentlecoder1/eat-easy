@@ -104,7 +104,7 @@ const OrderStatus: React.FC = () => {
             </div>
           </div>
 
-          <div className='w-full flex flex-col space-y-5 sm:flex-row justify-between items-center rounded-2xl px-[20px] py-[16px] text-[#8E8EA9] font-semibold dark:text-[#DCDCE4] bg-[#FFFFFF] dark:bg-[#4A4A6A]'>
+          <div className='w-full flex flex-col space-y-5 sm:flex-row justify-between items-center rounded-2xl px-[20px] py-[16px] text-[#8E8EA9] font-semibold dark:text-[#DCDCE4] bg-[#FFFFFF] dark:bg-[#4A4A6A] shadow-[0_4px_12px_rgba(0,0,0,0.10)]'>
             <p className='text-[18px] font-600'>{currentStatus.action}</p>
             
             {showRecommend && (
