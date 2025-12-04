@@ -6,7 +6,6 @@ import Location from "/images/Map-pin.png"
 import SearchIcon from "/images/search-icon.png"
 import PopSign from "/images/popsign.png"
 import ArrowRight from "/images/arrow-right.png"
-import { NavLink } from 'react-router-dom'
 
 const Locations: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false)
