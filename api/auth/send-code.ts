@@ -1,15 +1,5 @@
 import nodemailer from "nodemailer";
-
-// Persist code store across serverless invocations
-const globalStore = globalThis as unknown as {
-  __eatEasyCodeStore?: Map<string, { code: string; expiresAt: number }>;
-};
-const codeStore =
-  globalStore.__eatEasyCodeStore ??
-  (globalStore.__eatEasyCodeStore = new Map<
-    string,
-    { code: string; expiresAt: number }
-  >());
+import { codeStore } from "./codeStore";
 
 export default async function handler(req: any, res: any) {
   if (req.method !== "POST") {
