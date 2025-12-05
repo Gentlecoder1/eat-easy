@@ -18,7 +18,7 @@ function GetStarted() {
       </div>
 
       <div className="w-full min-h-screen lg:grid lg:grid-cols-2 lg:gap-6">
-        <div className="w-full flex flex-col items-center justify-center min-h-screen max-w-[700px] mx-auto">
+        <div className="lg:hidden w-full flex flex-col items-center justify-center min-h-screen max-w-[700px] mx-auto">
           <SlideIn direction="up">
             <div className="w-full overflow-hidden">
               <img
@@ -79,6 +79,37 @@ function GetStarted() {
               </motion.button>
             </PopIn>
           </div>
+        </div>
+
+        <div className="w-full flex flex-col items-center justify-center min-h-screen max-w-[480px] mx-auto space-y-[42px]">
+          <PopIn className="w-full text-center px-6 space-y-3.5">
+            <h1 className="text-(--neutral-800) dark:text-white font-medium text-[22px] lg:text-[40px] heading-font">
+              Let's Get Started 😎{" "}
+            </h1>
+            <p className="text-(--neutral-600) dark:text-(--neutral-150) font-medium text-base">
+              Sign up or log in to have a full digital experience in our
+              restaurant.
+            </p>
+          </PopIn>
+
+          <PopIn className="w-full flex flex-col gap-4">
+            <motion.button
+              whileHover={{ scale: 1.02 }}
+              whileTap={{ scale: 0.98 }}
+              onClick={() => navigate("/method")}
+              className="px-6 py-4 rounded-2xl bg-(--purple-2) text-white font-semibold text-base cursor-pointer"
+            >
+              Get Started
+            </motion.button>
+            <motion.button
+              whileHover={{ scale: 1.02 }}
+              whileTap={{ scale: 0.98 }}
+              onClick={() => navigate("/welcome")}
+              className="px-6 py-4 text-(--purple-2) dark:text-(--purple-5) font-semibold text-base cursor-pointer"
+            >
+              Sign up later
+            </motion.button>
+          </PopIn>
         </div>
 
         <AsideCard />
