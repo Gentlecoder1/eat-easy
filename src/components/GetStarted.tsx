@@ -16,9 +16,8 @@ function GetStarted() {
       <div className="absolute top-6 right-6 z-50">
         <ThemeSwitchButton />
       </div>
-
       <div className="w-full min-h-screen lg:grid lg:grid-cols-2 lg:gap-6">
-        <div className="lg:hidden w-full flex flex-col items-center justify-center min-h-screen max-w-[700px] mx-auto">
+        <div className="lg:hidden w-full flex flex-col items-center justify-center min-h-screen max-w-[480px] mx-auto">
           <SlideIn direction="up">
             <div className="w-full overflow-hidden">
               <img
@@ -81,7 +80,7 @@ function GetStarted() {
           </div>
         </div>
 
-        <div className="w-full flex flex-col items-center justify-center min-h-screen max-w-[480px] mx-auto space-y-[42px]">
+        <div className="w-full flex-col items-center justify-center min-h-screen max-w-[480px] mx-auto space-y-[42px] hidden lg:flex">
           <PopIn className="w-full text-center px-6 space-y-3.5">
             <h1 className="text-(--neutral-800) dark:text-white font-medium text-[22px] lg:text-[40px] heading-font">
               Let's Get Started 😎{" "}
