@@ -166,22 +166,32 @@ const VerifyCode = () => {
 
                 <p className="text-center mt-3 lg:mt-[42px] font-semibold text-base text-(--neutral-500) dark:text-white">
                   Didn't receive a code?{" "}
-                  <button className="font-bold text-(--yellow-1) cursor-pointer disabled:opacity-60">
-                    Resend Code
-                  </button>
-                </p>
-              </div>
-              <SlideIn className="w-full text-center mt-[318px]" direction="up">
-                <div>
                   <motion.button
                     whileHover={{ scale: 1.02 }}
                     whileTap={{ scale: 0.98 }}
-                    className="px-6 py-4 bg-(--purple-2) text-white rounded-2xl w-full cursor-pointer font-semibold text-base"
-                    onClick={handleNext}
+                    className="font-bold text-(--yellow-1) cursor-pointer disabled:opacity-60"
                   >
-                    Next
+                    Resend Code
                   </motion.button>
-                </div>
+                </p>
+              </div>
+              <SlideIn className="w-full flex items-center gap-6 text-center mt-[318px]" direction="up">
+                <motion.button
+                  whileHover={{ scale: 1.02 }}
+                  whileTap={{ scale: 0.98 }}
+                  className="px-6 py-4 bg-white) bg-white dark:bg-(--neutral-700) dark:text-white rounded-2xl w-full max-w-[123px] cursor-pointer font-semibold text-base hidden lg:flex items-center gap-2 flex-1 text-(--purple-2)"
+                  onClick={()=>navigate(-1) || navigate("/signup")}
+                >
+                  <FaArrowLeft /> <span>Back</span>
+                </motion.button>
+                <motion.button
+                  whileHover={{ scale: 1.02 }}
+                  whileTap={{ scale: 0.98 }}
+                  className="px-6 py-4 bg-(--purple-2) text-white rounded-2xl w-full cursor-pointer font-semibold text-base flex-2"
+                  onClick={handleNext}
+                >
+                  Next
+                </motion.button>
               </SlideIn>
             </div>
           </div>

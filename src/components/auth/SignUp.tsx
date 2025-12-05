@@ -35,7 +35,13 @@ function SignUp() {
     setTimeout(() => {
       reset();
       setIsSubmitting(false);
-      navigate("/verify-code")
+      navigate("/verify-code", {
+        state: {
+          email: data.email,
+          username: data.username,
+          phoneNumber: data.phoneNumber,
+        },
+      });
     }, 2000);
     console.log(data);
   };
