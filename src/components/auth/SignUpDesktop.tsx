@@ -40,45 +40,9 @@ function SignUpDesktop() {
 
   const handleSignup = async (data: z.infer<typeof SignUpSchema>) => {
     setIsSubmitting(true);
-    try {
-      const res = await fetch("/api/auth/send-code", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          email: data.email,
-          username: data.username,
-          phoneNumber: data.phoneNumber,
-          password: data.password,
-        }),
-      });
-      const contentType = res.headers.get("content-type") || "";
-      let json: any = null;
-      if (contentType.includes("application/json")) {
-        try {
-          json = await res.json();
-        } catch (_) {
-          throw new Error("Unexpected empty response from server");
-        }
-      } else {
-        const text = await res.text();
-        throw new Error(text || "Server returned non-JSON response");
-      }
-      if (!res.ok || !json?.success) {
-        throw new Error(json?.message || "Failed to send code");
-      }
-      reset({ username: "", email: "", phoneNumber: undefined, password: "" });
-      setShowPassword(false);
-      navigate("/verify-code", { state: { email: data.email } });
-    } catch (e) {
-      console.error(e);
-      const msg =
-        e instanceof Error
-          ? e.message
-          : "Could not send verification code. Please try again.";
-      alert(msg);
-    } finally {
-      setIsSubmitting(false);
-    }
+    navigate("/verify-code");
+    reset()
+   console.log(data)
   };
 
   return (

@@ -12,6 +12,8 @@ const VerifyCode = () => {
   const { state } = useLocation();
   const [animateBar, setAnimateBar] = useState(false);
   const gmail = state?.email;
+  const username = state?.username as string | undefined;
+  const user_id = state?.user_id as string | undefined;
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
   const [digits, setDigits] = useState<string[]>(Array(4).fill(""));
@@ -61,33 +63,13 @@ const VerifyCode = () => {
       if (firstEmpty >= 0) inputsRef.current[firstEmpty]?.focus();
       return;
     }
-    const entered = digits.join("");
     setError(null);
     setLoading(true);
-    try {
-      const res = await fetch(`/api/auth/verify-code`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email: gmail, code: entered }),
-      });
-      const contentType = res.headers.get("content-type") || "";
-      if (!res.ok) throw new Error("Verification failed");
-      if (!contentType.includes("application/json")) {
-        throw new Error("Server returned non-JSON response");
-      }
-      const data = await res.json();
-      if (!data?.success) {
-        throw new Error(data?.message || "Invalid code");
-      }
-      setDigits(Array(4).fill(""));
-      setFocusedIndex(-1);
-      inputsRef.current.forEach((el) => el && el.blur());
-      navigate("/welcome");
-    } catch (e) {
-      setError("Incorrect or expired code. Please try again.");
-    } finally {
-      setLoading(false);
-    }
+
+    setDigits(Array(4).fill(""));
+    setFocusedIndex(-1);
+    inputsRef.current.forEach((el) => el && el.blur());
+    navigate("/welcome");
   };
 
   const handleChange = (
@@ -150,14 +132,14 @@ const VerifyCode = () => {
   };
 
   const resendCode = async () => {
-    if (!gmail) return;
+    if (!gmail || !user_id) return;
     setResendLoading(true);
     setError(null);
     try {
       const res = await fetch(`/api/auth/send-code`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email: gmail }),
+        body: JSON.stringify({ email: gmail, username, user_id }),
       });
       const contentType = res.headers.get("content-type") || "";
       if (!res.ok) throw new Error("Failed to resend code");
