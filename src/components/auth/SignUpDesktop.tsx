@@ -44,7 +44,12 @@ function SignUpDesktop() {
       const res = await fetch("/api/auth/send-code", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email: data.email, username: data.username }),
+        body: JSON.stringify({
+          email: data.email,
+          username: data.username,
+          phoneNumber: data.phoneNumber,
+          password: data.password,
+        }),
       });
       const contentType = res.headers.get("content-type") || "";
       let json: any = null;
@@ -66,7 +71,11 @@ function SignUpDesktop() {
       navigate("/verify-code", { state: { email: data.email } });
     } catch (e) {
       console.error(e);
-      alert("Could not send verification code. Please try again.");
+      const msg =
+        e instanceof Error
+          ? e.message
+          : "Could not send verification code. Please try again.";
+      alert(msg);
     } finally {
       setIsSubmitting(false);
     }

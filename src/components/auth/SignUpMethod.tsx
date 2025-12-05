@@ -95,7 +95,7 @@ function SignUpMethod() {
         </PopIn>
       </div>
 
-      <div className="hidden lg:flex w-full min-h-screen p-[30px]">
+      <div className="hidden lg:flex w-full min-h-screen p-[30px] gap-6">
         <MotionContainer className="flex-1 min-h-full flex flex-col items-center justify-center gap-[42px]">
           <SlideIn
             direction="up"
@@ -168,6 +168,7 @@ function SignUpMethod() {
             <motion.button
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
+              onClick={()=>navigate("/welcome")}
               className="relative -bottom-[150px] px-6 py-4 text-(--purple-2) font-semibold text-base dark:text-(--purple-5) cursor-pointer"
             >
               Sign up later
@@ -177,7 +178,7 @@ function SignUpMethod() {
 
         <MotionContainer className="bg-white dark:bg-(--neutral-700) flex-1 min-h-full rounded-3xl flex flex-col align-center justify-center">
           <PopIn>
-            <div className="w-full max-w-[500px] mx-auto">
+            <div className="w-full max-w-[400px] mx-auto">
               <img
                 src="/images/desktop-onboarding-illustration.svg"
                 alt="Onboarding Illustration"
