@@ -13,6 +13,7 @@ import { ClipLoader } from "react-spinners";
 import { useNavigate } from "react-router-dom";
 import AsideCard from "../AsideCard";
 import ThemeSwitchButton from "../ThemeSwitchButton";
+import { submitProfile, creatProfile } from "../../services/userProfile";
 
 function SignUp() {
   const {
@@ -28,13 +29,27 @@ function SignUp() {
 
   const [showPassword, setShowPassword] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitError, setSubmitError] = useState<string | null>(null);
   const navigate = useNavigate();
 
   const handleSignup = async (data: z.infer<typeof SignUpSchema>) => {
+    setSubmitError(null);
     setIsSubmitting(true);
-    setTimeout(() => {
+    try {
+      const payload = {
+        username: data.username,
+        email: data.email,
+        password: data.password,
+        phone_number: data.phoneNumber ?? "",
+      };
+      const signUpResult = await submitProfile(payload);
+
+      const userId = signUpResult?.user?.id;
+      if (userId) {
+        await creatProfile(payload, userId);
+      }
+
       reset();
-      setIsSubmitting(false);
       navigate("/verify-code", {
         state: {
           email: data.email,
@@ -42,8 +57,13 @@ function SignUp() {
           phoneNumber: data.phoneNumber,
         },
       });
-    }, 2000);
-    console.log(data);
+    } catch (err: any) {
+      setSubmitError(
+        err?.message || "Failed to submit profile. Please try again."
+      );
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -178,6 +198,11 @@ function SignUp() {
             viewport={{ once: true, amount: 0.2 }}
             className="w-full lg:mt-[214px] mt-[124px]"
           >
+            {submitError && (
+              <p className="mb-3 text-sm text-red-500 text-center">
+                {submitError}
+              </p>
+            )}
             <motion.button
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
