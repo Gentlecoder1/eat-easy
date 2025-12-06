@@ -105,12 +105,14 @@ const VerifyCode = () => {
     setError(null);
     setSubmitting(true);
     try {
+      const BACKEND_URL =
+        import.meta.env.VITE_BACKEND_URL || "http://localhost:3000";
       const code = digits.join("");
       // Verify OTP with server
-      const resp = await fetch("/api/auth/verify-otp", {
+      const resp = await fetch(`${BACKEND_URL}/auth/verify-otp`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email: gmail, code }),
+        body: JSON.stringify({ email: gmail, code, }),
       });
       if (!resp.ok) {
         const err = await resp.json().catch(() => ({}));

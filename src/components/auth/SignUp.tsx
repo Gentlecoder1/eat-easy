@@ -13,7 +13,6 @@ import { ClipLoader } from "react-spinners";
 import { useNavigate } from "react-router-dom";
 import AsideCard from "../AsideCard";
 import ThemeSwitchButton from "../ThemeSwitchButton";
-// Auth happens after OTP verification. We only send OTP here.
 
 function SignUp() {
   const {
@@ -35,8 +34,9 @@ function SignUp() {
     setSubmitError(null);
     setIsSubmitting(true);
     try {
-      // Step 1 + 2: Check email availability and send OTP via API
-      const resp = await fetch("/api/auth/send-otp", {
+      const BACKEND_URL =
+        import.meta.env.VITE_BACKEND_URL || "http://localhost:3000";
+      const resp = await fetch(`${BACKEND_URL}/auth/send-otp`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -49,8 +49,6 @@ function SignUp() {
         throw new Error(err?.error || "Failed to send verification code");
       }
 
-      // keep form values for verification step
-      // do not reset yet to preserve UX on back nav
       navigate("/verify-code", {
         state: {
           email: data.email,
