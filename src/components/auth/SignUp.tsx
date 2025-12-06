@@ -13,7 +13,7 @@ import { ClipLoader } from "react-spinners";
 import { useNavigate } from "react-router-dom";
 import AsideCard from "../AsideCard";
 import ThemeSwitchButton from "../ThemeSwitchButton";
-import { submitProfile, creatProfile } from "../../services/userProfile";
+// Auth happens after OTP verification. We only send OTP here.
 
 function SignUp() {
   const {
@@ -22,7 +22,6 @@ function SignUp() {
     formState: { errors },
     control,
     clearErrors,
-    reset,
   } = useForm<z.infer<typeof SignUpSchema>>({
     resolver: zodResolver(SignUpSchema),
   });
@@ -36,25 +35,28 @@ function SignUp() {
     setSubmitError(null);
     setIsSubmitting(true);
     try {
-      const payload = {
-        username: data.username,
-        email: data.email,
-        password: data.password,
-        phone_number: data.phoneNumber ?? "",
-      };
-      const signUpResult = await submitProfile(payload);
-
-      const userId = signUpResult?.user?.id;
-      if (userId) {
-        await creatProfile(payload, userId);
+      // Step 1 + 2: Check email availability and send OTP via API
+      const resp = await fetch("/api/auth/send-otp", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          email: data.email,
+          username: data.username,
+        }),
+      });
+      if (!resp.ok) {
+        const err = await resp.json().catch(() => ({}));
+        throw new Error(err?.error || "Failed to send verification code");
       }
 
-      reset();
+      // keep form values for verification step
+      // do not reset yet to preserve UX on back nav
       navigate("/verify-code", {
         state: {
           email: data.email,
           username: data.username,
           phoneNumber: data.phoneNumber,
+          password: data.password,
         },
       });
     } catch (err: any) {

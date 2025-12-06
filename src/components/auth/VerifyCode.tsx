@@ -10,7 +10,10 @@ import AsideCard from "../AsideCard";
 
 const VerifyCode = () => {
   const { state } = useLocation();
-  const gmail = state?.email;
+  const gmail = state?.email as string | undefined;
+  const username = state?.username as string | undefined;
+  const phoneNumber = state?.phoneNumber as string | undefined;
+  const password = state?.password as string | undefined;
 
   const navigate = useNavigate();
   const [digits, setDigits] = useState<string[]>(Array(4).fill(""));
@@ -86,16 +89,64 @@ const VerifyCode = () => {
     else inputsRef.current[focusIndex]?.focus();
   };
 
-  const handleNext = () => {
+  const [submitting, setSubmitting] = useState(false);
+
+  const handleNext = async () => {
     const firstEmpty = digits.findIndex((d) => d === "");
     if (firstEmpty !== -1) {
       setError("Please enter the full 4-digit code.");
       inputsRef.current[firstEmpty]?.focus();
       return;
     }
+    if (!gmail) {
+      setError("Missing email context. Please go back and try again.");
+      return;
+    }
     setError(null);
-    // Continue to next step (placeholder): navigate or submit
-    // navigate("/welcome"); // Uncomment when ready to route
+    setSubmitting(true);
+    try {
+      const code = digits.join("");
+      // Verify OTP with server
+      const resp = await fetch("/api/auth/verify-otp", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email: gmail, code }),
+      });
+      if (!resp.ok) {
+        const err = await resp.json().catch(() => ({}));
+        throw new Error(err?.error || "Verification failed");
+      }
+
+      // On success, create Supabase user and profile
+      if (!password) throw new Error("Missing password from signup step");
+
+      const { submitProfile, createProfile } = await import(
+        "../../services/userProfile"
+      );
+      const signUpResult = await submitProfile({
+        email: gmail,
+        password,
+        username: username ?? "",
+        phone_number: phoneNumber ?? "",
+      });
+      const userId = signUpResult?.user?.id;
+      if (userId) {
+        await createProfile(
+          {
+            username: username ?? "",
+            email: gmail,
+            phone_number: phoneNumber ?? "",
+          },
+          userId
+        );
+      }
+
+      navigate("/welcome");
+    } catch (e: any) {
+      setError(e?.message || "Verification failed. Please try again.");
+    } finally {
+      setSubmitting(false);
+    }
   };
 
   return (
@@ -175,22 +226,26 @@ const VerifyCode = () => {
                   </motion.button>
                 </p>
               </div>
-              <SlideIn className="w-full flex items-center gap-6 text-center mt-[318px]" direction="up">
+              <SlideIn
+                className="w-full flex items-center gap-6 text-center mt-[318px]"
+                direction="up"
+              >
                 <motion.button
                   whileHover={{ scale: 1.02 }}
                   whileTap={{ scale: 0.98 }}
                   className="px-6 py-4 bg-white) bg-white dark:bg-(--neutral-700) dark:text-white rounded-2xl w-full max-w-[123px] cursor-pointer font-semibold text-base hidden lg:flex items-center gap-2 flex-1 text-(--purple-2)"
-                  onClick={()=>navigate(-1) || navigate("/signup")}
+                  onClick={() => navigate(-1) || navigate("/signup")}
                 >
                   <FaArrowLeft /> <span>Back</span>
                 </motion.button>
                 <motion.button
                   whileHover={{ scale: 1.02 }}
                   whileTap={{ scale: 0.98 }}
-                  className="px-6 py-4 bg-(--purple-2) text-white rounded-2xl w-full cursor-pointer font-semibold text-base flex-2"
+                  className="px-6 py-4 bg-(--purple-2) text-white rounded-2xl w-full cursor-pointer font-semibold text-base flex-2 disabled:opacity-60"
                   onClick={handleNext}
+                  disabled={submitting}
                 >
-                  Next
+                  {submitting ? "Verifying..." : "Next"}
                 </motion.button>
               </SlideIn>
             </div>

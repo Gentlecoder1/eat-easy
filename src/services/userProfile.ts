@@ -1,20 +1,27 @@
 import { supabase } from "../config/supabaseClient";
 
-interface Profile {
-  username: string;
+interface SignupCredentials {
   email: string;
   password: string;
+}
+
+interface PublicProfile {
+  username: string;
+  email: string;
   phone_number: string;
 }
 
-export async function submitProfile(profile: Profile) {
+type SignUpInput = SignupCredentials &
+  Pick<PublicProfile, "username" | "phone_number">;
+
+export async function submitProfile(signup: SignUpInput) {
   const { data, error } = await supabase.auth.signUp({
-    email: profile.email,
-    password: profile.password,
+    email: signup.email,
+    password: signup.password,
     options: {
       data: {
-        username: profile.username,
-        phone_number: profile.phone_number,
+        username: signup.username,
+        phone_number: signup.phone_number,
       },
     },
   });
@@ -23,7 +30,7 @@ export async function submitProfile(profile: Profile) {
   return data;
 }
 
-export async function creatProfile(profile: Profile, userId: string) {
+export async function createProfile(profile: PublicProfile, userId: string) {
   const { data, error } = await supabase
     .from("eat_easy_profile")
     .insert({
@@ -38,3 +45,5 @@ export async function creatProfile(profile: Profile, userId: string) {
   if (error) throw error;
   return data;
 }
+
+export { createProfile as creatProfile };
