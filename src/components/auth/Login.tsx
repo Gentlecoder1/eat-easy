@@ -1,30 +1,26 @@
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { SignUpSchema } from "../../schemas/SignupSchema";
+import { z } from "zod";
+import { LoginSchema } from "../../schemas/LoginSchema";
+import { motion } from "motion/react";
 import { IoEyeOutline } from "react-icons/io5";
 import { FaRegEyeSlash } from "react-icons/fa6";
-import { MotionContainer, fadeIn, popIn } from "../animations/motion";
-import { z } from "zod";
-import { motion } from "motion/react";
-import { Controller } from "react-hook-form";
-import PhoneInput from "react-phone-number-input";
 import { ClipLoader } from "react-spinners";
-import { useNavigate } from "react-router-dom";
-import AsideCard from "../AsideCard";
+import { useNavigate, Link } from "react-router-dom";
 import ThemeSwitchButton from "../ThemeSwitchButton";
+import AsideCard from "../AsideCard";
+import { MotionContainer, fadeIn, popIn } from "../animations/motion";
 import { supabase } from "../../config/supabaseClient";
-import { Link } from "react-router-dom";
 
-function SignUp() {
+function Login() {
   const {
     register,
     handleSubmit,
     formState: { errors },
-    control,
     clearErrors,
-  } = useForm<z.infer<typeof SignUpSchema>>({
-    resolver: zodResolver(SignUpSchema),
+  } = useForm<z.infer<typeof LoginSchema>>({
+    resolver: zodResolver(LoginSchema),
   });
 
   const [showPassword, setShowPassword] = useState(false);
@@ -32,67 +28,18 @@ function SignUp() {
   const [submitError, setSubmitError] = useState<string | null>(null);
   const navigate = useNavigate();
 
-  const handleSignup = async (data: z.infer<typeof SignUpSchema>) => {
+  const onLogin = async (data: z.infer<typeof LoginSchema>) => {
     setSubmitError(null);
     setIsSubmitting(true);
     try {
-      // Pre-check: attempt signUp to detect existing account
-      const { error: precheckError } = await supabase.auth.signUp({
+      const { error } = await supabase.auth.signInWithPassword({
         email: data.email,
         password: data.password,
-        options: {
-          emailRedirectTo: `${window.location.origin}/verify-url`,
-          data: {
-            username: data.username,
-            phone_number: data.phoneNumber ?? "",
-          },
-        },
       });
-
-      if (precheckError) {
-        // Supabase returns a specific message when the user exists
-        const msg = precheckError.message?.toLowerCase() || "";
-        if (
-          msg.includes("already registered") ||
-          msg.includes("user already exists") ||
-          precheckError.status === 400
-        ) {
-          setSubmitError("This email is already registered. Please log in.");
-          return; // Do not send magic link or navigate
-        }
-        throw precheckError;
-      }
-
-      // If signUp succeeded, ensure no active session so we wait for the magic link
-      await supabase.auth.signOut();
-
-      // Proceed to send magic link for sign-in completion
-      const { error } = await supabase.auth.signInWithOtp({
-        email: data.email,
-        options: {
-          shouldCreateUser: true,
-          emailRedirectTo: `${window.location.origin}/verify-url`,
-          data: {
-            username: data.username,
-            phone_number: data.phoneNumber ?? "",
-          },
-        },
-      });
-
       if (error) throw error;
-
-      navigate("/verify-url", {
-        state: {
-          email: data.email,
-          username: data.username,
-          phoneNumber: data.phoneNumber,
-          password: data.password,
-        },
-      });
+      navigate("/welcome");
     } catch (err: any) {
-      setSubmitError(
-        err?.message || "Failed to send verification code. Please try again."
-      );
+      setSubmitError(err?.message || "Failed to sign in. Please try again.");
     } finally {
       setIsSubmitting(false);
     }
@@ -105,7 +52,7 @@ function SignUp() {
       </div>
       <div className="w-full min-h-screen lg:grid lg:grid-cols-2 lg:gap-6">
         <form
-          onSubmit={handleSubmit(handleSignup)}
+          onSubmit={handleSubmit(onLogin)}
           className="w-full min-h-screen max-w-[480px] mx-auto flex flex-col pt-[72px] lg:pt-[100px] px-6"
         >
           <motion.div
@@ -116,33 +63,14 @@ function SignUp() {
             className="w-full text-center px-6 lg:pt-0 space-y-3.5"
           >
             <h1 className="text-(--neutral-800) dark:text-white font-medium text-[22px] lg:text-[40px] heading-font">
-              Getting Started ✌{" "}
+              Welcome Back 👋
             </h1>
             <p className="text-(--neutral-600) dark:text-(--neutral-150) font-medium text-base">
-              Looks like you're new to us! Create an account for a complete
-              experience.
+              Sign in to continue your delicious journey.
             </p>
           </motion.div>
 
           <MotionContainer className="flex flex-col w-full mt-10 gap-10">
-            <motion.div variants={fadeIn}>
-              <div className="flex flex-col gap-2">
-                <input
-                  type="text"
-                  {...register("username", {
-                    onChange: () => clearErrors("username"),
-                  })}
-                  className="px-4 py-3 bg-white outline-none border border-(--neutral-150) rounded-2xl font-semibold text-sm text-(--neutral-500) dark:border-(--neutral-600) dark:text-(--neutral-200) dark:bg-(--dark-mode-input-bg)"
-                  placeholder="Username"
-                />
-                {errors.username && (
-                  <p className="text-sm text-red-400">
-                    {errors.username.message}
-                  </p>
-                )}
-              </div>
-            </motion.div>
-
             <motion.div variants={fadeIn}>
               <div className="flex flex-col gap-2">
                 <input
@@ -155,35 +83,6 @@ function SignUp() {
                 />
                 {errors.email && (
                   <p className="text-sm text-red-400">{errors.email.message}</p>
-                )}
-              </div>
-            </motion.div>
-
-            <motion.div variants={fadeIn}>
-              <div className="flex flex-col gap-2">
-                <Controller
-                  name="phoneNumber"
-                  defaultValue={undefined}
-                  control={control}
-                  render={({ field }) => (
-                    <PhoneInput
-                      {...field}
-                      international
-                      defaultCountry="NG"
-                      placeholder="Phone Number"
-                      onChange={(value) => {
-                        field.onChange(value);
-                        clearErrors("phoneNumber");
-                      }}
-                      className="phone-input"
-                    />
-                  )}
-                />
-
-                {errors.phoneNumber && (
-                  <p className="text-sm text-red-400">
-                    {errors.phoneNumber.message}
-                  </p>
                 )}
               </div>
             </motion.div>
@@ -219,6 +118,14 @@ function SignUp() {
                     {errors.password.message}
                   </p>
                 )}
+                <div className="flex justify-end">
+                  <Link
+                    to="/forgot-password"
+                    className="text-sm font-semibold text-(--yellow-1)"
+                  >
+                    Forgot password?
+                  </Link>
+                </div>
               </div>
             </motion.div>
           </MotionContainer>
@@ -242,14 +149,12 @@ function SignUp() {
               disabled={isSubmitting}
               className="w-full text-center px-6 py-4 rounded-2xl bg-(--purple-2) text-white oultine-none border-none disabled:opacity-70 disabled:cursor-not-allowed cursor-pointer"
             >
-              {isSubmitting ? <ClipLoader color="white" size={19} /> : "Next"}
+              {isSubmitting ? (
+                <ClipLoader color="white" size={19} />
+              ) : (
+                "Sign In"
+              )}
             </motion.button>
-            <p className="text-center mt-3 font-semibold text-(--neutral-500) dark:text-(--neutral-150)">
-              Already have an account?{" "}
-              <Link to="/login" className="text-(--yellow-1)">
-                Sign in
-              </Link>
-            </p>
           </motion.div>
         </form>
 
@@ -259,4 +164,4 @@ function SignUp() {
   );
 }
 
-export default SignUp;
+export default Login;

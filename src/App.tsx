@@ -3,7 +3,9 @@ import { Routes, Route, useLocation } from "react-router-dom";
 import Splash from "./components/Splash";
 import GetStarted from "./components/GetStarted";
 import SignUpMethod from "./components/auth/SignUpMethod";
-import Signup from "./components/auth/SignUp"
+import Signup from "./components/auth/SignUp";
+import Login from "./components/auth/Login";
+import ForgotPassword from "./components/auth/ForgotPassword";
 import Locations from "./components/Locations";
 import Welcome from "./components/Welcome";
 import Virtual from "./components/Virtual";
@@ -11,6 +13,8 @@ import Recommend from "./components/Recommend";
 import Step1 from "./components/Step1";
 import { useTheme } from "./hooks/useTheme";
 import ConfirmLink from "./components/auth/ConfirmLink";
+import ResetEmailSent from "./components/auth/ResetEmailSent";
+import ResetPassword from "./components/auth/ResetPassword";
 
 function App() {
   const location = useLocation();
@@ -32,7 +36,11 @@ function App() {
         <Route path="/get-started" element={<GetStarted />} />
         <Route path="/method" element={<SignUpMethod />} />
         <Route path="/signup" element={<Signup />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/forgot-password" element={<ForgotPassword />} />
         <Route path="/verify-url" element={<ConfirmLink />} />
+        <Route path="/reset-email-sent" element={<ResetEmailSent />} />
+        <Route path="/reset-password" element={<ResetPassword />} />
         <Route path="/welcome" element={<Welcome />} />
         <Route path="/locations" element={<Locations />} />
         <Route path="/virtual" element={<Virtual />} />
