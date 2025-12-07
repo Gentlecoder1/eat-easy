@@ -40,7 +40,7 @@ function SignUp() {
         email: data.email,
         password: data.password,
         options: {
-          emailRedirectTo: `${window.location.origin}/verify-code`,
+          emailRedirectTo: `${window.location.origin}/verify-url`,
           data: {
             username: data.username,
             phone_number: data.phoneNumber ?? "",
@@ -70,7 +70,7 @@ function SignUp() {
         email: data.email,
         options: {
           shouldCreateUser: true,
-          emailRedirectTo: `${window.location.origin}/verify-code`,
+          emailRedirectTo: `${window.location.origin}/verify-url`,
           data: {
             username: data.username,
             phone_number: data.phoneNumber ?? "",
@@ -80,7 +80,7 @@ function SignUp() {
 
       if (error) throw error;
 
-      navigate("/verify-code", {
+      navigate("/verify-url", {
         state: {
           email: data.email,
           username: data.username,

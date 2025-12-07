@@ -32,7 +32,7 @@ function App() {
         <Route path="/get-started" element={<GetStarted />} />
         <Route path="/method" element={<SignUpMethod />} />
         <Route path="/signup" element={<Signup />} />
-        <Route path="/verify-code" element={<ConfirmLink />} />
+        <Route path="/verify-url" element={<ConfirmLink />} />
         <Route path="/welcome" element={<Welcome />} />
         <Route path="/locations" element={<Locations />} />
         <Route path="/virtual" element={<Virtual />} />
