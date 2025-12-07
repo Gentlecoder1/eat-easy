@@ -13,6 +13,7 @@ import { ClipLoader } from "react-spinners";
 import { useNavigate } from "react-router-dom";
 import AsideCard from "../AsideCard";
 import ThemeSwitchButton from "../ThemeSwitchButton";
+import { supabase } from "../../config/supabaseClient";
 
 function SignUp() {
   const {
@@ -34,20 +35,18 @@ function SignUp() {
     setSubmitError(null);
     setIsSubmitting(true);
     try {
-      const BACKEND_URL =
-        import.meta.env.VITE_BACKEND_URL || "http://localhost:3000";
-      const resp = await fetch(`${BACKEND_URL}/auth/send-otp`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          email: data.email,
-          username: data.username,
-        }),
+      const { error } = await supabase.auth.signInWithOtp({
+        email: data.email,
+        options: {
+          shouldCreateUser: true,
+          data: {
+            username: data.username,
+            phone_number: data.phoneNumber ?? "",
+          },
+        },
       });
-      if (!resp.ok) {
-        const err = await resp.json().catch(() => ({}));
-        throw new Error(err?.error || "Failed to send verification code");
-      }
+
+      if (error) throw error;
 
       navigate("/verify-code", {
         state: {
@@ -59,7 +58,7 @@ function SignUp() {
       });
     } catch (err: any) {
       setSubmitError(
-        err?.message || "Failed to submit profile. Please try again."
+        err?.message || "Failed to send verification code. Please try again."
       );
     } finally {
       setIsSubmitting(false);

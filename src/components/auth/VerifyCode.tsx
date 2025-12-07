@@ -7,6 +7,8 @@ import { useLocation } from "react-router-dom";
 import { MotionContainer, PopIn, SlideIn } from "../animations/motion";
 import ThemeSwitchButton from "../ThemeSwitchButton";
 import AsideCard from "../AsideCard";
+import { supabase } from "../../config/supabaseClient";
+import { createProfile } from "../../services/userProfile";
 
 const VerifyCode = () => {
   const { state } = useLocation();
@@ -16,10 +18,12 @@ const VerifyCode = () => {
   const password = state?.password as string | undefined;
 
   const navigate = useNavigate();
-  const [digits, setDigits] = useState<string[]>(Array(4).fill(""));
+  const CODE_LENGTH = 6;
+  const [digits, setDigits] = useState<string[]>(Array(CODE_LENGTH).fill(""));
   const inputsRef = useRef<Array<HTMLInputElement | null>>([]);
   const [focusedIndex, setFocusedIndex] = useState<number>(-1);
   const [error, setError] = useState<string | null>(null);
+  const [resending, setResending] = useState(false);
 
   const getOutlineStyle = (i: number): React.CSSProperties | undefined => {
     if (focusedIndex !== i) return undefined;
@@ -83,7 +87,7 @@ const VerifyCode = () => {
       }
       return copy;
     });
-    const focusIndex = Math.min(3, idx + pasteDigits.length);
+    const focusIndex = Math.min(CODE_LENGTH - 1, idx + pasteDigits.length);
     const nextEmpty = digits.findIndex((d, i) => i >= idx && d === "");
     if (nextEmpty >= 0) inputsRef.current[nextEmpty]?.focus();
     else inputsRef.current[focusIndex]?.focus();
@@ -94,7 +98,7 @@ const VerifyCode = () => {
   const handleNext = async () => {
     const firstEmpty = digits.findIndex((d) => d === "");
     if (firstEmpty !== -1) {
-      setError("Please enter the full 4-digit code.");
+      setError(`Please enter the full ${CODE_LENGTH}-digit code.`);
       inputsRef.current[firstEmpty]?.focus();
       return;
     }
@@ -105,33 +109,30 @@ const VerifyCode = () => {
     setError(null);
     setSubmitting(true);
     try {
-      const BACKEND_URL =
-        import.meta.env.VITE_BACKEND_URL || "http://localhost:3000";
       const code = digits.join("");
-      // Verify OTP with server
-      const resp = await fetch(`${BACKEND_URL}/auth/verify-otp`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email: gmail, code, }),
-      });
-      if (!resp.ok) {
-        const err = await resp.json().catch(() => ({}));
-        throw new Error(err?.error || "Verification failed");
+
+      const { data: verifyData, error: verifyError } =
+        await supabase.auth.verifyOtp({
+          email: gmail,
+          token: code,
+          type: "email",
+        });
+      if (verifyError) throw verifyError;
+
+      if (!verifyData.session) throw new Error("No session after verification");
+
+      if (password) {
+        const { error: updateError } = await supabase.auth.updateUser({
+          password,
+        });
+        if (updateError) throw updateError;
       }
 
-      // On success, create Supabase user and profile
-      if (!password) throw new Error("Missing password from signup step");
+      const { data: userData, error: userError } =
+        await supabase.auth.getUser();
+      if (userError) throw userError;
+      const userId = userData.user?.id;
 
-      const { submitProfile, createProfile } = await import(
-        "../../services/userProfile"
-      );
-      const signUpResult = await submitProfile({
-        email: gmail,
-        password,
-        username: username ?? "",
-        phone_number: phoneNumber ?? "",
-      });
-      const userId = signUpResult?.user?.id;
       if (userId) {
         await createProfile(
           {
@@ -148,6 +149,23 @@ const VerifyCode = () => {
       setError(e?.message || "Verification failed. Please try again.");
     } finally {
       setSubmitting(false);
+    }
+  };
+
+  const handleResend = async () => {
+    if (!gmail) return;
+    setError(null);
+    setResending(true);
+    try {
+      const { error: resendError } = await supabase.auth.signInWithOtp({
+        email: gmail,
+        options: { shouldCreateUser: true },
+      });
+      if (resendError) throw resendError;
+    } catch (e: any) {
+      setError(e?.message || "Failed to resend code.");
+    } finally {
+      setResending(false);
     }
   };
 
@@ -175,7 +193,7 @@ const VerifyCode = () => {
                     <RxLightningBolt color="yellow" />{" "}
                   </h1>
                   <p className="font-medium text-base text-(--neutral-600) dark:text-(--neutral-150)">
-                    We just send a 4-digit verification code to{" "}
+                    We just sent a 6-digit verification code to{" "}
                     <span className="font-bold text-(--neutral-700) dark:text-(--neutral-150)">
                       {gmail}
                     </span>
@@ -183,7 +201,7 @@ const VerifyCode = () => {
                   </p>
                 </PopIn>
                 <div className="mt-10 flex items-center justify-center gap-[29px]">
-                  {Array.from({ length: 4 }).map((_, i) => (
+                  {Array.from({ length: CODE_LENGTH }).map((_, i) => (
                     <PopIn
                       key={i}
                       className="w-[54px] h-[54px] text-center flex items-center justify-center rounded-2xl bg-white border border-(--neutral-150) dark:border-(--neutral-600) dark:bg-(--dark-mode-input-bg)"
@@ -223,8 +241,10 @@ const VerifyCode = () => {
                     whileHover={{ scale: 1.02 }}
                     whileTap={{ scale: 0.98 }}
                     className="font-bold text-(--yellow-1) cursor-pointer disabled:opacity-60"
+                    onClick={handleResend}
+                    disabled={resending}
                   >
-                    Resend Code
+                    {resending ? "Resending..." : "Resend Code"}
                   </motion.button>
                 </p>
               </div>
