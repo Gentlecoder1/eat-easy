@@ -35,10 +35,42 @@ function SignUp() {
     setSubmitError(null);
     setIsSubmitting(true);
     try {
+      // Pre-check: attempt signUp to detect existing account
+      const { error: precheckError } = await supabase.auth.signUp({
+        email: data.email,
+        password: data.password,
+        options: {
+          emailRedirectTo: `${window.location.origin}/verify-code`,
+          data: {
+            username: data.username,
+            phone_number: data.phoneNumber ?? "",
+          },
+        },
+      });
+
+      if (precheckError) {
+        // Supabase returns a specific message when the user exists
+        const msg = precheckError.message?.toLowerCase() || "";
+        if (
+          msg.includes("already registered") ||
+          msg.includes("user already exists") ||
+          precheckError.status === 400
+        ) {
+          setSubmitError("This email is already registered. Please log in.");
+          return; // Do not send magic link or navigate
+        }
+        throw precheckError;
+      }
+
+      // If signUp succeeded, ensure no active session so we wait for the magic link
+      await supabase.auth.signOut();
+
+      // Proceed to send magic link for sign-in completion
       const { error } = await supabase.auth.signInWithOtp({
         email: data.email,
         options: {
           shouldCreateUser: true,
+          emailRedirectTo: `${window.location.origin}/verify-code`,
           data: {
             username: data.username,
             phone_number: data.phoneNumber ?? "",

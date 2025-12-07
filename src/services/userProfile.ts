@@ -33,12 +33,15 @@ export async function submitProfile(signup: SignUpInput) {
 export async function createProfile(profile: PublicProfile, userId: string) {
   const { data, error } = await supabase
     .from("eat_easy_profile")
-    .insert({
-      user_id: userId,
-      username: profile.username,
-      email: profile.email,
-      phone_number: profile.phone_number,
-    })
+    .upsert(
+      {
+        user_id: userId,
+        username: profile.username,
+        email: profile.email,
+        phone_number: profile.phone_number,
+      },
+      { onConflict: "user_id" }
+    )
     .select()
     .single();
 

@@ -10,7 +10,7 @@ import Virtual from "./components/Virtual";
 import Recommend from "./components/Recommend";
 import Step1 from "./components/Step1";
 import { useTheme } from "./hooks/useTheme";
-import VerifyCode from "./components/auth/VerifyCode";
+import ConfirmLink from "./components/auth/ConfirmLink";
 
 function App() {
   const location = useLocation();
@@ -32,7 +32,7 @@ function App() {
         <Route path="/get-started" element={<GetStarted />} />
         <Route path="/method" element={<SignUpMethod />} />
         <Route path="/signup" element={<Signup />} />
-        <Route path="/verify-code" element={<VerifyCode />} />
+        <Route path="/verify-code" element={<ConfirmLink />} />
         <Route path="/welcome" element={<Welcome />} />
         <Route path="/locations" element={<Locations />} />
         <Route path="/virtual" element={<Virtual />} />
