@@ -13,7 +13,7 @@ function GetStarted() {
 
   return (
     <MotionContainer className="relative w-full min-h-screen">
-      <div className="absolute top-6 right-6 z-50">
+      <div className="absolute top-2 right-2 z-50">
         <ThemeSwitchButton />
       </div>
       <div className="w-full min-h-screen lg:grid lg:grid-cols-2 lg:gap-6">

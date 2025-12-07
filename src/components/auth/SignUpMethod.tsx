@@ -9,12 +9,11 @@ function SignUpMethod() {
 
   return (
     <MotionContainer className="relative min-h-screen">
-      <div className="absolute top-6 right-6 z-50">
+      <div className="absolute top-2 right-2 z-50">
         <ThemeSwitchButton />
       </div>
 
       <div className="w-full min-h-screen lg:grid lg:grid-cols-2 lg:gap-6">
-
         <div className="w-full space-y-8 flex flex-col items-center justify-center min-h-screen max-w-[480px] mx-auto relative">
           <SlideIn direction="up" className="px-6">
             <div className="w-full flex flex-col text-center gap-3.5">
@@ -87,7 +86,7 @@ function SignUpMethod() {
             <motion.button
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
-              onClick={()=>navigate("/welcome")}
+              onClick={() => navigate("/welcome")}
               className="px-6 py-4 text-(--purple-3) font-semibold w-full left-0 text-base absolute bottom-[70px] mx-auto dark:text-(--purple-5) cursor-pointer"
             >
               Sign up later

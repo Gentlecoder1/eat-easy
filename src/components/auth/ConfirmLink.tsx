@@ -114,7 +114,7 @@ const ConfirmLink = () => {
             <FaArrowLeft className="dark:text-white" />
           </button>
 
-          <div className="absolute top-6 right-6 z-50">
+          <div className="absolute top-2 right-2 z-50">
             <ThemeSwitchButton />
           </div>
 
