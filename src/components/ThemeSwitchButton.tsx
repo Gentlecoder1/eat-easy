@@ -11,7 +11,7 @@ interface Props {
 
 export default function ThemeSwitchButton({
   className = "",
-  size = 40,
+  size = 24,
 }: Props) {
   const { theme, toggleTheme } = useTheme();
   const isDark = theme === "dark";

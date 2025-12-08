@@ -9,6 +9,8 @@ import { TfiBook } from "react-icons/tfi";
 import { MdOutlineHistory } from "react-icons/md";
 import { IoLocationOutline } from "react-icons/io5";
 import { IoIosHelpCircleOutline } from "react-icons/io";
+import ThemeSwitchButton from "../ThemeSwitchButton";
+import { useTheme } from "../../hooks/useTheme";
 
 type SidebarProps = {
   toggle?: boolean;
@@ -24,6 +26,7 @@ const Sidebar: React.FC<SidebarProps> = ({
   setMenuOpen,
   onToggle,
 }) => {
+  const { theme } = useTheme();
   // desktop toggle useState
   const [isOpen, setIsOpen] = useState(false);
   // menu accordion useState
@@ -56,11 +59,11 @@ const Sidebar: React.FC<SidebarProps> = ({
 
   return (
     <aside
-      className={`w-[260px] h-screen bg-[#32324D] transition-transform duration-300 ease-in-out rounded-r-3xl fixed left-0 top-0 z-50 
+      className={`aside h-screen transition-transform duration-300 ease-in-out rounded-r-3xl fixed left-0 top-0 z-50
+      w-[260px]
       ${effectiveIsOpen ? "translate-x-0" : "-translate-x-full"}
-      ${
-        effectiveIsOpen ? "md:w-[20%]" : "md:translate-x-0 md:w-[12%] lg:w-[9%]"
-      }`}
+      md:translate-x-0
+      ${effectiveIsOpen ? "md:w-[260px]" : "md:w-36"}`}
     >
       <motion.button
         whileHover={{ scale: 1.05 }}
@@ -290,6 +293,19 @@ const Sidebar: React.FC<SidebarProps> = ({
                     Help
                   </p>
                 </motion.button>
+              </div>
+
+              <div className="flex items-center gap-2.5 w-full py-1.5">
+                <div className="p-3 rounded-2xl bg-white/15">
+                  <ThemeSwitchButton />
+                </div>
+                <p
+                  className={`text-white text-base ${
+                    effectiveIsOpen ? "flex" : "hidden"
+                  }`}
+                >
+                  {theme === "dark" ? "Dark" : "Light"}
+                </p>
               </div>
             </div>
           </div>

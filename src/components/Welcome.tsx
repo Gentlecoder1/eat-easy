@@ -70,7 +70,7 @@ const Welcome: React.FC = () => {
 
       <div
         className={`transition-all duration-300 ${
-          !toggle ? "md:ml-[12%] lg:ml-[9%]" : "md:ml-[20%]"
+          !toggle ? "md:ml-36 lg:ml-40" : "md:ml-[260px] lg:ml-[300px]"
         } ${showLoader ? "pointer-events-none overflow-hidden" : ""}`}
       >
         <div className="max-w-6xl mx-auto flex flex-col p-6 space-y-10">
