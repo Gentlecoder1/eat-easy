@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import { motion } from "framer-motion";
-import Location from "/images/Map-pin.png";
-import ChevronDown from "/images/chevron-down.png";
-import Cart from "/images/cart-img.png";
-import Burger from "/images/burger-icon.png";
+import { HiOutlineLocationMarker } from "react-icons/hi";
+import { RiMenu2Fill } from "react-icons/ri";
+import { IoChevronDown } from "react-icons/io5";
+import { IoCartOutline } from "react-icons/io5";
 import ArrowLeft from "/images/arrow-left.png";
 import { NavLink } from "react-router-dom";
 
@@ -42,8 +42,7 @@ const Header: React.FC<HeaderProps> = ({
 
   return (
     <>
-      {/* mobile */}
-      <div className="flex md:hidden justify-between items-center mx-auto p-4">
+      <div className="flex md:hidden justify-between items-center mx-auto">
         <div className="flex space-x-2 items-center">
           {showBack && link ? (
             <NavLink to={link}>
@@ -56,25 +55,27 @@ const Header: React.FC<HeaderProps> = ({
               </motion.button>
             </NavLink>
           ) : (
-            <img src={Location} className="w-5 h-5" alt="Logo" />
+            <HiOutlineLocationMarker
+              size={20}
+              className="text-(--neutral-200)"
+            />
           )}
-          <p className="text-lg font-bold text-gray-700">{text1}</p>
+          <p className="text-(--neutral-500) font-semibold text-base">
+            {text1}
+          </p>
         </div>
 
         <motion.button
-          whileHover={{ scale: 1.05 }}
-          whileTap={{ scale: 0.96 }}
+          whileTap={{ scale: 0.93 }}
           onClick={handleToggle}
-          className="w-5 h-4 cursor-pointer"
-          // aria-pressed={effectiveOpen}
+          className="cursor-pointer"
         >
-          <img src={Burger} className="w-full h-full" alt="" />
+          <RiMenu2Fill size={24} className="text-(--neutral-700)" />
         </motion.button>
       </div>
 
-      {/* desktop header */}
       <div
-        className={`hidden md:flex justify-between items-center px-6 py-3 transition-all duration-300 ${
+        className={`hidden md:flex justify-between items-center transition-all duration-300 ${
           !effectiveOpen ? "md:ml-36 lg:ml-40" : "md:ml-[260px] lg:ml-[300px]"
         }`}
       >
@@ -91,37 +92,32 @@ const Header: React.FC<HeaderProps> = ({
             </NavLink>
           )}
           <div className="">
-            <h1 className="text-[14px] font600 text-[#8E8EA9]">{title}</h1>
-            <p className="text-[20px] font-500 text-gray-900">{text}</p>
+            <h1 className="font-semibold text-sm text-(--neutral-500)">{title}</h1>
+            <p className="heading-font font-normal text-[18px]">{text}</p>
           </div>
         </div>
 
-        <div className="flex">
-          <motion.button
-            whileTap={{ scale: 0.96 }}
-            className="flex items-center px-5 justify-center space-x-2 cursor-pointer"
-          >
-            <div className="w-5 h-5">
-              <img src={Location} className="w-full h-full" alt="" />
-            </div>
-            <p className="md:text-[12px] lg:text-[14px] font-600 text-[#8E8EA9]">
-              Gram Bistro
-            </p>
-            <div className="w-5 h-5">
-              <img src={ChevronDown} className="w-full h-full" alt="" />
-            </div>
-          </motion.button>
+        <div className="flex gap-3">
+          <div className="flex items-center gap-2 text-(--purple-3) px-6 py-3">
+            <HiOutlineLocationMarker size={20}/>
+            <motion.button
+            whileTap={{scale: 0.95}}
+            className="flex items-center gap-2">
+              <span className="font-semibold text-sm">Gbam Bistro</span>
+              <IoChevronDown size={20}/>
+            </motion.button>
+          </div>
 
-          <div className="border border-gray-700 my-auto h-7"></div>
+          <div className="py-3">
+            <div className="border border-(--neutral-200) h-full"></div>
+          </div>
 
           <motion.button
-            whileTap={{ scale: 0.96 }}
-            className="flex items-center px-5 justify-center space-x-2 cursor-pointer"
+            whileTap={{ scale: 0.95 }}
+            className="flex items-center px-6 py-3 gap-2"
           >
-            <div className="w-5 h-5">
-              <img src={Cart} className="w-full h-full" alt="" />
-            </div>
-            <p className="md:text-[12px] lg:text-[14px] font-600 text-[#8E8EA9]">
+            <IoCartOutline size={20}/>
+            <p className="font-semibold text-sm text-(--purple-3)">
               My Order
             </p>
           </motion.button>

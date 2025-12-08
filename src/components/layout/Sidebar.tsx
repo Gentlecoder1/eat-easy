@@ -3,7 +3,7 @@ import { motion } from "framer-motion";
 import Profile from "/images/profile-img.png";
 import { IoIosLogOut } from "react-icons/io";
 import { PiMedalThin } from "react-icons/pi";
-import ChevronLeft from "/images/chevron-left.png";
+import { MdChevronRight } from "react-icons/md";
 import { NavLink } from "react-router-dom";
 import { TfiBook } from "react-icons/tfi";
 import { MdOutlineHistory } from "react-icons/md";
@@ -27,11 +27,8 @@ const Sidebar: React.FC<SidebarProps> = ({
   onToggle,
 }) => {
   const { theme } = useTheme();
-  // desktop toggle useState
   const [isOpen, setIsOpen] = useState(false);
-  // menu accordion useState
   const [openMenuId, setOpenMenuId] = useState<number | null>(null);
-  // selected item highlighting (Food Menu default)
   const [selectedItem, setSelectedItem] = useState<number | null>(1);
 
   const controlledOpen =
@@ -65,22 +62,23 @@ const Sidebar: React.FC<SidebarProps> = ({
       md:translate-x-0
       ${effectiveIsOpen ? "md:w-[260px]" : "md:w-36"}`}
     >
-      <div className="hidden md:flex w-[38px] h-[38px] bg-(--neutral-800) top-28 -right-4 absolute rounded-full items-center justify-center border border-(--neutral-400)">
-        <motion.button
-          whileHover={{ scale: 1.05 }}
-          whileTap={{ scale: 0.96 }}
+      <motion.div
+        whileHover={{ scale: 1.05 }}
+        whileTap={{ scale: 0.96 }}
+        className="hidden md:flex w-[38px] h-[38px] bg-(--neutral-800) top-28 -right-4 absolute rounded-full items-center justify-center border border-(--neutral-400)"
+      >
+        <button
           onClick={handleToggle}
-          className="rounded-full"
+          className="rounded-full cursor-pointer"
         >
-          <img
-            src={ChevronLeft}
-            className={`w-full h-full cursor-pointer ${
-              effectiveIsOpen ? "rotate-0" : " rotate-180"
-            }`}
-            alt=""
+          <MdChevronRight
+            size={24}
+            className={`${
+              effectiveIsOpen ? "rotate-180" : "rotate-0"
+            } text-(--neutral-200)`}
           />
-        </motion.button>
-      </div>
+        </button>
+      </motion.div>
 
       <div
         className={`flex flex-col h-full transition-all duration-300 ${
@@ -94,7 +92,7 @@ const Sidebar: React.FC<SidebarProps> = ({
           <span className="font-bold text-(--orange-1)">Easy</span>
         </div>
 
-        <div className="w-full h-px bg-gray-500"></div>
+        <div className="w-full h-px bg-(--neutral-150)"></div>
 
         <div
           className={`flex-1 overflow-y-auto scrollbar-hidden flex flex-col px-[30px] pt-5 pb-6  ${
