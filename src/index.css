@@ -16,6 +16,7 @@
 
   --light-progress-bg: #eaeaef;
   --yellow-1: #ffb01d;
+  --yellow-2: #FAA300;
   --orange-1: #ff7b2c;
   --neutral-700: #4a4a6a;
   --neutral-800: #32324d;
@@ -35,6 +36,7 @@
     #32324d 90%,
     #32324d 100%
   );
+  --neutral-100: #F6F6F9;
   --neutral-150: #eaeaef;
   --purple-4: #c4c0d7;
   --purple-5: #ebeaf2;
@@ -47,14 +49,10 @@
   box-sizing: border-box;
 }
 
-#root {
-  width: 100%;
-  height: 100%;
-}
 
-body {
+#root, body, html{
   width: 100%;
-  height: 100%;
+  height: 100%
 }
 
 .scrollbar-hidden {

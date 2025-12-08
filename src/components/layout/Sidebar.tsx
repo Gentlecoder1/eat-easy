@@ -1,167 +1,323 @@
-import React, { useState } from 'react'
-import { motion } from 'framer-motion'
-import Profile from "/images/profile-img.png"
-import History from "/images/history-icon.png"
-import Reward from "/images/reward-icon.png"
-import Help from "/images/help-icon.png"
-import Logout from "/images/logout-icon.png"
-import Location from "/images/Map-pin.png"
-import ChevronLeft from "/images/chevron-left.png"
-import FoodMenu from "/images/foodmenu.png"
-import { NavLink } from 'react-router-dom'
+import React, { useState } from "react";
+import { motion } from "framer-motion";
+import Profile from "/images/profile-img.png";
+import { IoIosLogOut } from "react-icons/io";
+import { PiMedalThin } from "react-icons/pi";
+import ChevronLeft from "/images/chevron-left.png";
+import { NavLink } from "react-router-dom";
+import { TfiBook } from "react-icons/tfi";
+import { MdOutlineHistory } from "react-icons/md";
+import { IoLocationOutline } from "react-icons/io5";
+import { IoIosHelpCircleOutline } from "react-icons/io";
 
 type SidebarProps = {
-  toggle?: boolean
-  menuOpen?: number | null
-  setMenuOpen?: (id: number | null) => void
-  onClose?: () => void
-  onToggle?: () => void
-}
+  toggle?: boolean;
+  menuOpen?: number | null;
+  setMenuOpen?: (id: number | null) => void;
+  onClose?: () => void;
+  onToggle?: () => void;
+};
 
-const Sidebar: React.FC<SidebarProps> = ({ toggle, menuOpen, setMenuOpen, onToggle }) => {
-
+const Sidebar: React.FC<SidebarProps> = ({
+  toggle,
+  menuOpen,
+  setMenuOpen,
+  onToggle,
+}) => {
   // desktop toggle useState
-  const [isOpen, setIsOpen] = useState(false)
+  const [isOpen, setIsOpen] = useState(false);
   // menu accordion useState
-  const [openMenuId, setOpenMenuId] = useState<number | null>(null)
+  const [openMenuId, setOpenMenuId] = useState<number | null>(null);
+  // selected item highlighting (Food Menu default)
+  const [selectedItem, setSelectedItem] = useState<number | null>(1);
 
-  
-  const controlledOpen = typeof toggle === 'boolean' && typeof onToggle === 'function'
-  
-  const effectiveIsOpen = controlledOpen ? toggle : isOpen
+  const controlledOpen =
+    typeof toggle === "boolean" && typeof onToggle === "function";
 
-  const activeMenu = menuOpen !== undefined ? menuOpen : openMenuId
+  const effectiveIsOpen = controlledOpen ? toggle : isOpen;
+
+  const activeMenu = menuOpen !== undefined ? menuOpen : openMenuId;
 
   const handleToggle = () => {
     if (controlledOpen) {
-      onToggle && onToggle()
+      onToggle && onToggle();
     } else {
-      setIsOpen((v) => !v)
+      setIsOpen((v) => !v);
     }
-  }
+  };
 
   const toggleMenu = (id: number) => {
-    if (typeof setMenuOpen === 'function') {
-      setMenuOpen(menuOpen === id ? null : id)
+    if (typeof setMenuOpen === "function") {
+      setMenuOpen(menuOpen === id ? null : id);
     } else {
-      setOpenMenuId((prev) => (prev === id ? null : id))
+      setOpenMenuId((prev) => (prev === id ? null : id));
     }
-  }
+  };
 
   return (
-    <aside 
-      className={`w-[70%] sm:w-[75%] h-screen bg-[#32324D] transition-all duration-300 ease-in-out rounded-r-2xl fixed left-0 top-0 z-50 ${effectiveIsOpen ?  'md:w-[20%]' : 'md:translate-x-0 md:w-[12%] lg:w-[9%]  translate-x-full'}`}>
-
-      {/* sidebar toggle button for desktop */}
+    <aside
+      className={`w-[260px] h-screen bg-[#32324D] transition-transform duration-300 ease-in-out rounded-r-3xl fixed left-0 top-0 z-50 
+      ${effectiveIsOpen ? "translate-x-0" : "-translate-x-full"}
+      ${
+        effectiveIsOpen ? "md:w-[20%]" : "md:translate-x-0 md:w-[12%] lg:w-[9%]"
+      }`}
+    >
       <motion.button
         whileHover={{ scale: 1.05 }}
         whileTap={{ scale: 0.96 }}
         onClick={handleToggle}
-        className='hidden md:block w-8 h-8 bg-[#32324D] border-2 border-white top-17 -right-4 absolute rounded-full p-1'
+        className="hidden md:block w-8 h-8 bg-[#32324D] border-2 border-white top-17 -right-4 absolute rounded-full p-1"
       >
-        <img src={ChevronLeft} className={`w-full h-full cursor-pointer ${effectiveIsOpen ? 'rotate-0' : ' rotate-180'}`} alt="" />
+        <img
+          src={ChevronLeft}
+          className={`w-full h-full cursor-pointer ${
+            effectiveIsOpen ? "rotate-0" : " rotate-180"
+          }`}
+          alt=""
+        />
       </motion.button>
 
-      {/* sidebar content */}
-      <div className={`flex flex-col h-full text-white text-sm font-semibold transition-all duration-300 ${toggle ? '' : ''}`}>
+      <div
+        className={`flex flex-col h-full transition-all duration-300 ${
+          toggle ? "" : ""
+        }`}
+      >
+        <div
+          className={`py-5 flex justify-center items-center text-center transition-all duration-300 text-[24px] `}
+        >
+          <span className="font-medium text-(--neutral-100)">Eat</span>
+          <span className="font-bold text-(--orange-1)">Easy</span>
+        </div>
 
-        {/* logo */}
-        <div className={`p-4 flex justify-center border-b-2 border-gray-400 text-3xl transition-all duration-300 ${toggle ?  'text-3xl' : 'text-xl'}`}>Eat<span className='text-amber-500'>Easy</span></div>
+        <div className="w-full h-px bg-gray-500"></div>
 
-        <div className={`flex-1 overflow-y-auto scrollbar-hidden flex flex-col ${effectiveIsOpen ? '' : 'items-center'}`}>
-
-          {/* profile */}
-          <div className={`flex items-center gap-4 px-3 py-4 ${!effectiveIsOpen ? 'flex-row md:flex-col' : ''}`}>
-            <div className='w-15 h-15 md:w-12 md:h-12 lg:w-15 lg:h-15'><img src={Profile} className='rounded-full w-full h-full' alt="" /></div>
+        <div
+          className={`flex-1 overflow-y-auto scrollbar-hidden flex flex-col px-[30px] pt-5 pb-6  ${
+            effectiveIsOpen ? "" : "items-center"
+          }`}
+        >
+          <div
+            className={`flex items-center gap-[22px] ${
+              !effectiveIsOpen ? "flex-row md:flex-col" : ""
+            }`}
+          >
+            <div className="w-[68px] h-[68px] rounded-full">
+              <img
+                src={Profile}
+                className="w-full"
+                alt="Profile Picture Image"
+              />
+            </div>
             {toggle && (
-              <div className={`space-y-1 flex-1 overflow-hidden md:text-[12px] lg:text-[15px]`}>
-                <p className=''>Robert Fox</p>
-                <button className='cursor-pointer hover:text-amber-500'>View Profile</button>
+              <div className="text-white space-y-1.5">
+                <p className="font-semibold text-base">Robert Fox</p>
+                <button className="cursor-pointer font-medium text-sm underline outline-none border-none">
+                  View Profile
+                </button>
               </div>
             )}
           </div>
 
-          {/* menu */}
-          <div className='flex justify-center px-3 text-left flex-col space-y-3 mb-6 py-6 border-b-2 border-gray-400'>
-            <h1 className='text-[15px]'>MENU</h1>
+          <div className="flex justify-center flex-col mt-10 pt-[18px]">
+            <h1 className="text-[13px] font-semibold text-(--neutral-150)">
+              MENU
+            </h1>
 
-            <div>
-              <motion.button
-                onClick={() => toggleMenu(1)}
-                whileTap={{ scale: 0.9 }}
-                className='flex items-center mb-3 space-x-3 cursor-pointer'
-              >
-                <img src={FoodMenu} className='w-11 h-11 bg-[--yellow-1] rounded-2xl p-3' alt="" />
-                <p className={`md:text-[12px] lg:text-[15px] ${effectiveIsOpen ? 'flex' : 'hidden'}`}>Food Menu</p>
-              </motion.button>
-              {effectiveIsOpen && (
-                <div className={`border-l-2 border-amber-500 px-7 ml-5 space-y-5 ${activeMenu === 1 ? 'flex flex-col' : 'hidden'}`}>
-                  <NavLink to="/recommended">
-                    <motion.div whileTap={{ scale: 0.9 }} className='cursor-pointer md:text-[12px] lg:text-[15px]'>Smart Assistance</motion.div>
-                  </NavLink>
-                  <motion.div whileTap={{ scale: 0.9 }} className='cursor-pointer md:text-[12px] lg:text-[15px]'>Full Menu</motion.div>
-                </div>
-              )}
+            <div className="w-full space-y-4 mt-4">
+              <div className="space-y-4">
+                <motion.button
+                  onClick={() => {
+                    toggleMenu(1);
+                    setSelectedItem(1);
+                  }}
+                  whileTap={{ scale: 0.95 }}
+                  className="flex items-center gap-2.5 w-full py-1.5"
+                >
+                  <div
+                    className={`p-3 rounded-2xl ${
+                      selectedItem === 1 ? "bg-(--yellow-1)" : "bg-white/15"
+                    }`}
+                  >
+                    <TfiBook className="text-white" size={24} />
+                  </div>
+                  <p
+                    className={`${
+                      selectedItem === 1
+                        ? "text-(--yellow-1) font-bold"
+                        : "text-white"
+                    } text-base ${effectiveIsOpen ? "flex" : "hidden"}`}
+                  >
+                    Food Menu
+                  </p>
+                </motion.button>
+                {effectiveIsOpen && (
+                  <div
+                    className={`border-l-2 border-(--yellow-2) ml-[25px] space-y-4 pl-[33px]  ${
+                      activeMenu === 1 ? "flex flex-col" : "hidden"
+                    }`}
+                  >
+                    <NavLink to="/recommended">
+                      <motion.div
+                        whileTap={{ scale: 0.95 }}
+                        className="cursor-pointer font-medium text-base text-white"
+                      >
+                        Smart Assistant
+                      </motion.div>
+                    </NavLink>
+                    <motion.div
+                      whileTap={{ scale: 0.95 }}
+                      className="cursor-pointer font-medium text-base text-white"
+                    >
+                      Full Menu
+                    </motion.div>
+                  </div>
+                )}
+              </div>
+
+              <div className="space-y-4">
+                <motion.button
+                  onClick={() => setSelectedItem(2)}
+                  whileTap={{ scale: 0.95 }}
+                  className="flex items-center gap-2.5 w-full py-1.5"
+                >
+                  <div
+                    className={`p-3 rounded-2xl ${
+                      selectedItem === 2 ? "bg-(--yellow-1)" : "bg-white/15"
+                    }`}
+                  >
+                    <MdOutlineHistory className="text-white" size={24} />
+                  </div>
+                  <p
+                    className={`${
+                      selectedItem === 2
+                        ? "text-(--yellow-1) font-bold"
+                        : "text-white"
+                    } text-base ${effectiveIsOpen ? "flex" : "hidden"}`}
+                  >
+                    Order History
+                  </p>
+                </motion.button>
+              </div>
+
+              <div className="space-y-4">
+                <NavLink to="/locations">
+                  <motion.button
+                    onClick={() => setSelectedItem(3)}
+                    whileTap={{ scale: 0.95 }}
+                    className="flex items-center gap-2.5 w-full py-1.5"
+                  >
+                    <div
+                      className={`p-3 rounded-2xl ${
+                        selectedItem === 3 ? "bg-(--yellow-1)" : "bg-white/15"
+                      }`}
+                    >
+                      <IoLocationOutline className="text-white" size={24} />
+                    </div>
+
+                    <p
+                      className={`${
+                        selectedItem === 3
+                          ? "text-(--yellow-1) font-bold"
+                          : "text-white"
+                      } text-base ${effectiveIsOpen ? "flex" : "hidden"}`}
+                    >
+                      Location
+                    </p>
+                  </motion.button>
+                </NavLink>
+              </div>
             </div>
-
-            <div>
-              <motion.button
-                // onClick={() => toggleMenu(2)}
-                whileTap={{ scale: 0.9 }}
-                className='flex items-center mb-3 space-x-2 cursor-pointer'
-              >
-                <img src={History} className='w-11 h-11 p-3 hover:bg-gray-600 rounded-2xl' alt="" />
-                <p className={`md:text-[12px] lg:text-[15px] ${effectiveIsOpen ? 'flex' : 'hidden'}`}>Order History</p>
-              </motion.button>
-            </div>
-
-            <NavLink to="/locations">
-              <motion.button
-                // onClick={() => toggleMenu(3)}
-                whileTap={{ scale: 0.9 }}
-                className='flex items-center space-x-3 cursor-pointer'
-              >
-                <img src={Location} className='w-11 h-11 p-3 hover:bg-gray-600 rounded-2xl' alt="" />
-                <p className={`md:text-[12px] lg:text-[15px] ${effectiveIsOpen ? 'flex' : 'hidden'}`}>Location</p>
-              </motion.button>
-            </NavLink>
           </div>
 
-          {/* General */}
-          <div className={`flex justify-center px-3 text-left flex-col space-y-3 ${toggle ? '' : 'items-center'}`}>
-            <h1 className='text-[15px]'>GENERAL</h1>
+          <div className="w-full h-px bg-white mt-9 mb-9"></div>
 
-            <div>
-              <motion.button 
-                whileTap={{ scale: 0.9 }} className='flex items-center mb-6 space-x-3 cursor-pointer'>
-                      <img src={Reward} className='w-11 h-11 hover:bg-gray-600 rounded-2xl p-3' alt="" />
-                <p className={`md:text-[12px] lg:text-[15px] ${effectiveIsOpen ? 'flex' : 'hidden'}`}>My Rewards</p>
-                    </motion.button>
+          <div
+            className={`flex justify-center flex-col ${
+              toggle ? "" : "items-center"
+            }`}
+          >
+            <h1 className="text-[13px] font-semibold text-(--neutral-150)">
+              GENERAL
+            </h1>
+            <div className="mt-4 space-y-4">
+              <div className="space-y-4">
+                <motion.button
+                  onClick={() => setSelectedItem(4)}
+                  whileTap={{ scale: 0.95 }}
+                  className="flex items-center gap-2.5 w-full py-1.5"
+                >
+                  <div
+                    className={`p-3 rounded-2xl ${
+                      selectedItem === 4 ? "bg-(--yellow-1)" : "bg-white/15"
+                    }`}
+                  >
+                    <PiMedalThin className="text-white" size={24} />
                   </div>
 
-                  <div>
-              <motion.button 
-                whileTap={{ scale: 0.9 }} className='flex items-center mb-6 space-x-3 cursor-pointer'>
-                      <img src={Help} className='w-11 h-11 p-3 hover:bg-gray-600 rounded-2xl' alt="" />
-                <p className={`md:text-[12px] lg:text-[15px] ${effectiveIsOpen ? 'flex' : 'hidden'}`}>Help</p>
-              </motion.button>
+                  <p
+                    className={`${
+                      selectedItem === 4
+                        ? "text-(--yellow-1) font-bold"
+                        : "text-white"
+                    } text-base ${effectiveIsOpen ? "flex" : "hidden"}`}
+                  >
+                    My Rewards
+                  </p>
+                </motion.button>
+              </div>
+
+              <div className="space-y-4">
+                <motion.button
+                  onClick={() => setSelectedItem(5)}
+                  whileTap={{ scale: 0.95 }}
+                  className="flex items-center gap-2.5 w-full py-1.5"
+                >
+                  <div
+                    className={`p-3 rounded-2xl ${
+                      selectedItem === 5 ? "bg-(--yellow-1)" : "bg-white/15"
+                    }`}
+                  >
+                    <IoIosHelpCircleOutline className="text-white" size={24} />
+                  </div>
+
+                  <p
+                    className={`${
+                      selectedItem === 5
+                        ? "text-(--yellow-1) font-bold"
+                        : "text-white"
+                    } text-base ${effectiveIsOpen ? "flex" : "hidden"}`}
+                  >
+                    Help
+                  </p>
+                </motion.button>
+              </div>
             </div>
           </div>
 
-          {/* Logout */}
-          <div className='flex justify-center px-3 text-left flex-col mt-10 space-y-3'>
-            <div>
-              <motion.button 
-                whileTap={{ scale: 0.9 }} className='flex items-center mb-6 space-x-3 cursor-pointer'>
-                <img src={Logout} className='w-11 h-11 hover:bg-gray-600 rounded-2xl p-3' alt="" />
-                <p className={`md:text-[12px] lg:text-[15px] ${effectiveIsOpen ? 'flex' : 'hidden'}`}>Logout</p>
+          <div className="mt-10 items-center">
+            <div className="space-y-4">
+              <motion.button
+                whileTap={{ scale: 0.95 }}
+                className="flex items-center gap-2.5 w-full py-1.5"
+              >
+                <div className="p-3 rounded-2xl bg-white/15">
+                  <IoIosLogOut className="text-white" size={24} />
+                </div>
+
+                <p
+                  className={`font-medium text-base text-white ${
+                    effectiveIsOpen ? "flex" : "hidden"
+                  }`}
+                >
+                  Logout
+                </p>
               </motion.button>
             </div>
           </div>
         </div>
       </div>
     </aside>
-  )
-}
+  );
+};
 
-export default Sidebar
+export default Sidebar;

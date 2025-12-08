@@ -95,7 +95,7 @@ function ForgotPassword() {
             initial="hidden"
             animate="show"
             viewport={{ once: true, amount: 0.2 }}
-            className="w-full lg:mt-[214px] mt-[124px]"
+            className="w-full mt-[50px]"
           >
             {submitError && (
               <p className="mb-3 text-sm text-red-500 text-center">

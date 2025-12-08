@@ -82,7 +82,7 @@ function SignUpMethod() {
             </FadeIn>
           </div>
 
-          <PopIn className="w-full max-w-[480px] mx-auto text-center">
+          <div className="w-full max-w-[480px] mx-auto text-center">
             <motion.button
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
@@ -91,7 +91,7 @@ function SignUpMethod() {
             >
               Sign up later
             </motion.button>
-          </PopIn>
+          </div>
         </div>
 
         <AsideCard />
