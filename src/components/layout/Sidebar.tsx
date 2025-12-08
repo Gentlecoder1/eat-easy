@@ -65,20 +65,22 @@ const Sidebar: React.FC<SidebarProps> = ({
       md:translate-x-0
       ${effectiveIsOpen ? "md:w-[260px]" : "md:w-36"}`}
     >
-      <motion.button
-        whileHover={{ scale: 1.05 }}
-        whileTap={{ scale: 0.96 }}
-        onClick={handleToggle}
-        className="hidden md:block w-8 h-8 bg-[#32324D] border-2 border-white top-17 -right-4 absolute rounded-full p-1"
-      >
-        <img
-          src={ChevronLeft}
-          className={`w-full h-full cursor-pointer ${
-            effectiveIsOpen ? "rotate-0" : " rotate-180"
-          }`}
-          alt=""
-        />
-      </motion.button>
+      <div className="hidden md:flex w-[38px] h-[38px] bg-(--neutral-800) top-28 -right-4 absolute rounded-full items-center justify-center border border-(--neutral-400)">
+        <motion.button
+          whileHover={{ scale: 1.05 }}
+          whileTap={{ scale: 0.96 }}
+          onClick={handleToggle}
+          className="rounded-full"
+        >
+          <img
+            src={ChevronLeft}
+            className={`w-full h-full cursor-pointer ${
+              effectiveIsOpen ? "rotate-0" : " rotate-180"
+            }`}
+            alt=""
+          />
+        </motion.button>
+      </div>
 
       <div
         className={`flex flex-col h-full transition-all duration-300 ${
@@ -111,14 +113,16 @@ const Sidebar: React.FC<SidebarProps> = ({
                 alt="Profile Picture Image"
               />
             </div>
-            {toggle && (
-              <div className="text-white space-y-1.5">
-                <p className="font-semibold text-base">Robert Fox</p>
-                <button className="cursor-pointer font-medium text-sm underline outline-none border-none">
-                  View Profile
-                </button>
-              </div>
-            )}
+
+            <div className="text-white space-y-1.5">
+              <p className="font-semibold text-base">Robert Fox</p>
+              <motion.button
+                whileTap={{ scale: 0.95 }}
+                className="cursor-pointer font-medium text-sm underline outline-none border-none"
+              >
+                View Profile
+              </motion.button>
+            </div>
           </div>
 
           <div className="flex justify-center flex-col mt-10 pt-[18px]">
@@ -134,7 +138,7 @@ const Sidebar: React.FC<SidebarProps> = ({
                     setSelectedItem(1);
                   }}
                   whileTap={{ scale: 0.95 }}
-                  className="flex items-center gap-2.5 w-full py-1.5"
+                  className="flex items-center gap-2.5 w-full py-1.5 cursor-pointer"
                 >
                   <div
                     className={`p-3 rounded-2xl ${
@@ -181,7 +185,7 @@ const Sidebar: React.FC<SidebarProps> = ({
                 <motion.button
                   onClick={() => setSelectedItem(2)}
                   whileTap={{ scale: 0.95 }}
-                  className="flex items-center gap-2.5 w-full py-1.5"
+                  className="flex items-center gap-2.5 w-full py-1.5 cursor-pointer"
                 >
                   <div
                     className={`p-3 rounded-2xl ${
@@ -207,7 +211,7 @@ const Sidebar: React.FC<SidebarProps> = ({
                   <motion.button
                     onClick={() => setSelectedItem(3)}
                     whileTap={{ scale: 0.95 }}
-                    className="flex items-center gap-2.5 w-full py-1.5"
+                    className="flex items-center gap-2.5 w-full py-1.5 cursor-pointer"
                   >
                     <div
                       className={`p-3 rounded-2xl ${
@@ -247,7 +251,7 @@ const Sidebar: React.FC<SidebarProps> = ({
                 <motion.button
                   onClick={() => setSelectedItem(4)}
                   whileTap={{ scale: 0.95 }}
-                  className="flex items-center gap-2.5 w-full py-1.5"
+                  className="flex items-center gap-2.5 w-full py-1.5 cursor-pointer"
                 >
                   <div
                     className={`p-3 rounded-2xl ${
@@ -273,7 +277,7 @@ const Sidebar: React.FC<SidebarProps> = ({
                 <motion.button
                   onClick={() => setSelectedItem(5)}
                   whileTap={{ scale: 0.95 }}
-                  className="flex items-center gap-2.5 w-full py-1.5"
+                  className="flex items-center gap-2.5 w-full py-1.5 cursor-pointer"
                 >
                   <div
                     className={`p-3 rounded-2xl ${
@@ -296,7 +300,7 @@ const Sidebar: React.FC<SidebarProps> = ({
               </div>
 
               <div className="flex items-center gap-2.5 w-full py-1.5">
-                <div className="p-3 rounded-2xl bg-white/15">
+                <div className="p-3 rounded-2xl bg-white/15 cursor-pointer">
                   <ThemeSwitchButton />
                 </div>
                 <p
@@ -314,7 +318,7 @@ const Sidebar: React.FC<SidebarProps> = ({
             <div className="space-y-4">
               <motion.button
                 whileTap={{ scale: 0.95 }}
-                className="flex items-center gap-2.5 w-full py-1.5"
+                className="flex items-center gap-2.5 w-full py-1.5 cursor-pointer"
               >
                 <div className="p-3 rounded-2xl bg-white/15">
                   <IoIosLogOut className="text-white" size={24} />
