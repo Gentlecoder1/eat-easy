@@ -1,37 +1,17 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { motion } from 'framer-motion'
-import Navbar from "./layout/Navbar"
 import { NavLink } from 'react-router-dom'
 import ArrowRight from "/images/arrow-right.png"
 import Calendar from "/images/calender-icon.png"
 
 const Recommend: React.FC = () => {
-  const [toggle, setToggle] = useState(false)
-  const [menuOpen, setMenuOpen] = useState<number | null>(null)
-
-  const toggleNav = () => {
-    setToggle(prev => !prev)
-    if (!toggle) {
-      // when opening, keep menuOpen as is
-    } else {
-      // when closing clear submenu
-      setMenuOpen(null)
-    }
-  }
-
-  const closeNav = () => {
-    setToggle(false)
-    setMenuOpen(null)
-  }
+ 
 
   return (
     <div className="bg-[#F7F7F7] w-full min-h-screen">
 
-      <div className=''>
-        <Navbar showBack={true} toggle={toggle} menuOpen={menuOpen} setMenuOpen={setMenuOpen} toggleNav={toggleNav} closeNav={closeNav} title="Food Menu" text="Virtual Assistant" text1='' link='/virtual' />
-      </div>
 
-      <div className={`transition-all duration-300 ${!toggle ?  'md:ml-[12%] lg:ml-[9%]' : 'md:ml-[20%]'}`}>
+      <div className={`transition-all duration-300`}>
         <div className='max-w-6xl mx-auto flex flex-col items-center py-6 px-6 sm:px-20 lg:px-6 space-y-10 my-5'>
 
           <div className='flex flex-col items-center text-center max-w-xl mb-20 md:mb-10'>

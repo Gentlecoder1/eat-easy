@@ -1,6 +1,5 @@
 import React, { useState } from 'react'
 import { motion } from 'framer-motion'
-import Navbar from "./layout/Navbar"
 import Burger from "/images/burger-icon.png"
 import GridIcon from "/images/grid-icon.png"
 import ListIcon from "/images/list-icon.png"
@@ -17,23 +16,7 @@ type RecommendedProps = {
 
 const Recommended: React.FC<RecommendedProps> = ({ showSelected }) => {
 
-  // usestate to open and close sidebar
-  const [toggle, setToggle] = useState(false)
-  const [menuOpen, setMenuOpen] = useState<number | null>(null)
-  const toggleNav = () => {
-    setToggle(prev => !prev)
-    if (!toggle) {
-      // when opening, keep menuOpen as is
-    } else {
-      // when closing clear submenu
-      setMenuOpen(null)
-    }
-  }
 
-  const closeNav = () => {
-    setToggle(false)
-    setMenuOpen(null)
-  }
 
   // usestate for the selected item
   const [selectedItem, setSelectedItem] = useState<PropType | null>(null);
@@ -48,9 +31,8 @@ const Recommended: React.FC<RecommendedProps> = ({ showSelected }) => {
   return (
     <div className="bg-[#F7F7F7] w-full min-h-screen">
 
-      <Navbar toggle={toggle} menuOpen={menuOpen} setMenuOpen={setMenuOpen} toggleNav={toggleNav} closeNav={closeNav} title="Virtual Assitant" text="Our Smart Assistant Recommendations" text1='Gram Bistro' link='/Recommended' />
 
-      <div className={`transition-all duration-300 ${!toggle ?  'md:ml-[12%] lg:ml-[9%]' : 'md:ml-[20%]'}`}>
+      <div className={`transition-all duration-300`}>
         <div className='max-w-6xl mx-auto flex flex-col p-6 space-y-5'>
           <div className='md:hidden flex justify-between items-center'>
             <h1 className='text-[22px] lg:text-[32px] text-[#32324D] font-bold'>We think you might enjoy these specially selected dishes</h1>
