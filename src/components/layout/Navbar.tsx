@@ -15,7 +15,7 @@ const Navbar: React.FC<NavbarProps> = ({ className = "" }) => {
         onClick={() => window.dispatchEvent(new Event("toggle-sidebar"))}
         aria-label="Toggle sidebar"
       >
-        <RiMenu2Fill size={24} className="ml-auto" />
+        <RiMenu2Fill size={24} className="ml-auto text-(--neutral-700) dark:text-(--purple-5)" />
       </motion.button>
     </nav>
   );

@@ -76,7 +76,7 @@ const ConfirmLink = () => {
             userId
           );
         }
-        navigate("/welcome");
+        navigate("/set-location");
       } catch (e: any) {
         setError(e?.message || "Could not complete sign-in.");
       } finally {

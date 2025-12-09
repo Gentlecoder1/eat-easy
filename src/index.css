@@ -27,7 +27,7 @@
   --orange-text: #ff7b2c;
   --neutral-200: #dcdce4;
   --neutral-400: #a5a5ba;
-  --neutral-300: #C0C0CF;
+  --neutral-300: #c0c0cf;
 
   --dark-mode-bg: linear-gradient(
     90deg,
@@ -64,6 +64,29 @@ html {
 }
 .scrollbar-hidden::-webkit-scrollbar {
   display: none;
+}
+
+/* Styled scrollbar for suggestion list */
+.suggestions-scroll {
+  scrollbar-width: thin; /* Firefox */
+  scrollbar-color: var(--neutral-400) transparent;
+}
+.suggestions-scroll::-webkit-scrollbar {
+  width: 8px;
+}
+.suggestions-scroll::-webkit-scrollbar-track {
+  background: transparent;
+}
+.suggestions-scroll::-webkit-scrollbar-thumb {
+  background-color: var(--neutral-200);
+  border-radius: 9999px;
+  border: 2px solid transparent;
+}
+.dark .suggestions-scroll {
+  scrollbar-color: var(--neutral-600) transparent;
+}
+.dark .suggestions-scroll::-webkit-scrollbar-thumb {
+  background-color: var(--neutral-600);
 }
 
 .heading-font {
