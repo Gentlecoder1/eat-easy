@@ -1,40 +1,24 @@
-import React from 'react'
-import Header from './Header'
-import Sidebar from './Sidebar'
-import Backdrop from './Backdrop'
+import React from "react";
+import { motion } from "framer-motion";
+import { RiMenu2Fill } from "react-icons/ri";
 
-interface NavbarProps {
-  toggle: boolean
-  menuOpen: number | null
-  setMenuOpen: (id: number | null) => void
-  toggleNav: () => void
-  closeNav: () => void
-  title: string
-  text: string
-  text1: string
-  link: string
-  showBack?: boolean
-}
+type NavbarProps = {
+  className?: string;
+};
 
-const Navbar: React.FC<NavbarProps> = ({ toggle, menuOpen, setMenuOpen, toggleNav, closeNav, title, text, text1, link, showBack }) => {
-  const handleSetMenuOpen = (id: number | null) => {
-    setMenuOpen(id)
-    if (id !== null && !toggle) {
-      toggleNav()
-    }
-  }
-
+const Navbar: React.FC<NavbarProps> = ({ className = "" }) => {
   return (
-    <header className="w-full bg-[#F7F7F7] md:border-b border-(--neutral-150) px-6 lg:px-[30px] py-4 lg:py-3.5">
-      <Header onToggle={toggleNav} toggle={toggle} title={title} text={text} text1={text1} link={link} showBack={showBack} />
+    <nav className={`w-full ${className}`}>
+      <motion.button
+        whileTap={{ scale: 0.95 }}
+        className="w-full px-6 py-4 outline-none border-none cursor-pointer"
+        onClick={() => window.dispatchEvent(new Event("toggle-sidebar"))}
+        aria-label="Toggle sidebar"
+      >
+        <RiMenu2Fill size={24} className="ml-auto" />
+      </motion.button>
+    </nav>
+  );
+};
 
-      <Sidebar toggle={toggle} menuOpen={menuOpen} setMenuOpen={handleSetMenuOpen} onClose={closeNav} onToggle={toggleNav} />
-
-      {toggle && (
-        <Backdrop onClick={closeNav} />
-      )}
-    </header>
-  )
-}
-
-export default Navbar
+export default Navbar;
