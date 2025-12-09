@@ -5,9 +5,12 @@ import { HiOutlineLocationMarker } from "react-icons/hi";
 import { useTheme } from "../hooks/useTheme";
 import { TbLocation } from "react-icons/tb";
 import { useMemo, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const SetLocation = () => {
   const { theme } = useTheme();
+  const navigate = useNavigate();
+
   const cards = [
     {
       image: "/images/qr-code.svg",
@@ -44,7 +47,7 @@ const SetLocation = () => {
   );
 
   return (
-    <div className="w-full h-full mt-3 md:mt-0 px-6">
+    <div className="w-full h-full mt-3 md:mt-0">
       <MotionContainer className="w-full md:hidden">
         <SlideIn direction="down" className="px-6">
           <h1 className="font-medium text-[22px] text-(--neutral-800) text-center heading-font dark:text-white">
@@ -76,7 +79,7 @@ const SetLocation = () => {
         </div>
       </MotionContainer>
 
-      <MotionContainer className="w-full h-screen flex-col items-center justify-center max-w-[700px] mx-auto hidden md:flex">
+      <MotionContainer className="w-full h-screen flex-col items-center justify-center max-w-[700px] mx-auto hidden md:flex px-6">
         <SlideIn direction="down" className="w-full text-center space-y-4">
           <h1 className="heading-font text-(--neutral-800) font-medium text-[40px] dark:text-white">
             Start the Smart Menu Experience
@@ -114,8 +117,9 @@ const SetLocation = () => {
                   locationList.map((location, index) => (
                     <SlideIn key={index} direction="up" className="w-full">
                       <motion.button
+                        onClick={() => navigate("/set-restaurant")}
                         whileTap={{ scale: 0.98 }}
-                        className="flex items-center justify-between w-full text-left"
+                        className="flex items-center justify-between w-full text-left cursor-pointer rounded-lg px-3 py-2 hover:bg-(--neutral-150) dark:hover:bg-(--neutral-600)"
                       >
                         <p className="font-medium text-sm text-(--neutral-700) dark:text-(--neutral-100)">
                           {location.name}

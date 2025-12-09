@@ -17,7 +17,7 @@ import ResetEmailSent from "./components/auth/ResetEmailSent";
 import ResetPassword from "./components/auth/ResetPassword";
 import SetLocation from "./components/SetLocation";
 import Sidebar from "./components/layout/Sidebar";
-import Header from "./components/layout/Header";
+import SelectRestaurant from "./components/SelectRestaurant";
 
 function App() {
   const location = useLocation();
@@ -47,7 +47,6 @@ function App() {
   const isExcluded =
     excludedPaths.has(path) || excludedPrefixes.some((p) => path.startsWith(p));
   const showSidebar = !isExcluded;
-  const showHeader = !isExcluded;
 
   const backgroundImage = `var(--${
     theme === "dark" ? "dark" : "light"
@@ -70,14 +69,9 @@ function App() {
       {showSidebar && <Sidebar />}
       <div
         className={`transition-all duration-300 ${
-          showSidebar
-            ? sidebarOpen
-              ? "md:ml-[260px] lg:ml-[300px]"
-              : "md:ml-36 lg:ml-40"
-            : ""
+          showSidebar ? (sidebarOpen ? "md:ml-[260px]" : "md:ml-36") : ""
         }`}
       >
-        {showHeader && <Header />}
         <Routes>
           <Route path="/" element={<Splash />} />
           <Route path="/get-started" element={<GetStarted />} />
@@ -89,6 +83,7 @@ function App() {
           <Route path="/reset-email-sent" element={<ResetEmailSent />} />
           <Route path="/reset-password" element={<ResetPassword />} />
           <Route path="/set-location" element={<SetLocation />} />
+          <Route path="/set-restaurant" element={<SelectRestaurant />} />
           <Route path="/welcome" element={<Welcome />} />
           <Route path="/locations" element={<Locations />} />
           <Route path="/virtual" element={<Virtual />} />

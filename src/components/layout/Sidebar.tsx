@@ -68,13 +68,13 @@ const Sidebar: React.FC = () => {
 
         <div className={`flex flex-col h-full transition-all duration-300`}>
           <div
-            className={`py-5 flex justify-center items-center text-center transition-all duration-300 text-[24px] `}
+            className={`py-[28.4px] flex justify-center items-center text-center transition-all duration-300 text-[24px] border-b border-b-(--neutral-150) dark:bprder-b-(--neutral-700)`}
           >
             <span className="font-medium text-(--neutral-100)">Eat</span>
             <span className="font-bold text-(--orange-1)">Easy</span>
           </div>
 
-          <div className="w-full h-px bg-(--neutral-150) dark:bg-(--neutral-700)"></div>
+          <div className="w-full h-px "></div>
 
           <div
             className={`flex-1 overflow-y-auto scrollbar-hidden flex flex-col px-[30px] pt-5 pb-6  ${
