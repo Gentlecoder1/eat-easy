@@ -9,70 +9,67 @@ import Bulb from "/images/bulb-img.png"
 import Book from "/images/menubook.png"
 import { HiArrowSmRight } from "react-icons/hi";
 import { NavLink } from 'react-router-dom'
+import React, { useEffect, useState } from "react";
+import PopSign from "/images/popsign.png";
+import Location from "/images/Map-pin.png";
+import Time from "/images/time-img.png";
+import Gram from "/images/Gram.png";
+import Loader from "./Loader";
 
 const Welcome: React.FC = () => {
-  const [toggle, setToggle] = useState(false)
-  const [menuOpen, setMenuOpen] = useState<number | null>(null)
+  const [showLoader, setShowLoader] = useState(true);
 
-  const toggleNav = () => {
-    setToggle(prev => !prev)
-    if (!toggle) {
-      // when opening, keep menuOpen as is
-    } else {
-      // when closing clear submenu
-      setMenuOpen(null)
-    }
-  }
+  useEffect(() => {
+    const t = setTimeout(() => setShowLoader(false), 3000);
+    return () => clearTimeout(t);
+  }, []);
 
-  const closeNav = () => {
-    setToggle(false)
-    setMenuOpen(null)
-  }
-
-  const Next = [
-    {
-      image: Bulb,
-      title: 'Choose Virtual Assistant',
-      text: 'Simplify your decisions through our Smart Menu Assistant who will help you.',
-      link: "/virtual"
-    },
-    {
-      image: Book,
-      title: 'Go to the menu',
-      text: 'If you already know what to order, this is the best choice.',
-      link: "/welcome"
-    }
-  ]
 
   return (
     <div className="w-full min-h-screen">
+      {showLoader && <Loader />}
 
-      <Navbar showHeader={true} showAside={true} toggle={toggle} menuOpen={menuOpen} setMenuOpen={setMenuOpen} toggleNav={toggleNav} closeNav={closeNav} title="Food Menu" text="Browse Our Food Menu" text1='Gram Bistro' link='/welcome' />
-
-      <div className={`transition-all duration-300 relative ${!toggle ?  'md:ml-[12%] lg:ml-[9%]' : 'md:ml-[20%]'}`}>
-        <div className='max-w-6xl mx-auto flex flex-col p-6 space-y-10'>
-          <div className='bg-[#32324D] dark:bg-[#EAEAEF] text-white dark:text-[#32324D] rounded-3xl hidden md:flex justify-between items-center'>
-
-            <div className='xl:mx-12 mx-6 py-5 h-fit space-y-1 md:w-[70%] xl:w-[50%]'>
-              <p className='xl:text-[32px] lg:text-[28px] md:text-[24px] font-400'>Welcome to </p>
-              <div className='flex items-center'>
-                <p className='xl:text-[32px] lg:text-[28px] md:text-[20px] font-bold'>Gram Bistro Restaurant</p>
-                 <span className='lg:w-[30px] lg:h-[30px] w-[25px] h-[25px]'><img src={PopSign} className='w-full h-full' alt="" /></span>
+      <div
+        className={`transition-all duration-300 ${
+          showLoader ? "pointer-events-none overflow-hidden" : ""
+        }`}
+      >
+        <div className="mx-auto flex flex-col p-6 space-y-10">
+          <div className="bg-[#32324D] text-white rounded-3xl hidden md:flex justify-between items-center">
+            <div className="xl:mx-12 mx-6 py-5 h-fit space-y-1 md:w-[70%] xl:w-[50%]">
+              <p className="xl:text-[32px] lg:text-[28px] md:text-[24px] font-400">
+                Welcome to{" "}
+              </p>
+              <div className="flex items-center">
+                <p className="xl:text-[32px] lg:text-[28px] md:text-[20px] font-bold">
+                  Gram Bistro Restaurant
+                </p>
+                <span className="lg:w-[30px] lg:h-[30px] w-[25px] h-[25px]">
+                  <img src={PopSign} className="w-full h-full" alt="" />
+                </span>
               </div>
-              <div className='flex space-x-4 mt-5'>
-                <div className='flex space-x-2'>
-                  <span className='w-5 h-5'><img src={Location} alt="" /></span>
-                  <p className='lg:text-[16px] text-[12px] font-500'>790 8th Ave, New York</p>
+              <div className="flex space-x-4 mt-5">
+                <div className="flex space-x-2">
+                  <span className="w-5 h-5">
+                    <img src={Location} alt="" />
+                  </span>
+                  <p className="lg:text-[16px] text-[12px] font-500">
+                    790 8th Ave, New York
+                  </p>
                 </div>
-                <div className='flex space-x-2'>
-                  <span className='w-5 h-5'><img src={Time} alt="" /></span>
-                  <p className='lg:text-[16px] text-[12px] font-500'>Mon - Sun: 12AM - 10 PM</p>
+                <div className="flex space-x-2">
+                  <span className="w-5 h-5">
+                    <img src={Time} alt="" />
+                  </span>
+                  <p className="lg:text-[16px] text-[12px] font-500">
+                    Mon - Sun: 12AM - 10 PM
+                  </p>
                 </div>
               </div>
             </div>
 
-            <div className='max-w-[442px] max-h-[271px] lg:px-10 '>
-              <img src={Gram} className='w-full h-full' alt="" />
+            <div className="max-w-[442px] max-h-[271px] lg:px-10 ">
+              <img src={Gram} className="w-full h-full" alt="" />
             </div>
           </div>
 
@@ -107,7 +104,7 @@ const Welcome: React.FC = () => {
         </div>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default Welcome
+export default Welcome;

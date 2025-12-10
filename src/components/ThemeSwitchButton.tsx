@@ -11,7 +11,7 @@ interface Props {
 
 export default function ThemeSwitchButton({
   className = "",
-  size = 40,
+  size = 24,
 }: Props) {
   const { theme, toggleTheme } = useTheme();
   const isDark = theme === "dark";
@@ -26,7 +26,7 @@ export default function ThemeSwitchButton({
       aria-label={isDark ? "Switch to light theme" : "Switch to dark theme"}
       whileTap={{ scale: 0.95 }}
       className={
-        "flex items-center justify-center rounded-full shadow-md focus:outline-none focus:ring-2 focus:ring-(--purple-3) cursor-pointer" +
+        "flex items-center justify-center rounded-full cursor-pointer" +
         className
       }
       style={{ width: size, height: size }}

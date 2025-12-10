@@ -1,138 +1,186 @@
-import React, { useState } from 'react'
-import { motion } from 'framer-motion'
-import Header from "./layout/Header"
-import Sidebar from "./layout/Sidebar"
-import Backdrop from "./layout/Backdrop"
-import Location from "/images/Map-pin.png"
-import PopSign from "/images/popsign.png"
-// import SearchIcon from "/images/search-icon.png"
-import { NavLink } from 'react-router-dom'
+import { motion } from "motion/react";
+import { MotionContainer, SlideIn, PopIn, FadeIn } from "./animations/motion";
+import { CiSearch } from "react-icons/ci";
+import { HiOutlineLocationMarker } from "react-icons/hi";
+import { useTheme } from "../hooks/useTheme";
+import { TbLocation } from "react-icons/tb";
+import { useMemo, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
+const SetLocation = () => {
+  const { theme } = useTheme();
+  const navigate = useNavigate();
 
-const Locations: React.FC = () => {
+  const cards = [
+    {
+      image: "/images/qr-code.svg",
+      heading: "Scan QR Code",
+      description: "Choose the simple way, scan your QR Code from our table",
+    },
+    {
+      image: "/images/location.svg",
+      heading: "Select location manually",
+      description:
+        "If you prefer to add your location manually, here is your option",
+    },
+  ];
 
-  const [isOpen, setIsOpen] = useState(false)
-  const [menuOpen, setMenuOpen] = useState<number | null>(null)
-
-  const handleSetMenuOpen = (id: number | null) => {
-    setMenuOpen(id)
-    if (id !== null && !isOpen) setIsOpen(true) // open sidebar when submenu opens
-  }
+  const [query, setQuery] = useState("");
+  const allLocations = [
+    { name: "790 8th Ave, New York, NY", distance: "0.4 km" },
+    { name: "5th Avenue & W 34th St, New York, NY", distance: "1.2 km" },
+    { name: "Union Square, 14th St, New York, NY", distance: "2.1 km" },
+    { name: "Union Square, 14th St, New York, NY", distance: "2.1 km" },
+    { name: "Union Square, 14th St, New York, NY", distance: "2.1 km" },
+    { name: "Union Square, 14th St, New York, NY", distance: "2.1 km" },
+    { name: "Times Square, W 42nd St, New York, NY", distance: "0.9 km" },
+    { name: "Brooklyn Bridge Blvd, Brooklyn, NY", distance: "5.4 km" },
+    { name: "Queens Blvd, Queens, NY", distance: "8.7 km" },
+    { name: "Queens Blvd, Queens, NY", distance: "8.7 km" },
+  ];
+  const locationList = useMemo(
+    () =>
+      allLocations.filter((l) =>
+        l.name.toLowerCase().includes(query.trim().toLowerCase())
+      ),
+    [query]
+  );
 
   return (
-    <div className="w-full  min-h-screen">
-      {/* header */}
-      <div className='w-full md:hidden'>
-        <Header
-          toggle={isOpen}
-          onToggle={() => setIsOpen(v => !v)}
-          title=''
-          text='' 
-          text1='' 
-          link='' 
-          showBack={false}
-        />
-      </div>
-      {/* sidebar */}
-      <div className='flex'>
-        <Sidebar
-          toggle={isOpen}
-          onToggle={() => setIsOpen(v => !v)}
-          menuOpen={menuOpen}
-          setMenuOpen={handleSetMenuOpen}
-        />
-      </div>
-      {/* backdrop */}
-      {isOpen && (
-        <Backdrop onClick={() => setIsOpen(v => !v)} />
-      )}
+    <div className="w-full h-full mt-3 md:mt-0">
+      <MotionContainer className="w-full md:hidden">
+        <SlideIn direction="down" className="px-6">
+          <h1 className="font-medium text-[22px] text-(--neutral-800) text-center heading-font dark:text-white">
+            Set your locations
+          </h1>
+        </SlideIn>
 
-      <div 
-        className={`px-[24px] md:px-[70px] transition-all duration-300 ${!isOpen ?  'md:ml-[12%] lg:ml-[9%]' : 'md:ml-[20%]'}`}>
-
-        <div className='max-w-[700px] mx-auto flex flex-col items-center py-10'>
-            <div className='hidden md:block items-center mb-10 text-center space-y-5'>
-                <h1 className='md:text-[28px] lg:text-[40px] font-bold text-[#32324D]'>Start the Smart Menu Experience</h1>
-                <p className='text-[16px] font-500 text-[#666687]'>Please enter your location or use your current location and enjoy the custom experience in any of your restaurants.</p>
-            </div>
-
-            <div className=' md:hidden space-x-3 items-center mb-10'>
-                <p className='text-[28px] font-bold'>Set your </p>
-                <span className='lg:w-[30px] lg:h-[30px] w-[25px] h-[25px] flex items-center'>
-                    <p className='text-[28px] font-bold'> location</p>
-                    <img src={PopSign} className='' alt="" />
-                </span>
-            </div>
-
-            <div className='bg-white text-center flex flex-col items-center p-6 space-y-5 rounded-2xl shadow-[0_4px_12px_rgba(0,0,0,0.10)] mb-10'>
-                <div className=''>
-                    <img src="/images/qr-code.png" className='w-[70px] h-[70px]' alt="" />
-                </div>
-                <div className='items-center'>
-                    <p className='text-[20px] font-semibold'>Scan QR Code</p>
-                    <p className='text-[14px] font-500'>Choose the simply way, scan your QR Code from our table</p>
-                </div>
-            </div>
-
-            <div className='bg-white md:hidden text-center flex flex-col items-center p-6 space-y-5 rounded-2xl shadow-[0_4px_12px_rgba(0,0,0,0.10)] mb-10'>
-                <div className=''>
-                    <img src="/images/share.svg" className='w-[70px] h-[70px]' alt="" />
-                </div>
-                <div className='items-center'>
-                    <p className='text-[20px] font-semibold'>Select location manually</p>
-                    <p className='text-[14px] font-500'>If you prefer to add your location manually, here is your option</p>
-                </div>
-            </div>
-            {/* input field */}
-            {/* <div className='py-2 px-3 rounded-2xl border-2 border-gray-500 flex items-center justify-between gap-4 w-full'>
-                <input 
-                type="text"    
-                placeholder='Search for streets, cities, districts...'
-                className='bg-transparent outline-none w-full'
-                aria-expanded='false'
-                />
-
-                <motion.button
-                whileTap={{ scale: 0.9 }} 
-                className='w-6 h-6 cursor-pointer'
+        <div className="grid grid-cols-1 gap-6 mt-6 px-6">
+          {cards.map((card, index) => (
+            <motion.div whileTap={{ scale: 0.99 }} key={index}>
+              <PopIn className="flex flex-col p-5 gap-5 items-center justify-center text-center rounded-2xl shadow-md">
+                <motion.div
+                  initial={{ y: 6, opacity: 0 }}
+                  animate={{ y: 0, opacity: 1 }}
+                  transition={{ duration: 0.4 }}
+                  className="w-[70px] h-[70px]"
                 >
-                <img src={SearchIcon} className='w-full h-full' alt="" />
-                </motion.button>
-            </div> */}
-            <div className='bg-white hidden md:flex flex-col items-center p-6 space-y-5 rounded-2xl shadow-[0_4px_12px_rgba(0,0,0,0.10)]'>
-                <div className='rounded-2xl'>
-                    <img src="/images/Map Frame1.png" alt="" />
-                </div>
-                <div className='items-center md:flex'>
-                    <motion.button
-                    whileTap={{ scale: 0.96 }}
-                    className='flex items-center px-5 justify-center space-x-2 cursor-pointer'
-                    >
-                    <div className='w-5 h-5'>
-                        <img src={Location} className='w-full h-full' alt="" />
-                    </div>
-                    <p className='md:text-[12px] lg:text-[14px] font-600 text-[#8E8EA9]'>Use my current location</p>
-                    </motion.button>
-
-                    <div className='border hidden md:flex border-gray-400 my-auto h-4'></div>
-
-                    <NavLink to="/locations">
-                        <motion.button
-                            whileTap={{ scale: 0.96 }}
-                            className='flex items-center px-5 justify-center space-x-2 cursor-pointer'
-                            >
-                            <div className='w-5 h-5'>
-                                <img src={Location} className='w-full h-full' alt="" />
-                            </div>
-                            <p className='md:text-[12px] lg:text-[14px] font-600 text-[#8E8EA9]'>Set my location on map</p>
-                        </motion.button>
-                    </NavLink>
-                </div>
-            </div>
+                  <img src={card.image} alt="Card Image" className="w-full" />
+                </motion.div>
+                <p className="font-semibold text-base text-(--neutral-900) dark:text-white">
+                  {card.heading}
+                </p>
+                <p className="font-medium text-sm text-(--neutral-600) dark:text-(--neutral-300)">
+                  {card.description}
+                </p>
+              </PopIn>
+            </motion.div>
+          ))}
         </div>
-      </div>
-    </div>
-  )
-}
+      </MotionContainer>
 
-export default Locations
+      <MotionContainer className="w-full h-screen flex-col items-center justify-center max-w-[700px] mx-auto hidden md:flex px-6">
+        <SlideIn direction="down" className="w-full text-center space-y-4">
+          <h1 className="heading-font text-(--neutral-800) font-medium text-[40px] dark:text-white">
+            Start the Smart Menu Experience
+          </h1>
+          <p className="font-medium text-(--neutral-600) text-base dark:text-(--neutral-150)">
+            Please enter your location or use your current location and enjoy
+            custom experience in any of our restuarants.
+          </p>
+        </SlideIn>
+
+        <PopIn className="w-full mt-[42px] bg-white dark:bg-(--neutral-700) p-6 rounded-[20px] space-y-5">
+          <FadeIn className="w-full relative">
+            <div className="w-full flex items-center justify-center px-4 py-3 rounded-2xl border border-(--neutral-150) bg-transparent dark:border-(--neutral-600)">
+              <input
+                type="text"
+                className="outline-none border-none w-full placeholder:text-(--neutral-500) text-(--neutral-500) dark:placeholder:text-(--neutral-200) dark:text-(--neutral-200)"
+                placeholder="Search for streets, districts, cities..."
+                value={query}
+                onChange={(e) => setQuery(e.target.value)}
+              />
+              <CiSearch
+                size={20}
+                className="text-(--neutral-300) cursor-pointer"
+              />
+            </div>
+            {query.trim().length > 0 && (
+              <PopIn className="w-full px-4 py-5 rounded-[20px] bg-white dark:bg-(--neutral-700) shadow-md flex flex-col gap-[18px] absolute top-16 left-0 max-h-64 overflow-y-auto z-10 suggestions-scroll">
+                {locationList.length === 0 ? (
+                  <FadeIn>
+                    <p className="text-(--neutral-600) text-sm">
+                      No locations match "{query}"
+                    </p>
+                  </FadeIn>
+                ) : (
+                  locationList.map((location, index) => (
+                    <SlideIn key={index} direction="up" className="w-full">
+                      <motion.button
+                        onClick={() => navigate("/set-restaurant")}
+                        whileTap={{ scale: 0.98 }}
+                        className="flex items-center justify-between w-full text-left cursor-pointer rounded-lg px-3 py-2 hover:bg-(--neutral-150) dark:hover:bg-(--neutral-600)"
+                      >
+                        <p className="font-medium text-sm text-(--neutral-700) dark:text-(--neutral-100)">
+                          {location.name}
+                        </p>
+                        <p className="flex items-center gap-1">
+                          <TbLocation
+                            size={16}
+                            className="text-(--neutral-300) dark:text-(--neutral-500)"
+                          />
+                          <span className="text-(--neutral-500) dark:text-(--neutral-300) font-medium text-sm">
+                            {location.distance}
+                          </span>
+                          <span className="text-(--neutral-500) dark:text-(--neutral-300) font-medium text-sm">
+                            away
+                          </span>
+                        </p>
+                      </motion.button>
+                    </SlideIn>
+                  ))
+                )}
+              </PopIn>
+            )}
+          </FadeIn>
+
+          <FadeIn>
+            <div
+              className="w-full border-[1.5px] border-(--neutral-150) dark:border-(--neutral-600) h-[212px] rounded-2xl bg-cover bg-center bg-no-repeat"
+              style={{
+                backgroundImage:
+                  theme === "dark"
+                    ? "url('/images/dark-map.svg')"
+                    : "url('/images/Map.svg')",
+              }}
+            ></div>
+          </FadeIn>
+
+          <div className=" w-full flex items-center gap-4 justify-center">
+            <motion.button
+              whileTap={{ scale: 0.97 }}
+              className="flex items-center gap-px text-(--purple-3) cursor-pointer dark:text-(--purple-5)"
+            >
+              <HiOutlineLocationMarker size={20} />
+              <span className="font-semibold text-base">
+                Use my current location
+              </span>
+            </motion.button>
+            <div className="border border-(--neutral-200) h-full w-4 dark:border-(--neutral-400) rotate-90"></div>
+            <motion.button
+              whileTap={{ scale: 0.97 }}
+              className="flex items-center gap-px text-(--purple-3) cursor-pointer dark:text-(--purple-5)"
+            >
+              <HiOutlineLocationMarker size={20} />
+              <span className="font-semibold text-base">
+                Set my location on the map
+              </span>
+            </motion.button>
+          </div>
+        </PopIn>
+      </MotionContainer>
+    </div>
+  );
+};
+
+export default SetLocation;
