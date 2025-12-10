@@ -1,6 +1,5 @@
 import React, { useState } from 'react'
 import { motion } from 'framer-motion'
-import Navbar from "./layout/Navbar"
 import { NavLink } from 'react-router-dom'
 import Angry from "/images/angry-img.png"
 import Bored from "/images/bored-img.png"
@@ -11,23 +10,18 @@ import Tired from "/images/tired-img.png"
 
 
 const Step1: React.FC = () => {
-  const [toggle, setToggle] = useState(false)
-  const [menuOpen, setMenuOpen] = useState<number | null>(null)
+ 
 
-  const toggleNav = () => {
-    setToggle(prev => !prev)
-    if (!toggle) {
-      // when opening, keep menuOpen as is
-    } else {
-      // when closing clear submenu
-      setMenuOpen(null)
-    }
+  // allow multiple feelings to be selected; store selected indices
+  const [selectedFeelings, setSelectedFeelings] = useState<number[]>([])
+
+  const toggleFeeling = (index: number) => {
+    setSelectedFeelings(prev =>
+      prev.includes(index) ? prev.filter(i => i !== index) : [...prev, index]
+    )
   }
 
-  const closeNav = () => {
-    setToggle(false)
-    setMenuOpen(null)
-  }
+  
 
   // allow multiple feelings to be selected; store selected indices
   const [selectedFeelings, setSelectedFeelings] = useState<number[]>([])
@@ -51,13 +45,9 @@ const Step1: React.FC = () => {
   ]
 
   return (
-    <div className="w-full min-h-screen">
+    <div className="w-full min-h-screen">      
 
-      <div className=''>
-        <Navbar showHeader={true} showAside={true} showBack={true} toggle={toggle} menuOpen={menuOpen} setMenuOpen={setMenuOpen} toggleNav={toggleNav} closeNav={closeNav} title="Food Menu &nbsp;&nbsp; | &nbsp;&nbsp; Virtual Assistant" text="Step 1" text1='Step 1' link='/recommend'  />
-      </div>
-
-      <div className={`transition-all duration-300 ${!toggle ?  'md:ml-[12%] lg:ml-[9%]' : 'md:ml-[20%]'}`}>
+      <div className={`transition-all duration-300`}>
         <div className='max-w-6xl mx-auto flex flex-col items-center py-6 px-6 sm:px-20 lg:px-6 space-y-10 my-5'>
 
             <div className='flex flex-col items-center text-center max-w-xl'>

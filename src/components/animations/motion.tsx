@@ -2,7 +2,6 @@ import React, { type ReactNode } from "react";
 import { motion, type Variants } from "motion/react";
 import {useState, useEffect} from "react"
 
-/* ---------------------- VARIANTS ---------------------- */
 
 export const staggerContainer: Variants = {
   hidden: { opacity: 0 },
